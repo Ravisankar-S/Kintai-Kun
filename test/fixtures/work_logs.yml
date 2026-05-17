@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  clocked_in_at: 2026-05-17 08:15:14
+  clocked_out_at: 2026-05-17 08:15:14
+  memo: MyString
+  duration_minutes: 1
+  is_overtime: false
+
+two:
+  user: two
+  clocked_in_at: 2026-05-17 08:15:14
+  clocked_out_at: 2026-05-17 08:15:14
+  memo: MyString
+  duration_minutes: 1
+  is_overtime: false

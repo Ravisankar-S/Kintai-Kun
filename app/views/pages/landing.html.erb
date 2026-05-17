@@ -1,0 +1,17 @@
+<div class="min-h-screen flex items-center justify-center bg-slate-100">
+  <div class="bg-white p-10 rounded-xl shadow-md text-center">
+    <h1 class="text-4xl font-bold mb-4">勤怠くん</h1>
+
+    <p class="text-slate-600 mb-6">
+      Attendance, the Japanese way.
+    </p>
+
+    <div class="flex gap-4 justify-center">
+      <%= link_to "Sign Up", new_user_registration_path,
+          class: "bg-emerald-500 text-white px-5 py-2 rounded-lg" %>
+
+      <%= link_to "Log In", new_user_session_path,
+          class: "bg-slate-700 text-white px-5 py-2 rounded-lg" %>
+    </div>
+  </div>
+</div>

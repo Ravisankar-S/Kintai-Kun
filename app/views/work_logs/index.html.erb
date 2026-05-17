@@ -1,0 +1,73 @@
+<div class="max-w-6xl mx-auto py-10 px-4">
+
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">
+      勤怠履歴
+    </h1>
+  </div>
+
+  <div class="bg-white border rounded-2xl shadow-sm overflow-hidden">
+
+    <table class="w-full">
+
+      <thead class="bg-slate-100">
+        <tr>
+          <th class="text-left p-4">Date</th>
+          <th class="text-left p-4">Clock In</th>
+          <th class="text-left p-4">Clock Out</th>
+          <th class="text-left p-4">Duration</th>
+          <th class="text-left p-4">Overtime</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <% @work_logs.each do |log| %>
+
+          <tr class="border-t">
+
+            <td class="p-4">
+              <%= log.clocked_in_at.strftime("%Y-%m-%d") %>
+            </td>
+
+            <td class="p-4">
+              <%= log.clocked_in_at.strftime("%I:%M %p") %>
+            </td>
+
+            <td class="p-4">
+              <% if log.clocked_out? %>
+                <%= log.clocked_out_at.strftime("%I:%M %p") %>
+              <% else %>
+                —
+              <% end %>
+            </td>
+
+            <td class="p-4">
+              <% if log.duration_minutes %>
+                <%= (log.duration_minutes / 60.0).round(2) %> hrs
+              <% else %>
+                —
+              <% end %>
+            </td>
+
+            <td class="p-4">
+              <% if log.is_overtime %>
+                <span class="text-red-500 font-semibold">
+                  OT
+                </span>
+              <% else %>
+                —
+              <% end %>
+            </td>
+
+          </tr>
+
+        <% end %>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

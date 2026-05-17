@@ -7,6 +7,12 @@ class WorkLog < ApplicationRecord
             length: { maximum: 140 },
             allow_blank: true
 
+  validates :duration_minutes,
+          numericality: {
+            greater_than_or_equal_to: 0
+          },
+          allow_nil: true
+
   validate :clock_out_after_clock_in
 
   scope :completed, -> {
@@ -15,6 +21,34 @@ class WorkLog < ApplicationRecord
 
   scope :active, -> {
     where(clocked_out_at: nil)
+  }
+
+  scope :for_date, ->(date) {
+  where(
+    clocked_in_at:
+      date.beginning_of_day..date.end_of_day
+  )
+}
+
+  scope :for_week, ->(date) {
+    where(
+      clocked_in_at:
+        date.beginning_of_week..date.end_of_week
+    )
+  }
+
+  scope :for_month, ->(year, month) {
+    start_date = Date.new(year, month, 1)
+
+    where(
+      clocked_in_at:
+        start_date.beginning_of_day..
+        start_date.end_of_month.end_of_day
+    )
+  }
+
+  scope :overtime, -> {
+    where(is_overtime: true)
   }
 
   def active?
@@ -29,6 +63,10 @@ class WorkLog < ApplicationRecord
     return nil unless duration_minutes
 
     duration_minutes / 60.0
+  end
+
+  def clocked_out?
+    clocked_out_at.present?
   end
 
   private

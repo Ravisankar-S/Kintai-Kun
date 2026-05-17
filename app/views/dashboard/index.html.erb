@@ -1,18 +1,51 @@
 <div class="max-w-4xl mx-auto py-10 px-4">
-  <h1 class="text-3xl font-bold mb-4">
+
+  <h1 class="text-3xl font-bold mb-6">
     ダッシュボード
   </h1>
 
-  <div class="bg-white border rounded-xl p-6 shadow-sm">
-    <p class="text-lg">
+  <div class="bg-white border rounded-2xl p-8 shadow-sm">
+
+    <p class="text-lg mb-4">
       Welcome,
       <span class="font-semibold">
         <%= current_user.name %>
       </span>
     </p>
 
-    <p class="text-slate-600 mt-2">
-      Kintai-kun setup is working correctly.
-    </p>
+    <% if @active_log %>
+
+      <div class="mb-6">
+        <p class="text-emerald-600 font-semibold">
+          🟢 Currently Working
+        </p>
+
+        <p class="text-slate-600 mt-1">
+          Since
+          <%= @active_log.clocked_in_at.strftime("%I:%M %p") %>
+        </p>
+      </div>
+
+      <%= button_to "Clock Out",
+          "/clock_out",
+          method: :post,
+          class: "bg-rose-500 hover:bg-rose-600 text-white px-6 py-3 rounded-xl font-semibold transition" %>
+
+    <% else %>
+
+      <div class="mb-6">
+        <p class="text-slate-600 font-semibold">
+          ⚪ Not Clocked In
+        </p>
+      </div>
+
+      <%= button_to "Clock In",
+          "/clock_in",
+          method: :post,
+          class: "bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-xl font-semibold transition" %>
+
+    <% end %>
+
   </div>
+
 </div>

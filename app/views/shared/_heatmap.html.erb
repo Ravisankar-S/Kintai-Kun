@@ -1,0 +1,75 @@
+<div class="bg-white border border-slate-200
+            rounded-3xl p-6 shadow-sm mt-10">
+
+  <div class="flex items-center justify-between mb-5">
+
+    <h2 class="text-2xl font-semibold text-slate-800">
+      Work Rhythm
+    </h2>
+
+    <p class="text-sm text-slate-500">
+      Last 12 Weeks
+    </p>
+
+  </div>
+
+  <div class="overflow-x-auto">
+
+    <div class="flex gap-[3px] min-w-max">
+
+      <% start_date = 83.days.ago.to_date.beginning_of_week(:monday) %>
+
+      <% 12.times do |week| %>
+
+        <div class="flex flex-col gap-[3px]">
+
+          <% 7.times do |day| %>
+
+            <% current_date =
+                start_date + (week * 7) + day %>
+
+            <% minutes =
+                @heatmap_data[current_date] %>
+
+            <div
+              class="w-4 h-4 rounded-sm
+                     hover:scale-125 transition-transform"
+              style="
+                background-color:
+                <%= heatmap_color(minutes) %>;
+              "
+              title="
+                <%= current_date.strftime('%Y-%m-%d') %> —
+                <%= minutes_to_hm(minutes) %>
+              ">
+            </div>
+
+          <% end %>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </div>
+
+  <!-- Legend -->
+  <div class="flex items-center gap-2 mt-6 text-xs text-slate-500">
+
+    <span>Less</span>
+
+    <% [0, 120, 300, 450, 600].each do |value| %>
+
+      <div class="w-3 h-3 rounded-sm"
+           style="background-color:
+                  <%= heatmap_color(value) %>">
+      </div>
+
+    <% end %>
+
+    <span>More</span>
+
+  </div>
+
+</div>

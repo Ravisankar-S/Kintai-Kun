@@ -1,0 +1,31 @@
+<% if @zangyo_level == 1 %>
+
+  <div class="bg-amber-100 border border-amber-400
+              text-amber-900 px-6 py-4 rounded-2xl mb-6">
+
+    <p class="font-semibold">
+      ⚠ You've worked over 8 hours today.
+    </p>
+
+    <p class="text-sm mt-1">
+      Remember to rest.
+    </p>
+
+  </div>
+
+<% elsif @zangyo_level == 2 %>
+
+  <div class="bg-red-100 border border-red-400
+              text-red-900 px-6 py-4 rounded-2xl mb-6">
+
+    <p class="font-semibold">
+      🚨 You've worked overtime 3+ days this week.
+    </p>
+
+    <p class="text-sm mt-1">
+      Your wellbeing matters.
+    </p>
+
+  </div>
+
+<% end %>

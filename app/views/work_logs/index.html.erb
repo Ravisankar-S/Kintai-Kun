@@ -8,6 +8,23 @@
 
   <div class="bg-white border rounded-2xl shadow-sm overflow-hidden">
 
+    <% if @work_logs.empty? %>
+
+      <div class="bg-white border border-slate-200
+                  rounded-3xl p-10 text-center shadow-sm">
+
+        <p class="text-slate-500 text-lg">
+          No work logs yet.
+        </p>
+
+        <p class="text-slate-400 text-sm mt-2">
+          Your attendance history will appear here.
+        </p>
+
+      </div>
+
+    <% else %>
+
     <table class="w-full">
 
       <thead class="bg-slate-100">
@@ -67,6 +84,8 @@
       </tbody>
 
     </table>
+
+    <% end %>
 
   </div>
 

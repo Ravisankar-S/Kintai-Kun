@@ -23,17 +23,17 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <% if notice %>
-      <p class="bg-emerald-100 text-emerald-800 p-3"><%= notice %></p>
-    <% end %>
+ <body class="bg-slate-50 text-slate-800">
 
-    <% if alert %>
-      <p class="bg-red-100 text-red-800 p-3"><%= alert %></p>
-    <% end %>
-    
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
-  </body>
+  <% if user_signed_in? %>
+    <%= render "shared/navbar" %>
+  <% end %>
+
+  <%= render "shared/flash" %>
+
+  <main>
+    <%= yield %>
+  </main>
+
+</body>
 </html>

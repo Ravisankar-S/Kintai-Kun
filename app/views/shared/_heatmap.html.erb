@@ -7,10 +7,6 @@
       <%= t("heatmap.title") %>
     </h2>
 
-    <p class="text-sm text-slate-500">
-      <%= t("heatmap.subtitle") %>
-    </p>
-
   </div>
 
   <div class="overflow-x-auto">
@@ -31,6 +27,19 @@
             <% minutes =
                 @heatmap_data[current_date] %>
 
+            <% tooltip_text = if minutes.present? && minutes.positive?
+              hours = minutes / 60
+              mins = minutes % 60
+              t("heatmap.tooltip",
+                date: l(current_date, format: :table),
+                hours: hours,
+                minutes: mins
+              )
+            else
+              no_log_label = t("heatmap.no_log")
+              "#{l(current_date, format: :table)}: #{no_log_label}"
+            end %>
+
             <div
               class="w-4 h-4 rounded-sm
                      hover:scale-125 transition-transform"
@@ -39,8 +48,7 @@
                 <%= heatmap_color(minutes) %>;
               "
               title="
-                <%= l(current_date, format: :table) %> —
-                <%= minutes_to_hm(minutes) %>
+                <%= tooltip_text %>
               ">
             </div>
 
@@ -51,24 +59,6 @@
       <% end %>
 
     </div>
-
-  </div>
-
-  <!-- Legend -->
-  <div class="flex items-center gap-2 mt-6 text-xs text-slate-500">
-
-    <span><%= t("heatmap.less") %></span>
-
-    <% [0, 120, 300, 450, 600].each do |value| %>
-
-      <div class="w-3 h-3 rounded-sm"
-           style="background-color:
-                  <%= heatmap_color(value) %>">
-      </div>
-
-    <% end %>
-
-    <span><%= t("heatmap.more") %></span>
 
   </div>
 

@@ -9,8 +9,13 @@
       <% if user_signed_in? %>
         <div class="flex items-center gap-4 text-sm">
           <%= link_to t("nav.dashboard"), dashboard_path, class: "text-slate-600 hover:text-slate-900" %>
-          <%= link_to t("nav.work_logs"), work_logs_path, class: "text-slate-600 hover:text-slate-900" %>
+          <%= link_to t("nav.work_log"), work_logs_path, class: "text-slate-600 hover:text-slate-900" %>
           <%= link_to t("nav.profile"), edit_profile_path, class: "text-slate-600 hover:text-slate-900" %>
+          <% if current_user.role == "admin" %>
+            <%= link_to t("nav.admin"),
+                admin_root_path,
+                class: "text-slate-600 hover:text-slate-900" %>
+          <% end %>
         </div>
       <% end %>
     </div>
@@ -21,8 +26,8 @@
           <%= current_user.name %>
         </span>
 
-        <%= button_to t("nav.language"),
-            "/locale",
+        <%= button_to t("nav.toggle_language"),
+          set_locale_path,
             method: :post,
             params: {
               locale: I18n.locale == :en ? :ja : :en

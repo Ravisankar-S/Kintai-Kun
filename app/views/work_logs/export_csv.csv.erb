@@ -3,9 +3,11 @@ require "csv"
 
 headers = [
   "Date",
+  "Day of Week (EN)",
+  "Day of Week (JA)",
   "Clock In",
   "Clock Out",
-  "Duration",
+  "Duration (hours)",
   "Memo",
   "Overtime"
 ]
@@ -15,19 +17,17 @@ headers = [
 
 <% @work_logs.each do |log| %>
 
+<% date = log.clocked_in_at.to_date %>
+<% jp_days = %w[日 月 火 水 木 金 土] %>
+
 <%= CSV.generate_line([
-  log.clocked_in_at.strftime("%Y-%m-%d"),
-
+  date.strftime("%Y-%m-%d"),
+  date.strftime("%A"),
+  jp_days[date.wday],
   log.clocked_in_at.strftime("%H:%M"),
-
   log.clocked_out_at&.strftime("%H:%M"),
-
-  log.duration_minutes ?
-    "#{log.duration_minutes / 60}h #{log.duration_minutes % 60}m"
-    : "",
-
+  log.duration_minutes ? (log.duration_minutes / 60.0).round(2) : "",
   log.memo,
-
   log.is_overtime ? "Yes" : "No"
 ]) %>
 

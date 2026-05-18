@@ -5,4 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :work_logs, dependent: :destroy
+
+  validates :name, presence: true
+  validates :role, inclusion: { in: %w[employee admin] }
+  validates :work_mode, inclusion: { in: %w[fixed flex] }
+  validates :preferred_locale, inclusion: { in: %w[en ja] }
 end

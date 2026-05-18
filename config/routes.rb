@@ -25,5 +25,12 @@ Rails.application.routes.draw do
   post "/clock_in",  to: "punches#clock_in"
   post "/clock_out", to: "punches#clock_out"
 
-  post "/locale", to: "application#set_locale_action"
+  post "/locale", to: "application#set_locale_action", as: :set_locale
+
+  namespace :admin do
+    root "dashboard#index"
+
+    resources :users,
+            only: [:index, :show]
+  end
 end

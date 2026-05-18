@@ -1,71 +1,105 @@
 ja:
   app_name: "勤怠くん"
+  app_tagline: "日本式の勤怠管理。"
 
   nav:
     dashboard: "ダッシュボード"
-    work_logs: "勤怠履歴"
-    profile: "プロフィール"
+    work_log: "勤怠履歴"
+    profile: "設定"
+    admin: "管理者"
     sign_out: "ログアウト"
-    language: "English"
+    toggle_language: "English"
+
+  auth:
+    sign_up: "新規登録"
+    log_in: "ログイン"
 
   dashboard:
-    working: "勤務中"
-    not_working: "未打刻"
-    since: "開始時刻"
-    ready: "勤務開始の準備ができています。"
-    clock_in: "出勤"
-    clock_out: "退勤"
-    today_target: "%{hours}時間の目標"
-    week_total_note: "今週の累計勤務時間。"
-    week_range: "月 - 日"
+    greeting_morning: "おはようございます"
+    greeting_afternoon: "こんにちは"
+    greeting_evening: "こんばんは"
+    status_working: "勤務中"
+    status_idle: "未打刻"
+    clock_in_button: "打刻する"
+    clock_out_button: "退勤する"
+    memo_placeholder: "今日の予定を入力（例：午前中はクライアント会議）"
+    start_shift: "出勤"
+    end_shift: "退勤"
+    today_hours: "本日"
+    week_hours: "今週"
+    already_clocked_in: "%{time}に打刻済みです"
+    target_hours: "%{hours}時間の目標"
 
   summary:
-    today: "本日の勤務時間"
-    week: "今週"
-    weekly_summary: "週間サマリー"
     days_worked: "出勤日数"
     total_hours: "合計時間"
-    average_per_day: "1日平均"
+    avg_hours: "1日平均"
     overtime_days: "残業日数"
 
   heatmap:
-    title: "勤務リズム"
-    subtitle: "直近12週間"
-    less: "少なめ"
-    more: "多め"
+    title: "勤務リズム — 直近12週"
+    no_log: "記録なし"
+    tooltip: "%{date}：%{hours}時間%{minutes}分勤務"
+
+  zangyo:
+    level1_message: "本日8時間以上勤務しています。休憩を忘れずに。"
+    level2_message: "今週3日以上残業しています。あなたの健康が最も大切です。働き方改革関連法はあなたを守るためにあります。"
+    tooltip: "働き方改革関連法（2019年）により、残業は月45時間以内に制限されています。過労死は日本の深刻な社会問題です。"
 
   work_logs:
     title: "勤怠履歴"
-    empty_title: "勤怠履歴はまだありません。"
-    empty_body: "打刻履歴がここに表示されます。"
-    table:
-      date: "日付"
-      clock_in: "出勤"
-      clock_out: "退勤"
-      duration: "勤務時間"
-      overtime: "残業"
-      memo: "メモ"
-    hours_short: "時間"
-    overtime_short: "残業"
+    date: "日付"
+    clock_in: "出勤時刻"
+    clock_out: "退勤時刻"
+    duration: "勤務時間"
+    memo: "メモ"
+    overtime: "残業"
+    export_csv: "CSVダウンロード"
+    no_logs: "この期間の記録はありません。"
+    active_log: "勤務中"
 
-  alerts:
-    zangyo:
-      level1:
-        title: "本日の勤務が8時間を超えています。"
-        body: "休憩を忘れずに。"
-      level2:
-        title: "今週の残業が3日以上続いています。"
-        body: "無理をせず休んでください。"
+  punches:
+    already_clocked_in: "すでに打刻済みです。"
+    not_clocked_in: "現在打刻されていません。"
+    clocked_in_success: "出勤打刻しました。良い一日を！"
+    clocked_out_success: "退勤打刻しました。お疲れ様でした！"
+    clock_in_error: "打刻できませんでした。もう一度お試しください。"
+    clock_out_error: "退勤打刻できませんでした。もう一度お試しください。"
 
-  greetings:
-    morning: "おはようございます"
-    afternoon: "こんにちは"
-    evening: "こんばんは"
+  users:
+    profile_title: "プロフィール設定"
+    name: "氏名"
+    work_mode: "勤務形態"
+    work_mode_fixed: "固定時間"
+    work_mode_flex: "フレックスタイム"
+    fixed_start: "始業時間"
+    fixed_end: "終業時間"
+    language: "表示言語"
+    language_en: "English"
+    language_ja: "日本語"
+    save: "保存する"
+    profile_updated: "プロフィールを更新しました。"
+    change_password: "パスワード変更"
+    change_password_action: "パスワード設定を開く"
+
+  admin:
+    access_denied: "アクセスが拒否されました。管理者専用ページです。"
+    dashboard_title: "管理者ダッシュボード"
+    total_users: "ユーザー数"
+    total_logs: "今月の打刻数"
+    overtime_users: "今週の残業者"
+    view_logs: "履歴を見る"
+    name: "氏名"
+    email: "メール"
+    role: "権限"
+    work_mode: "勤務形態"
+    total_logs_label: "合計打刻"
+    action: "操作"
 
   date:
     formats:
-      dashboard: "%Y/%m/%d"
       table: "%Y/%m/%d"
+      month_year: "%Y年%-m月"
 
   time:
     formats:

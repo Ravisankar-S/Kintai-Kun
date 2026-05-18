@@ -12,7 +12,7 @@ class UsersController < ApplicationController
         @user.preferred_locale
 
       redirect_to edit_profile_path,
-                  notice: "Profile updated successfully."
+                  notice: t("users.profile_updated")
 
     else
       render :edit,

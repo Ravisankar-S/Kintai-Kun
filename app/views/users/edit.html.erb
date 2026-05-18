@@ -3,12 +3,8 @@
   <div class="mb-8">
 
     <h1 class="text-3xl font-bold text-slate-800">
-      Profile & Settings
+      <%= t("users.profile_title") %>
     </h1>
-
-    <p class="text-slate-500 mt-2">
-      Manage your attendance preferences.
-    </p>
 
   </div>
 
@@ -24,6 +20,7 @@
       <div>
 
         <%= f.label :name,
+          t("users.name"),
             class: "block text-sm font-medium
                     text-slate-700 mb-2" %>
 
@@ -41,7 +38,7 @@
         <label class="block text-sm font-medium
                       text-slate-700 mb-3">
 
-          Work Mode
+          <%= t("users.work_mode") %>
 
         </label>
 
@@ -51,7 +48,7 @@
 
             <%= f.radio_button :work_mode, "fixed" %>
 
-            <span>Fixed</span>
+            <span><%= t("users.work_mode_fixed") %></span>
 
           </label>
 
@@ -59,7 +56,7 @@
 
             <%= f.radio_button :work_mode, "flex" %>
 
-            <span>Flex</span>
+            <span><%= t("users.work_mode_flex") %></span>
 
           </label>
 
@@ -67,50 +64,55 @@
 
       </div>
 
-      <!-- Fixed Times -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <% if @user.work_mode == "fixed" %>
+        <!-- Fixed Times -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <div>
+          <div>
 
-          <%= f.label :fixed_start_time,
-              class: "block text-sm font-medium
-                      text-slate-700 mb-2" %>
+            <%= f.label :fixed_start_time,
+                t("users.fixed_start"),
+                class: "block text-sm font-medium
+                        text-slate-700 mb-2" %>
 
-          <%= f.time_field :fixed_start_time,
-              class: "
-                w-full rounded-2xl border border-slate-300
-                px-4 py-3
-              " %>
+            <%= f.time_field :fixed_start_time,
+                class: "
+                  w-full rounded-2xl border border-slate-300
+                  px-4 py-3
+                " %>
+
+          </div>
+
+          <div>
+
+            <%= f.label :fixed_end_time,
+                t("users.fixed_end"),
+                class: "block text-sm font-medium
+                        text-slate-700 mb-2" %>
+
+            <%= f.time_field :fixed_end_time,
+                class: "
+                  w-full rounded-2xl border border-slate-300
+                  px-4 py-3
+                " %>
+
+          </div>
 
         </div>
-
-        <div>
-
-          <%= f.label :fixed_end_time,
-              class: "block text-sm font-medium
-                      text-slate-700 mb-2" %>
-
-          <%= f.time_field :fixed_end_time,
-              class: "
-                w-full rounded-2xl border border-slate-300
-                px-4 py-3
-              " %>
-
-        </div>
-
-      </div>
+      <% end %>
 
       <!-- Locale -->
       <div>
 
         <%= f.label :preferred_locale,
+          t("users.language"),
             class: "block text-sm font-medium
                     text-slate-700 mb-2" %>
 
         <%= f.select :preferred_locale,
             [
-              ["English", "en"],
-              ["日本語", "ja"]
+              [t("users.language_en"), "en"],
+              [t("users.language_ja"), "ja"]
             ],
             {},
             class: "
@@ -123,7 +125,7 @@
       <!-- Submit -->
       <div>
 
-        <%= f.submit "Save Changes",
+        <%= f.submit t("users.save"),
             class: "
               bg-slate-800 hover:bg-slate-900
               text-white px-6 py-3 rounded-2xl
@@ -133,6 +135,21 @@
       </div>
 
     <% end %>
+
+  </div>
+
+  <div class="bg-white border border-slate-200
+              rounded-3xl shadow-sm p-8 mt-8">
+
+    <h2 class="text-xl font-semibold text-slate-800">
+      <%= t("users.change_password") %>
+    </h2>
+
+    <p class="text-slate-500 mt-2">
+      <%= link_to t("users.change_password_action"),
+          edit_user_registration_path,
+          class: "text-emerald-600 hover:text-emerald-700 font-medium" %>
+    </p>
 
   </div>
 

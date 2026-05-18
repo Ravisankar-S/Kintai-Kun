@@ -1,0 +1,87 @@
+<div class="max-w-6xl mx-auto py-10 px-4">
+
+  <div class="mb-8">
+
+    <h1 class="text-3xl font-bold text-slate-800">
+      <%= t("admin.dashboard_title") %>
+    </h1>
+
+  </div>
+
+  <div class="bg-white border border-slate-200
+              rounded-3xl shadow-sm overflow-hidden">
+
+    <table class="w-full">
+
+      <thead class="bg-slate-50 border-b border-slate-200">
+
+        <tr>
+
+          <th class="text-left px-6 py-4 text-sm font-semibold">
+            <%= t("admin.name") %>
+          </th>
+
+          <th class="text-left px-6 py-4 text-sm font-semibold">
+            <%= t("admin.email") %>
+          </th>
+
+          <th class="text-left px-6 py-4 text-sm font-semibold">
+            <%= t("admin.role") %>
+          </th>
+
+          <th class="text-left px-6 py-4 text-sm font-semibold">
+            <%= t("admin.work_mode") %>
+          </th>
+
+          <th class="text-left px-6 py-4 text-sm font-semibold">
+            <%= t("admin.action") %>
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <% @users.each do |user| %>
+
+          <tr class="border-b border-slate-100">
+
+            <td class="px-6 py-4">
+              <%= user.name %>
+            </td>
+
+            <td class="px-6 py-4 text-slate-600">
+              <%= user.email %>
+            </td>
+
+            <td class="px-6 py-4">
+              <%= user.role %>
+            </td>
+
+            <td class="px-6 py-4">
+              <%= user.work_mode == "fixed" ?
+                    t("users.work_mode_fixed") :
+                    t("users.work_mode_flex") %>
+            </td>
+
+            <td class="px-6 py-4">
+                <%= link_to t("admin.view_logs"),
+                  admin_user_path(user),
+                  class: "
+                    text-emerald-600 hover:text-emerald-700
+                    font-medium
+                  " %>
+            </td>
+
+          </tr>
+
+        <% end %>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

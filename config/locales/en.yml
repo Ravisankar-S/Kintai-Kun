@@ -1,71 +1,105 @@
 en:
-  app_name: "Kintai Kun"
+  app_name: "勤怠くん"
+  app_tagline: "Attendance, the Japanese way."
 
   nav:
     dashboard: "Dashboard"
-    work_logs: "Work Logs"
-    profile: "Profile"
+    work_log: "Work Log"
+    profile: "Settings"
+    admin: "Admin"
     sign_out: "Sign Out"
-    language: "日本語"
+    toggle_language: "日本語"
+
+  auth:
+    sign_up: "Sign Up"
+    log_in: "Log In"
 
   dashboard:
-    working: "Currently Working"
-    not_working: "Not Clocked In"
-    since: "Since"
-    ready: "Ready to start your shift."
-    clock_in: "Clock In"
-    clock_out: "Clock Out"
-    today_target: "%{hours}-hour target"
-    week_total_note: "Total accumulated work time this week."
-    week_range: "Mon - Sun"
+    greeting_morning: "Good morning"
+    greeting_afternoon: "Good afternoon"
+    greeting_evening: "Good evening"
+    status_working: "Currently Working"
+    status_idle: "Not Clocked In"
+    clock_in_button: "Clock In"
+    clock_out_button: "Clock Out"
+    memo_placeholder: "Optional note for this punch (e.g. client meeting)"
+    start_shift: "Start Shift"
+    end_shift: "End Shift"
+    today_hours: "Today"
+    week_hours: "This Week"
+    already_clocked_in: "Already clocked in at %{time}"
+    target_hours: "%{hours}h target"
 
   summary:
-    today: "Today's Hours"
-    week: "This Week"
-    weekly_summary: "Weekly Summary"
     days_worked: "Days Worked"
     total_hours: "Total Hours"
-    average_per_day: "Average Per Day"
+    avg_hours: "Avg. Per Day"
     overtime_days: "Overtime Days"
 
   heatmap:
-    title: "Work Rhythm"
-    subtitle: "Last 12 Weeks"
-    less: "Less"
-    more: "More"
+    title: "Work Rhythm — Last 12 Weeks"
+    no_log: "No log"
+    tooltip: "%{date}: %{hours}h %{minutes}m worked"
+
+  zangyo:
+    level1_message: "You've worked over 8 hours today. Remember to rest."
+    level2_message: "You've worked overtime 3+ days this week. Your wellbeing matters. Japan's Work Style Reform Act exists for you."
+    tooltip: "Japan's Work Style Reform Act (2019) limits overtime to 45 hours/month. Karoshi (過労死 — death from overwork) is a recognized social issue in Japan."
 
   work_logs:
-    title: "Work Logs"
-    empty_title: "No work logs yet."
-    empty_body: "Your attendance history will appear here."
-    table:
-      date: "Date"
-      clock_in: "Clock In"
-      clock_out: "Clock Out"
-      duration: "Duration"
-      overtime: "Overtime"
-      memo: "Memo"
-    hours_short: "hrs"
-    overtime_short: "OT"
+    title: "Work Log History"
+    date: "Date"
+    clock_in: "Clock In"
+    clock_out: "Clock Out"
+    duration: "Duration"
+    memo: "Memo"
+    overtime: "OT"
+    export_csv: "Download CSV"
+    no_logs: "No logs found for this period."
+    active_log: "Active"
 
-  alerts:
-    zangyo:
-      level1:
-        title: "You've worked over 8 hours today."
-        body: "Remember to rest."
-      level2:
-        title: "You've worked overtime 3+ days this week."
-        body: "Your wellbeing matters."
+  punches:
+    already_clocked_in: "You are already clocked in."
+    not_clocked_in: "You are not currently clocked in."
+    clocked_in_success: "Clocked in successfully. Have a great shift!"
+    clocked_out_success: "Clocked out. Great work today!"
+    clock_in_error: "Could not clock in. Please try again."
+    clock_out_error: "Could not clock out. Please try again."
 
-  greetings:
-    morning: "Good morning"
-    afternoon: "Good afternoon"
-    evening: "Good evening"
+  users:
+    profile_title: "Profile & Settings"
+    name: "Full Name"
+    work_mode: "Work Mode"
+    work_mode_fixed: "Fixed Hours"
+    work_mode_flex: "Flex Hours"
+    fixed_start: "Fixed Start Time"
+    fixed_end: "Fixed End Time"
+    language: "Preferred Language"
+    language_en: "English"
+    language_ja: "Japanese"
+    save: "Save Changes"
+    profile_updated: "Profile updated successfully."
+    change_password: "Change Password"
+    change_password_action: "Open password settings"
+
+  admin:
+    access_denied: "Access denied. Admin only."
+    dashboard_title: "Admin Dashboard"
+    total_users: "Total Users"
+    total_logs: "Logs This Month"
+    overtime_users: "Overtime This Week"
+    view_logs: "View Logs"
+    name: "Name"
+    email: "Email"
+    role: "Role"
+    work_mode: "Work Mode"
+    total_logs_label: "Total Logs"
+    action: "Action"
 
   date:
     formats:
-      dashboard: "%A, %B %d, %Y"
       table: "%Y-%m-%d"
+      month_year: "%B %Y"
 
   time:
     formats:

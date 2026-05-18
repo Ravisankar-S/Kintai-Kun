@@ -9,7 +9,7 @@ class WorkLog < ApplicationRecord
 
   validates :duration_minutes,
           numericality: {
-            greater_than_or_equal_to: 0
+            greater_than: 0
           },
           allow_nil: true
 

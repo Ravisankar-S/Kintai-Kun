@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
       normalized_locale = locale.to_sym
       session[:locale] = normalized_locale
       I18n.locale = normalized_locale
+      current_user&.update(preferred_locale: normalized_locale)
     end
 
     redirect_back fallback_location: dashboard_path

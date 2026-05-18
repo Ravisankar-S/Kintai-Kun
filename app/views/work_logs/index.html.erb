@@ -5,13 +5,39 @@
       <%= t("work_logs.title") %>
     </h1>
 
-    <%= link_to "Download CSV",
-      export_csv_work_logs_path(format: :csv),
-      class: "
-        bg-slate-800 hover:bg-slate-900
-        text-white px-4 py-2 rounded-xl
-        text-sm font-medium
-      " %>
+    <div class="flex items-center gap-3">
+      <%= form_with url: work_logs_path,
+          method: :get,
+          class: "flex items-center gap-2",
+          local: true do %>
+
+        <%= select_tag :month,
+            options_for_select(
+              @month_options.map do |date|
+                [l(date, format: :month_year), date.strftime("%Y-%m")]
+              end,
+              @month.strftime("%Y-%m")
+            ),
+            class: "
+              rounded-xl border border-slate-300
+              px-3 py-2 text-sm
+              focus:outline-none focus:ring-2
+              focus:ring-emerald-400
+            ",
+            onchange: "this.form.submit()" %>
+      <% end %>
+
+      <%= link_to t("work_logs.export_csv"),
+        export_csv_work_logs_path(
+          format: :csv,
+          month: @month.strftime("%Y-%m")
+        ),
+        class: "
+          bg-slate-800 hover:bg-slate-900
+          text-white px-4 py-2 rounded-xl
+          text-sm font-medium
+        " %>
+    </div>
   </div>
 
   <div class="bg-white border rounded-2xl shadow-sm overflow-hidden">
@@ -22,10 +48,7 @@
                   rounded-3xl p-10 text-center shadow-sm">
 
         <p class="text-slate-500 text-lg">
-          <%= t("work_logs.empty_title") %>
-        </p>
-        <p class="text-slate-400 text-sm mt-2">
-          <%= t("work_logs.empty_body") %>
+          <%= t("work_logs.no_logs") %>
         </p>
 
       </div>
@@ -36,13 +59,12 @@
 
       <thead class="bg-slate-100">
         <tr>
-          <th class="text-left p-4"><%= t("work_logs.table.date") %></th>
-          <th class="text-left p-4"><%= t("work_logs.table.clock_in") %></th>
-          <th class="text-left p-4"><%= t("work_logs.table.clock_out") %></th>
-          <th class="text-left p-4"><%= t("work_logs.table.duration") %></th>
-          <th class="text-left p-4"><%= t("work_logs.table.overtime") %></th>
-          <%# Added Memo Header %>
-          <th class="text-left p-4"><%= t("work_logs.table.memo") %></th>
+          <th class="text-left p-4"><%= t("work_logs.date") %></th>
+          <th class="text-left p-4"><%= t("work_logs.clock_in") %></th>
+          <th class="text-left p-4"><%= t("work_logs.clock_out") %></th>
+          <th class="text-left p-4"><%= t("work_logs.duration") %></th>
+          <th class="text-left p-4"><%= t("work_logs.memo") %></th>
+          <th class="text-left p-4"><%= t("work_logs.overtime") %></th>
         </tr>
       </thead>
 
@@ -50,7 +72,7 @@
 
         <% @work_logs.each do |log| %>
 
-          <tr class="border-t">
+          <tr class="border-t <%= log.is_overtime ? 'bg-amber-50' : '' %>">
 
             <td class="p-4">
               <%= l(log.clocked_in_at.to_date, format: :table) %>
@@ -64,32 +86,31 @@
               <% if log.clocked_out_at.present? %>
                 <%= l(log.clocked_out_at, format: :clock) %>
               <% else %>
-                —
+                <span class="text-slate-400 italic">—</span>
               <% end %>
             </td>
 
             <td class="p-4">
               <% if log.duration_minutes %>
-                <%= (log.duration_minutes / 60.0).round(2) %>
-                <%= t("work_logs.hours_short") %>
+                <%= minutes_to_hm(log.duration_minutes) %>
               <% else %>
-                —
-              <% end %>
-            </td>
-
-            <td class="p-4">
-              <% if log.is_overtime %>
-                <span class="text-red-500 font-semibold">
-                  <%= t("work_logs.overtime_short") %>
-                </span>
-              <% else %>
-                —
+                <span class="text-slate-400 italic">—</span>
               <% end %>
             </td>
 
             <%# Added Memo Data Cell %>
             <td class="px-4 py-3 text-sm text-slate-600">
               <%= log.memo.presence || "—" %>
+            </td>
+
+            <td class="p-4">
+              <% if log.is_overtime %>
+                <span class="text-red-500 font-semibold">
+                  <%= t("work_logs.overtime") %>
+                </span>
+              <% else %>
+                —
+              <% end %>
             </td>
 
           </tr>
@@ -99,6 +120,10 @@
       </tbody>
 
     </table>
+
+    <div class="px-4 py-4">
+      <%= paginate @work_logs %>
+    </div>
 
     <% end %>
 

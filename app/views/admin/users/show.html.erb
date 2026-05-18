@@ -1,0 +1,106 @@
+<div class="max-w-6xl mx-auto py-10 px-4">
+
+  <div class="mb-8">
+
+    <h1 class="text-3xl font-bold text-slate-800">
+      <%= @user.name %>
+    </h1>
+
+    <p class="text-slate-500 mt-2">
+      <%= @user.email %>
+    </p>
+
+  </div>
+
+  <div class="bg-white border border-slate-200
+              rounded-3xl shadow-sm overflow-hidden">
+
+    <table class="w-full">
+
+      <thead class="bg-slate-50 border-b border-slate-200">
+
+        <tr>
+
+          <th class="px-6 py-4 text-left">
+            <%= t("work_logs.date") %>
+          </th>
+
+          <th class="px-6 py-4 text-left">
+            <%= t("work_logs.clock_in") %>
+          </th>
+
+          <th class="px-6 py-4 text-left">
+            <%= t("work_logs.clock_out") %>
+          </th>
+
+          <th class="px-6 py-4 text-left">
+            <%= t("work_logs.duration") %>
+          </th>
+
+          <th class="px-6 py-4 text-left">
+            <%= t("work_logs.memo") %>
+          </th>
+
+          <th class="px-6 py-4 text-left">
+            <%= t("work_logs.overtime") %>
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <% @work_logs.each do |log| %>
+
+          <tr class="border-b border-slate-100 <%= log.is_overtime ? 'bg-amber-50' : '' %>">
+
+            <td class="px-6 py-4">
+              <%= l(log.clocked_in_at.to_date, format: :table) %>
+            </td>
+
+            <td class="px-6 py-4">
+              <%= l(log.clocked_in_at, format: :clock) %>
+            </td>
+
+            <td class="px-6 py-4 text-slate-600">
+              <% if log.clocked_out_at.present? %>
+                <%= l(log.clocked_out_at, format: :clock) %>
+              <% else %>
+                <span class="text-slate-400 italic">—</span>
+              <% end %>
+            </td>
+
+            <td class="px-6 py-4">
+              <% if log.duration_minutes %>
+                <%= minutes_to_hm(log.duration_minutes) %>
+              <% else %>
+                <span class="text-slate-400 italic">—</span>
+              <% end %>
+            </td>
+
+            <td class="px-6 py-4 text-slate-600">
+              <%= log.memo.presence || "—" %>
+            </td>
+
+            <td class="px-6 py-4">
+              <% if log.is_overtime %>
+                <span class="text-red-500 font-semibold">
+                  <%= t("work_logs.overtime") %>
+                </span>
+              <% else %>
+                —
+              <% end %>
+            </td>
+
+          </tr>
+
+        <% end %>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

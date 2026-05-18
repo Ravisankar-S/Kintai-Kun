@@ -4,12 +4,9 @@
               text-amber-900 px-6 py-4 rounded-2xl mb-6">
 
     <p class="font-semibold">
-      ⚠ <%= t("alerts.zangyo.level1.title") %>
+      ⚠ <%= t("zangyo.level1_message") %>
     </p>
 
-    <p class="text-sm mt-1">
-      <%= t("alerts.zangyo.level1.body") %>
-    </p>
 
   </div>
 
@@ -19,12 +16,16 @@
               text-red-900 px-6 py-4 rounded-2xl mb-6">
 
     <p class="font-semibold">
-      🚨 <%= t("alerts.zangyo.level2.title") %>
+      🚨 <%= t("zangyo.level2_message") %>
+      <span
+        class="ml-2 inline-flex items-center justify-center
+               w-5 h-5 rounded-full border border-red-300
+               text-xs font-bold cursor-help"
+        title="<%= t("zangyo.tooltip") %>">
+        ⓘ
+      </span>
     </p>
 
-    <p class="text-sm mt-1">
-      <%= t("alerts.zangyo.level2.body") %>
-    </p>
 
   </div>
 

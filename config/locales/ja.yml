@@ -1,0 +1,72 @@
+ja:
+  app_name: "勤怠くん"
+
+  nav:
+    dashboard: "ダッシュボード"
+    work_logs: "勤怠履歴"
+    profile: "プロフィール"
+    sign_out: "ログアウト"
+    language: "English"
+
+  dashboard:
+    working: "勤務中"
+    not_working: "未打刻"
+    since: "開始時刻"
+    ready: "勤務開始の準備ができています。"
+    clock_in: "出勤"
+    clock_out: "退勤"
+    today_target: "%{hours}時間の目標"
+    week_total_note: "今週の累計勤務時間。"
+    week_range: "月 - 日"
+
+  summary:
+    today: "本日の勤務時間"
+    week: "今週"
+    weekly_summary: "週間サマリー"
+    days_worked: "出勤日数"
+    total_hours: "合計時間"
+    average_per_day: "1日平均"
+    overtime_days: "残業日数"
+
+  heatmap:
+    title: "勤務リズム"
+    subtitle: "直近12週間"
+    less: "少なめ"
+    more: "多め"
+
+  work_logs:
+    title: "勤怠履歴"
+    empty_title: "勤怠履歴はまだありません。"
+    empty_body: "打刻履歴がここに表示されます。"
+    table:
+      date: "日付"
+      clock_in: "出勤"
+      clock_out: "退勤"
+      duration: "勤務時間"
+      overtime: "残業"
+      memo: "メモ"
+    hours_short: "時間"
+    overtime_short: "残業"
+
+  alerts:
+    zangyo:
+      level1:
+        title: "本日の勤務が8時間を超えています。"
+        body: "休憩を忘れずに。"
+      level2:
+        title: "今週の残業が3日以上続いています。"
+        body: "無理をせず休んでください。"
+
+  greetings:
+    morning: "おはようございます"
+    afternoon: "こんにちは"
+    evening: "こんばんは"
+
+  date:
+    formats:
+      dashboard: "%Y/%m/%d"
+      table: "%Y/%m/%d"
+
+  time:
+    formats:
+      clock: "%H:%M"

@@ -2,8 +2,16 @@
 
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-3xl font-bold">
-      勤怠履歴
+      <%= t("work_logs.title") %>
     </h1>
+
+    <%= link_to "Download CSV",
+      export_csv_work_logs_path(format: :csv),
+      class: "
+        bg-slate-800 hover:bg-slate-900
+        text-white px-4 py-2 rounded-xl
+        text-sm font-medium
+      " %>
   </div>
 
   <div class="bg-white border rounded-2xl shadow-sm overflow-hidden">
@@ -14,11 +22,10 @@
                   rounded-3xl p-10 text-center shadow-sm">
 
         <p class="text-slate-500 text-lg">
-          No work logs yet.
+          <%= t("work_logs.empty_title") %>
         </p>
-
         <p class="text-slate-400 text-sm mt-2">
-          Your attendance history will appear here.
+          <%= t("work_logs.empty_body") %>
         </p>
 
       </div>
@@ -29,11 +36,13 @@
 
       <thead class="bg-slate-100">
         <tr>
-          <th class="text-left p-4">Date</th>
-          <th class="text-left p-4">Clock In</th>
-          <th class="text-left p-4">Clock Out</th>
-          <th class="text-left p-4">Duration</th>
-          <th class="text-left p-4">Overtime</th>
+          <th class="text-left p-4"><%= t("work_logs.table.date") %></th>
+          <th class="text-left p-4"><%= t("work_logs.table.clock_in") %></th>
+          <th class="text-left p-4"><%= t("work_logs.table.clock_out") %></th>
+          <th class="text-left p-4"><%= t("work_logs.table.duration") %></th>
+          <th class="text-left p-4"><%= t("work_logs.table.overtime") %></th>
+          <%# Added Memo Header %>
+          <th class="text-left p-4"><%= t("work_logs.table.memo") %></th>
         </tr>
       </thead>
 
@@ -44,16 +53,16 @@
           <tr class="border-t">
 
             <td class="p-4">
-              <%= log.clocked_in_at.strftime("%Y-%m-%d") %>
+              <%= l(log.clocked_in_at.to_date, format: :table) %>
             </td>
 
             <td class="p-4">
-              <%= log.clocked_in_at.strftime("%I:%M %p") %>
+              <%= l(log.clocked_in_at, format: :clock) %>
             </td>
 
             <td class="p-4">
-              <% if log.clocked_out? %>
-                <%= log.clocked_out_at.strftime("%I:%M %p") %>
+              <% if log.clocked_out_at.present? %>
+                <%= l(log.clocked_out_at, format: :clock) %>
               <% else %>
                 —
               <% end %>
@@ -61,7 +70,8 @@
 
             <td class="p-4">
               <% if log.duration_minutes %>
-                <%= (log.duration_minutes / 60.0).round(2) %> hrs
+                <%= (log.duration_minutes / 60.0).round(2) %>
+                <%= t("work_logs.hours_short") %>
               <% else %>
                 —
               <% end %>
@@ -70,11 +80,16 @@
             <td class="p-4">
               <% if log.is_overtime %>
                 <span class="text-red-500 font-semibold">
-                  OT
+                  <%= t("work_logs.overtime_short") %>
                 </span>
               <% else %>
                 —
               <% end %>
+            </td>
+
+            <%# Added Memo Data Cell %>
+            <td class="px-4 py-3 text-sm text-slate-600">
+              <%= log.memo.presence || "—" %>
             </td>
 
           </tr>

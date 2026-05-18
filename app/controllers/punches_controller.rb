@@ -7,7 +7,8 @@ class PunchesController < ApplicationController
     end
 
     current_user.work_logs.create!(
-      clocked_in_at: Time.current
+      clocked_in_at: Time.current,
+      memo: params[:memo]
     )
 
     redirect_to dashboard_path,
@@ -30,7 +31,8 @@ class PunchesController < ApplicationController
       ).to_i,
       is_overtime: (
         (Time.current - active_log.clocked_in_at) / 60
-      ) > 480
+      ) > 480,
+      memo: params[:memo]
     )
 
     redirect_to dashboard_path,

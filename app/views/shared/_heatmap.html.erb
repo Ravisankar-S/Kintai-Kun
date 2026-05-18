@@ -4,11 +4,11 @@
   <div class="flex items-center justify-between mb-5">
 
     <h2 class="text-2xl font-semibold text-slate-800">
-      Work Rhythm
+      <%= t("heatmap.title") %>
     </h2>
 
     <p class="text-sm text-slate-500">
-      Last 12 Weeks
+      <%= t("heatmap.subtitle") %>
     </p>
 
   </div>
@@ -39,7 +39,7 @@
                 <%= heatmap_color(minutes) %>;
               "
               title="
-                <%= current_date.strftime('%Y-%m-%d') %> —
+                <%= l(current_date, format: :table) %> —
                 <%= minutes_to_hm(minutes) %>
               ">
             </div>
@@ -57,7 +57,7 @@
   <!-- Legend -->
   <div class="flex items-center gap-2 mt-6 text-xs text-slate-500">
 
-    <span>Less</span>
+    <span><%= t("heatmap.less") %></span>
 
     <% [0, 120, 300, 450, 600].each do |value| %>
 
@@ -68,7 +68,7 @@
 
     <% end %>
 
-    <span>More</span>
+    <span><%= t("heatmap.more") %></span>
 
   </div>
 

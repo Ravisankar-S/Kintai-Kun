@@ -1,50 +1,40 @@
 <nav class="bg-white border-b border-slate-200">
-
-  <div class="max-w-6xl mx-auto px-4 h-16
-              flex items-center justify-between">
-
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    
     <div class="flex items-center gap-8">
-
-      <%= link_to dashboard_path,
-          class: "font-bold text-xl text-slate-800" do %>
-        勤怠くん
+      <%= link_to dashboard_path, class: "font-bold text-xl text-slate-800" do %>
+        <%= t("app_name") %>
       <% end %>
 
       <% if user_signed_in? %>
-
         <div class="flex items-center gap-4 text-sm">
-
-          <%= link_to "Dashboard",
-              dashboard_path,
-              class: "text-slate-600 hover:text-slate-900" %>
-
-          <%= link_to "Work Logs",
-              work_logs_path,
-              class: "text-slate-600 hover:text-slate-900" %>
-
+          <%= link_to t("nav.dashboard"), dashboard_path, class: "text-slate-600 hover:text-slate-900" %>
+          <%= link_to t("nav.work_logs"), work_logs_path, class: "text-slate-600 hover:text-slate-900" %>
+          <%= link_to t("nav.profile"), edit_profile_path, class: "text-slate-600 hover:text-slate-900" %>
         </div>
-
       <% end %>
-
     </div>
 
     <% if user_signed_in? %>
-
       <div class="flex items-center gap-4">
-
         <span class="text-sm text-slate-500">
           <%= current_user.name %>
         </span>
 
-        <%= button_to "Sign Out",
+        <%= button_to t("nav.language"),
+            "/locale",
+            method: :post,
+            params: {
+              locale: I18n.locale == :en ? :ja : :en
+            },
+            class: "text-sm text-slate-500 hover:text-slate-800" %>
+
+        <%= button_to t("nav.sign_out"),
             destroy_user_session_path,
             method: :delete,
             class: "text-sm text-rose-500 hover:text-rose-700" %>
-
       </div>
-
     <% end %>
 
   </div>
-
 </nav>

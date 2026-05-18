@@ -12,11 +12,11 @@ module ApplicationHelper
     hour = Time.current.hour
 
     if hour < 12
-      "Good morning"
+      I18n.t("greetings.morning")
     elsif hour < 18
-      "Good afternoon"
+      I18n.t("greetings.afternoon")
     else
-      "Good evening"
+      I18n.t("greetings.evening")
     end
   end
 

@@ -1,0 +1,34 @@
+<%
+require "csv"
+
+headers = [
+  "Date",
+  "Clock In",
+  "Clock Out",
+  "Duration",
+  "Memo",
+  "Overtime"
+]
+%>
+
+<%= CSV.generate_line(headers) %>
+
+<% @work_logs.each do |log| %>
+
+<%= CSV.generate_line([
+  log.clocked_in_at.strftime("%Y-%m-%d"),
+
+  log.clocked_in_at.strftime("%H:%M"),
+
+  log.clocked_out_at&.strftime("%H:%M"),
+
+  log.duration_minutes ?
+    "#{log.duration_minutes / 60}h #{log.duration_minutes % 60}m"
+    : "",
+
+  log.memo,
+
+  log.is_overtime ? "Yes" : "No"
+]) %>
+
+<% end %>

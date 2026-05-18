@@ -1,31 +1,72 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  app_name: "Kintai Kun"
+
+  nav:
+    dashboard: "Dashboard"
+    work_logs: "Work Logs"
+    profile: "Profile"
+    sign_out: "Sign Out"
+    language: "日本語"
+
+  dashboard:
+    working: "Currently Working"
+    not_working: "Not Clocked In"
+    since: "Since"
+    ready: "Ready to start your shift."
+    clock_in: "Clock In"
+    clock_out: "Clock Out"
+    today_target: "%{hours}-hour target"
+    week_total_note: "Total accumulated work time this week."
+    week_range: "Mon - Sun"
+
+  summary:
+    today: "Today's Hours"
+    week: "This Week"
+    weekly_summary: "Weekly Summary"
+    days_worked: "Days Worked"
+    total_hours: "Total Hours"
+    average_per_day: "Average Per Day"
+    overtime_days: "Overtime Days"
+
+  heatmap:
+    title: "Work Rhythm"
+    subtitle: "Last 12 Weeks"
+    less: "Less"
+    more: "More"
+
+  work_logs:
+    title: "Work Logs"
+    empty_title: "No work logs yet."
+    empty_body: "Your attendance history will appear here."
+    table:
+      date: "Date"
+      clock_in: "Clock In"
+      clock_out: "Clock Out"
+      duration: "Duration"
+      overtime: "Overtime"
+      memo: "Memo"
+    hours_short: "hrs"
+    overtime_short: "OT"
+
+  alerts:
+    zangyo:
+      level1:
+        title: "You've worked over 8 hours today."
+        body: "Remember to rest."
+      level2:
+        title: "You've worked overtime 3+ days this week."
+        body: "Your wellbeing matters."
+
+  greetings:
+    morning: "Good morning"
+    afternoon: "Good afternoon"
+    evening: "Good evening"
+
+  date:
+    formats:
+      dashboard: "%A, %B %d, %Y"
+      table: "%Y-%m-%d"
+
+  time:
+    formats:
+      clock: "%I:%M %p"

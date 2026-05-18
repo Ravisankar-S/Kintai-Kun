@@ -1,0 +1,139 @@
+<div class="max-w-3xl mx-auto py-10 px-4">
+
+  <div class="mb-8">
+
+    <h1 class="text-3xl font-bold text-slate-800">
+      Profile & Settings
+    </h1>
+
+    <p class="text-slate-500 mt-2">
+      Manage your attendance preferences.
+    </p>
+
+  </div>
+
+  <div class="bg-white border border-slate-200
+              rounded-3xl shadow-sm p-8">
+
+    <%= form_with model: @user,
+        url: update_profile_path,
+        method: :patch,
+        class: "space-y-6" do |f| %>
+
+      <!-- Name -->
+      <div>
+
+        <%= f.label :name,
+            class: "block text-sm font-medium
+                    text-slate-700 mb-2" %>
+
+        <%= f.text_field :name,
+            class: "
+              w-full rounded-2xl border border-slate-300
+              px-4 py-3
+            " %>
+
+      </div>
+
+      <!-- Work Mode -->
+      <div>
+
+        <label class="block text-sm font-medium
+                      text-slate-700 mb-3">
+
+          Work Mode
+
+        </label>
+
+        <div class="flex gap-6">
+
+          <label class="flex items-center gap-2">
+
+            <%= f.radio_button :work_mode, "fixed" %>
+
+            <span>Fixed</span>
+
+          </label>
+
+          <label class="flex items-center gap-2">
+
+            <%= f.radio_button :work_mode, "flex" %>
+
+            <span>Flex</span>
+
+          </label>
+
+        </div>
+
+      </div>
+
+      <!-- Fixed Times -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div>
+
+          <%= f.label :fixed_start_time,
+              class: "block text-sm font-medium
+                      text-slate-700 mb-2" %>
+
+          <%= f.time_field :fixed_start_time,
+              class: "
+                w-full rounded-2xl border border-slate-300
+                px-4 py-3
+              " %>
+
+        </div>
+
+        <div>
+
+          <%= f.label :fixed_end_time,
+              class: "block text-sm font-medium
+                      text-slate-700 mb-2" %>
+
+          <%= f.time_field :fixed_end_time,
+              class: "
+                w-full rounded-2xl border border-slate-300
+                px-4 py-3
+              " %>
+
+        </div>
+
+      </div>
+
+      <!-- Locale -->
+      <div>
+
+        <%= f.label :preferred_locale,
+            class: "block text-sm font-medium
+                    text-slate-700 mb-2" %>
+
+        <%= f.select :preferred_locale,
+            [
+              ["English", "en"],
+              ["日本語", "ja"]
+            ],
+            {},
+            class: "
+              w-full rounded-2xl border border-slate-300
+              px-4 py-3
+            " %>
+
+      </div>
+
+      <!-- Submit -->
+      <div>
+
+        <%= f.submit "Save Changes",
+            class: "
+              bg-slate-800 hover:bg-slate-900
+              text-white px-6 py-3 rounded-2xl
+              font-semibold transition
+            " %>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>

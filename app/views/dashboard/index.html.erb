@@ -11,7 +11,7 @@
     </h1>
 
     <p class="text-slate-500 mt-2 text-sm">
-      <%= Date.today.strftime("%A, %B %d, %Y") %>
+      <%= l(Date.current, format: :dashboard) %>
     </p>
 
   </div>
@@ -30,24 +30,24 @@
         <% if @active_log %>
 
           <p class="text-emerald-600 font-semibold text-lg">
-            🟢 Currently Working
+            🟢 <%= t("dashboard.working") %>
           </p>
 
           <p class="text-slate-500 mt-2">
-            Since
+            <%= t("dashboard.since") %>
             <span class="font-medium text-slate-700">
-              <%= @active_log.clocked_in_at.strftime("%I:%M %p") %>
+              <%= l(@active_log.clocked_in_at, format: :clock) %>
             </span>
           </p>
 
         <% else %>
 
           <p class="text-slate-700 font-semibold text-lg">
-            ⚪ Not Clocked In
+            ⚪ <%= t("dashboard.not_working") %>
           </p>
 
           <p class="text-slate-500 mt-2">
-            Ready to start your shift.
+            <%= t("dashboard.ready") %>
           </p>
 
         <% end %>
@@ -58,21 +58,56 @@
 
         <% if @active_log %>
 
-          <%= button_to "Clock Out",
-              "/clock_out",
+          <%= form_with url: clock_out_path,
               method: :post,
-              class: "bg-rose-500 hover:bg-rose-600
-                      text-white px-8 py-3 rounded-2xl
-                      font-semibold transition shadow-sm" %>
+              class: "space-y-4" do |f| %>
+
+            <%= f.text_area :memo,
+                value: @active_log.memo,
+                placeholder: "Update shift memo...",
+                maxlength: 140,
+                rows: 3,
+                class: "
+                  w-full rounded-2xl border border-slate-300
+                  px-4 py-3 text-sm
+                  focus:outline-none focus:ring-2
+                  focus:ring-rose-400
+                " %>
+
+            <%= f.submit "Clock Out",
+                class: "
+                  bg-rose-500 hover:bg-rose-600
+                  text-white px-8 py-3 rounded-2xl
+                  font-semibold transition shadow-sm
+                " %>
+
+          <% end %>
 
         <% else %>
 
-          <%= button_to "Clock In",
-              "/clock_in",
+          <%= form_with url: clock_in_path,
               method: :post,
-              class: "bg-emerald-500 hover:bg-emerald-600
-                      text-white px-8 py-3 rounded-2xl
-                      font-semibold transition shadow-sm" %>
+              class: "space-y-4" do |f| %>
+
+            <%= f.text_area :memo,
+                placeholder: "Optional shift memo...",
+                maxlength: 140,
+                rows: 3,
+                class: "
+                  w-full rounded-2xl border border-slate-300
+                  px-4 py-3 text-sm
+                  focus:outline-none focus:ring-2
+                  focus:ring-emerald-400
+                " %>
+
+            <%= f.submit "Clock In",
+                class: "
+                  bg-emerald-500 hover:bg-emerald-600
+                  text-white px-8 py-3 rounded-2xl
+                  font-semibold transition shadow-sm
+                " %>
+
+          <% end %>
 
         <% end %>
 
@@ -90,7 +125,7 @@
                 rounded-3xl shadow-sm p-6">
 
       <p class="text-sm text-slate-500 mb-3">
-        Today's Hours
+        <%= t("summary.today") %>
       </p>
 
       <p class="text-4xl font-bold text-slate-800">
@@ -106,7 +141,7 @@
       </div>
 
       <p class="text-xs text-slate-400 mt-2">
-        8-hour target
+        <%= t("dashboard.today_target", hours: 8) %>
       </p>
 
     </div>
@@ -116,7 +151,7 @@
                 rounded-3xl shadow-sm p-6">
 
       <p class="text-sm text-slate-500 mb-3">
-        This Week
+        <%= t("summary.week") %>
       </p>
 
       <p class="text-4xl font-bold text-slate-800">
@@ -124,7 +159,7 @@
       </p>
 
       <p class="text-sm text-slate-500 mt-4">
-        Total accumulated work time this week.
+        <%= t("dashboard.week_total_note") %>
       </p>
 
     </div>
@@ -137,11 +172,11 @@
   <div class="flex items-center justify-between mb-5">
 
     <h2 class="text-2xl font-semibold text-slate-800">
-      Weekly Summary
+      <%= t("summary.weekly_summary") %>
     </h2>
 
     <p class="text-sm text-slate-500">
-      Mon → Sun
+      <%= t("dashboard.week_range") %>
     </p>
 
   </div>
@@ -153,7 +188,7 @@
                 rounded-3xl p-6 shadow-sm">
 
       <p class="text-sm text-slate-500 mb-2">
-        Days Worked
+        <%= t("summary.days_worked") %>
       </p>
 
       <p class="text-4xl font-bold text-slate-800">
@@ -167,7 +202,7 @@
                 rounded-3xl p-6 shadow-sm">
 
       <p class="text-sm text-slate-500 mb-2">
-        Total Hours
+        <%= t("summary.total_hours") %>
       </p>
 
       <p class="text-4xl font-bold text-slate-800">
@@ -183,7 +218,7 @@
                 rounded-3xl p-6 shadow-sm">
 
       <p class="text-sm text-slate-500 mb-2">
-        Average Per Day
+        <%= t("summary.average_per_day") %>
       </p>
 
       <p class="text-4xl font-bold text-slate-800">
@@ -199,7 +234,7 @@
                 rounded-3xl p-6 shadow-sm">
 
       <p class="text-sm text-slate-500 mb-2">
-        Overtime Days
+        <%= t("summary.overtime_days") %>
       </p>
 
       <p class="text-4xl font-bold text-rose-500">

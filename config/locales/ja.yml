@@ -68,6 +68,11 @@ ja:
 
   users:
     profile_title: "プロフィール設定"
+    avatar: "プロフィール画像"
+    avatar_hint: "PNG/JPG/WEBP/GIF、最大5MB"
+    avatar_remove: "プロフィール画像を削除"
+    avatar_remove_confirm: "プロフィール画像を削除しますか？"
+    avatar_removed: "プロフィール画像を削除しました。"
     name: "氏名"
     work_mode: "勤務形態"
     work_mode_fixed: "固定時間"
@@ -79,6 +84,8 @@ ja:
     language_ja: "日本語"
     save: "保存する"
     profile_updated: "プロフィールを更新しました。"
+    avatar_invalid_type: "画像ファイルのみアップロードできます"
+    avatar_too_large: "5MB以下の画像を選択してください"
     change_password: "パスワード変更"
     change_password_action: "パスワード設定を開く"
 

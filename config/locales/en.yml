@@ -68,6 +68,11 @@ en:
 
   users:
     profile_title: "Profile & Settings"
+    avatar: "Profile Photo"
+    avatar_hint: "PNG, JPG, WEBP, or GIF. Max 5MB."
+    avatar_remove: "Remove profile photo"
+    avatar_remove_confirm: "Remove your profile photo?"
+    avatar_removed: "Profile photo removed."
     name: "Full Name"
     work_mode: "Work Mode"
     work_mode_fixed: "Fixed Hours"
@@ -79,6 +84,8 @@ en:
     language_ja: "Japanese"
     save: "Save Changes"
     profile_updated: "Profile updated successfully."
+    avatar_invalid_type: "must be an image file"
+    avatar_too_large: "must be smaller than 5MB"
     change_password: "Change Password"
     change_password_action: "Open password settings"
 

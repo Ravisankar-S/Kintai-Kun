@@ -21,6 +21,10 @@ Rails.application.routes.draw do
   patch "/profile",
       to: "users#update",
       as: :update_profile
+
+    delete "/profile/avatar",
+      to: "users#destroy_avatar",
+      as: :destroy_avatar
   
   post "/clock_in",  to: "punches#clock_in"
   post "/clock_out", to: "punches#clock_out"

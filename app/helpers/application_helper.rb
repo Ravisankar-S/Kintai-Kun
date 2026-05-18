@@ -42,4 +42,33 @@ module ApplicationHelper
       "#FF6B6B"
     end
   end
+
+  def avatar_for(user, size: 40, class_name: "")
+    size = size.to_i
+    classes = ["rounded-full", "object-cover", "bg-slate-100", class_name].compact.join(" ")
+    size_style = "width: #{size}px; height: #{size}px;"
+
+    if user.avatar.attached?
+      image_tag(
+        user.avatar,
+        class: classes,
+        alt: user.name,
+        style: size_style,
+        loading: "lazy"
+      )
+    else
+      initials = user.name.to_s.strip.split(/\s+/).map { |part| part[0] }.join.first(2).to_s.upcase
+
+      content_tag(
+        :div,
+        initials.presence || "?",
+        class: [
+          "flex items-center justify-center rounded-full",
+          "bg-slate-100 text-slate-500 font-semibold",
+          class_name
+        ].compact.join(" "),
+        style: size_style
+      )
+    end
+  end
 end

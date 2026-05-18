@@ -22,6 +22,12 @@
 
     <% if user_signed_in? %>
       <div class="flex items-center gap-4">
+        <%= avatar_for(
+          current_user,
+          size: 32,
+          class_name: "ring-1 ring-slate-200"
+        ) %>
+
         <span class="text-sm text-slate-500">
           <%= current_user.name %>
         </span>

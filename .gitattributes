@@ -7,3 +7,10 @@ db/schema.rb linguist-generated
 vendor/* linguist-vendored
 config/credentials/*.yml.enc diff=rails_credentials
 config/credentials.yml.enc diff=rails_credentials
+
+# Collapse HTML files so they don't count towards language stats
+*.html linguist-vendored
+*.html.erb linguist-detectable=false
+
+# Explicitly tell GitHub to prioritize Ruby
+*.rb linguist-language=Ruby

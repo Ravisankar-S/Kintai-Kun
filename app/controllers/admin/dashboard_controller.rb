@@ -28,6 +28,11 @@ module Admin
         .distinct
         .count
 
+      @overtime_logs_this_week = WorkLog.includes(:user)
+                                        .where(is_overtime: true)
+                                        .where('clocked_in_at >= ?', Date.today.beginning_of_week)
+                                        .order(clocked_in_at: :desc)
+
       respond_to do |format|
         format.html
         format.turbo_stream

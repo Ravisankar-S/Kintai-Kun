@@ -83,6 +83,32 @@
           </div>
         </div>
 
+        <%# Timezone Dropdown %>
+        <div class="relative group cursor-pointer flex items-center py-2 ml-2">
+          <% current_tz = session[:timezone] || 'Asia/Kolkata' %>
+          <%# Current Timezone Display %>
+          <div class="flex items-center gap-1.5 px-2.5 py-1.5 border border-[#d8cfc2] rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors bg-white">
+            <span class="text-base leading-none">⏱</span>
+            <span style="font-family: 'Geist', 'Inter', sans-serif;"><%= current_tz == 'Asia/Tokyo' ? 'JST' : 'IST' %></span>
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+
+          <%# Dropdown Menu %>
+          <div class="absolute right-0 top-full mt-1 w-[160px] bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+            <div class="py-2">
+              <%= button_to set_timezone_path(timezone: 'Asia/Kolkata'), method: :post, data: { turbo: false }, class: "w-full text-left flex items-center gap-3 px-4 py-2.5 text-[13px] #{current_tz == 'Asia/Kolkata' ? 'bg-slate-50 text-slate-900 font-semibold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'} transition-colors", style: "font-family: 'Geist', 'Inter', sans-serif;" do %>
+                <span class="text-base leading-none">🇮🇳</span>
+                IST (Kolkata)
+              <% end %>
+              <div class="border-t border-slate-100 my-1"></div>
+              <%= button_to set_timezone_path(timezone: 'Asia/Tokyo'), method: :post, data: { turbo: false }, class: "w-full text-left flex items-center gap-3 px-4 py-2.5 text-[13px] #{current_tz == 'Asia/Tokyo' ? 'bg-slate-50 text-slate-900 font-semibold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'} transition-colors", style: "font-family: 'Geist', 'Inter', sans-serif;" do %>
+                <span class="text-base leading-none">🇯🇵</span>
+                JST (Tokyo)
+              <% end %>
+            </div>
+          </div>
+        </div>
+
       <% if user_signed_in? %>
         <%= button_tag type: "button",
             class: "text-slate-600 hover:text-slate-900 border border-[#d8cfc2] rounded-full p-2" do %>

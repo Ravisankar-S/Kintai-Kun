@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :set_locale
+  before_action :set_timezone
   before_action :configure_permitted_parameters,
                 if: :devise_controller?
   before_action :authenticate_user!
@@ -14,6 +15,17 @@ class ApplicationController < ActionController::Base
       current_user&.update(preferred_locale: normalized_locale)
     end
 
+    redirect_back fallback_location: dashboard_path
+  end
+
+  def set_timezone_action
+    timezone = params[:timezone].to_s
+    allowed_zones = ['Asia/Kolkata', 'Asia/Tokyo']
+    
+    if allowed_zones.include?(timezone)
+      session[:timezone] = timezone
+    end
+    
     redirect_back fallback_location: dashboard_path
   end
 
@@ -57,6 +69,11 @@ class ApplicationController < ActionController::Base
       else
         :en
       end
+  end
+
+  def set_timezone
+    # Default to IST if not set
+    Time.zone = session[:timezone] || 'Asia/Kolkata'
   end
 
 end

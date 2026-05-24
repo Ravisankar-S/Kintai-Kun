@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   post "/clock_out", to: "punches#clock_out"
 
   post "/locale", to: "application#set_locale_action", as: :set_locale
+  post "/timezone", to: "application#set_timezone_action", as: :set_timezone
 
   namespace :admin do
     root "dashboard#index"

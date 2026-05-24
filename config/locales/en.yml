@@ -34,9 +34,12 @@ en:
     greeting_afternoon: "Good afternoon"
     greeting_evening: "Good evening"
     status_working: "Currently Working"
+    status_on_break: "On Break"
     status_idle: "Not Clocked In"
     clock_in_button: "Clock In"
     clock_out_button: "Clock Out"
+    take_break_button: "Take Break"
+    resume_work_button: "Resume Work"
     memo_placeholder: "Optional note for this punch (e.g. client meeting)"
     start_shift: "Start Shift"
     end_shift: "End Shift"
@@ -96,6 +99,10 @@ en:
     clocked_out_success: "Clocked out. Great work today!"
     clock_in_error: "Could not clock in. Please try again."
     clock_out_error: "Could not clock out. Please try again."
+    break_started: "You are now on break."
+    cannot_take_break: "Could not start break."
+    work_resumed: "You have resumed working."
+    cannot_resume_work: "Could not resume work."
 
   users:
     profile_title: "Profile & Settings"

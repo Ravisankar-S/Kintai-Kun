@@ -34,9 +34,12 @@ ja:
     greeting_afternoon: "こんにちは"
     greeting_evening: "こんばんは"
     status_working: "勤務中"
+    status_on_break: "休憩中"
     status_idle: "未打刻"
     clock_in_button: "打刻する"
     clock_out_button: "退勤する"
+    take_break_button: "休憩する"
+    resume_work_button: "休憩終了"
     memo_placeholder: "今日の予定を入力（例：午前中はクライアント会議）"
     start_shift: "出勤"
     end_shift: "退勤"
@@ -96,6 +99,10 @@ ja:
     clocked_out_success: "退勤打刻しました。お疲れ様でした！"
     clock_in_error: "打刻できませんでした。もう一度お試しください。"
     clock_out_error: "退勤打刻できませんでした。もう一度お試しください。"
+    break_started: "休憩を開始しました。"
+    cannot_take_break: "休憩を開始できませんでした。"
+    work_resumed: "勤務を再開しました。"
+    cannot_resume_work: "勤務を再開できませんでした。"
 
   users:
     profile_title: "プロフィール設定"

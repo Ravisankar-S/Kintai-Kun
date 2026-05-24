@@ -55,6 +55,10 @@ class WorkLog < ApplicationRecord
     clocked_out_at.nil?
   end
 
+  def on_break?
+    break_started_at.present?
+  end
+
   def completed?
     clocked_out_at.present?
   end

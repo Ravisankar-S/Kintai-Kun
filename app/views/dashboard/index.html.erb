@@ -34,18 +34,19 @@
         <div class="flex items-start gap-7">
 
           <%# Orb %>
-          <div class="flex-shrink-0 mt-1">
-            <div class="w-[112px] h-[112px] rounded-full flex flex-col items-center
-                        justify-center select-none
-                        <%= @active_log ? 'bg-[#4a9e72] text-white orb-pulsing' : 'bg-[#d1cdc6] text-slate-500' %>">
+          <div class="flex-shrink-0 mt-1" 
+               <%= "data-controller='timer' data-timer-start-value='#{@active_log.clocked_in_at.iso8601}' data-timer-break-minutes-value='#{@active_log.break_minutes}' data-timer-on-break-value='#{@active_log.on_break?}'".html_safe if @active_log %>>
+            <div data-timer-target="indicator" class="w-[112px] h-[112px] rounded-full flex flex-col items-center
+                        justify-center select-none transition-colors duration-300
+                        <%= @active_log ? (@active_log.on_break? ? 'bg-amber-500 text-white' : 'bg-[#4a9e72] text-white orb-pulsing') : 'bg-[#d1cdc6] text-slate-500' %>">
               <% if @active_log %>
-                <span class="text-[11px] font-medium opacity-75 tracking-wider mb-0.5"><%= t('dashboard.orb_working') %></span>
-                <span class="text-[17px] font-bold leading-tight">
-                  <%= l(@active_log.clocked_in_at, format: :clock) %>
+                <span class="text-[11px] font-medium opacity-75 tracking-wider mb-0.5 uppercase"><%= @active_log.on_break? ? t('dashboard.status_on_break') : t('dashboard.orb_working') %></span>
+                <span class="text-[17px] font-bold leading-tight font-mono tracking-wider" data-timer-target="display">
+                  --:--:--
                 </span>
               <% else %>
-                <span class="text-[11px] font-medium tracking-wider mb-0.5"><%= t('dashboard.orb_idle') %></span>
-                <span class="text-[17px] font-bold leading-tight">
+                <span class="text-[11px] font-medium tracking-wider mb-0.5 uppercase"><%= t('dashboard.orb_idle') %></span>
+                <span class="text-[17px] font-bold leading-tight font-mono">
                   <%= Time.current.strftime("%I:%M %p") %>
                 </span>
               <% end %>
@@ -56,18 +57,24 @@
           <div class="flex-1 min-w-0">
 
             <% if @active_log %>
-              <p class="text-[#4a9e72] font-semibold text-[15px]"><%= t('dashboard.currently_working') %></p>
+              <p class="font-semibold text-[15px] <%= @active_log.on_break? ? 'text-amber-500' : 'text-[#4a9e72]' %>">
+                <%= @active_log.on_break? ? t('dashboard.status_on_break') : t('dashboard.status_working') %>
+              </p>
               <p class="text-slate-500 text-sm mt-1">
                 <%= t('dashboard.since', time: l(@active_log.clocked_in_at, format: :clock)) %>
               </p>
-              <%
-                elapsed  = ((Time.current - @active_log.clocked_in_at) / 60).to_i
-                e_h = elapsed / 60; e_m = elapsed % 60
-              %>
-              <p class="text-slate-400 text-xs mt-0.5"><%= t('dashboard.elapsed', h: e_h, m: e_m) %></p>
+              <% if @active_log.break_minutes > 0 %>
+                <p class="text-slate-400 text-xs mt-0.5">Total break: <%= @active_log.break_minutes %>m</p>
+              <% end %>
 
-              <%# Clock-out: modal trigger %>
-              <div class="mt-4">
+              <%# Clock-out and Break buttons %>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <% if @active_log.on_break? %>
+                  <%= button_to t("dashboard.resume_work_button"), resume_work_path, method: :post, class: "cursor-pointer bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors shadow-sm" %>
+                <% else %>
+                  <%= button_to t("dashboard.take_break_button"), take_break_path, method: :post, class: "cursor-pointer bg-slate-200 hover:bg-slate-300 text-slate-700 text-sm font-semibold px-5 py-2 rounded-lg transition-colors shadow-sm" %>
+                <% end %>
+
                 <button type="button" data-action="click->modal#open"
                     class="cursor-pointer bg-[#c0392b] hover:bg-[#a93226] text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors shadow-sm">
                   <%= t("dashboard.clock_out_button") %>
@@ -75,7 +82,7 @@
               </div>
 
             <% else %>
-              <p class="text-slate-700 font-semibold text-[15px]"><%= t('dashboard.not_clocked_in') %></p>
+              <p class="text-slate-700 font-semibold text-[15px]"><%= t('dashboard.status_idle') %></p>
               <p class="text-slate-400 text-sm mt-1"><%= t('dashboard.ready_to_start') %></p>
 
               <div class="mt-4">
@@ -172,7 +179,7 @@
                   <%= f.text_area :memo, id: "memo", rows: 3, 
                       value: @active_log&.memo,
                       placeholder: t('dashboard.memo_placeholder'),
-                      class: "block w-full rounded-md border-0 py-1.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#4a9e72] sm:text-sm sm:leading-6 resize-none" %>
+                      class: "block w-full rounded-md border-0 px-3 py-2 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#4a9e72] sm:text-sm sm:leading-6 resize-none" %>
                 </div>
               </div>
               

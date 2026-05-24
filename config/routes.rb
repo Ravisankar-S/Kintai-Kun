@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   
   post "/clock_in",  to: "punches#clock_in"
   post "/clock_out", to: "punches#clock_out"
+  post "/take_break", to: "punches#take_break"
+  post "/resume_work", to: "punches#resume_work"
 
   post "/locale", to: "application#set_locale_action", as: :set_locale
   post "/timezone", to: "application#set_timezone_action", as: :set_timezone

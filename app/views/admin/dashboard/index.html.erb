@@ -4,11 +4,11 @@
   <div class="mb-8">
     <h1 class="text-[32px] text-[#1A1A18]"
         style="font-family: 'DM Serif Display', serif;">
-      Admin Dashboard
+      <%= t('admin.dashboard_title') %>
     </h1>
     <p class="text-[14px] text-[#6B6860] mt-1"
        style="font-family: 'Geist', 'Inter', sans-serif;">
-      System overview and user management.
+      <%= t('admin.dashboard_subtitle') %>
     </p>
   </div>
 
@@ -20,7 +20,7 @@
          style="box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04); animation: rowReveal 250ms ease forwards; animation-delay: 0ms; opacity: 0;">
       <p class="text-[12px] font-medium text-[#6B6860]"
          style="font-family: 'Geist', 'Inter', sans-serif;">
-        <%= t('admin.total_users') %> / ユーザー数
+        <%= t('admin.total_users') %>
       </p>
       <p class="text-[40px] text-[#1A1A18] mt-3 leading-none"
          style="font-family: 'DM Serif Display', serif;">
@@ -33,7 +33,7 @@
          style="box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04); animation: rowReveal 250ms ease forwards; animation-delay: 80ms; opacity: 0;">
       <p class="text-[12px] font-medium text-[#6B6860]"
          style="font-family: 'Geist', 'Inter', sans-serif;">
-        <%= t('admin.total_logs') %> / 今月の打刻数
+        <%= t('admin.total_logs') %>
       </p>
       <p class="text-[40px] text-[#1A1A18] mt-3 leading-none"
          style="font-family: 'DM Serif Display', serif;">
@@ -46,7 +46,7 @@
          style="box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04); animation: rowReveal 250ms ease forwards; animation-delay: 160ms; opacity: 0;">
       <p class="text-[12px] font-medium text-[#6B6860]"
          style="font-family: 'Geist', 'Inter', sans-serif;">
-        <%= t('admin.overtime_users') %> / 今週の残業者
+        <%= t('admin.overtime_users') %>
       </p>
       <p class="text-[40px] mt-3 leading-none <%= @overtime_users > 0 ? 'text-[#D4830A]' : 'text-[#1A1A18]' %>"
          style="font-family: 'DM Serif Display', serif;">
@@ -64,7 +64,7 @@
     <div class="px-6 py-4 border-b border-[#E8E6E1] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
       <h2 class="text-[20px] text-[#1A1A18]"
           style="font-family: 'DM Serif Display', serif;">
-        User Directory
+        <%= t('admin.user_directory') %>
       </h2>
 
       <%# Live Search Input %>
@@ -79,7 +79,7 @@
         <input type="text"
                data-user-search-target="input"
                data-action="input->user-search#search"
-               placeholder="Search users..."
+               placeholder="<%= t('admin.search_users') %>"
                class="w-[220px] h-[36px] bg-[#FAFAF8] border border-[#E8E6E1] rounded-lg pl-9 pr-3 text-[13px] text-[#1A1A18] placeholder-[#A8A49E] focus:outline-none focus:border-[#2D6A4F] focus:ring-0 transition-all duration-120"
                style="font-family: 'Geist', 'Inter', sans-serif; box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow, 0 0 #0000);">
         <%# inline style for focus ring added via CSS classes or manual pseudo-class if needed, but Tailwind classes will work fine here %>
@@ -96,31 +96,31 @@
       <thead class="bg-[#F7F6F3] border-b border-[#E8E6E1]">
         <tr>
           <th class="py-3 px-6 w-[22%] text-left text-[11px] uppercase tracking-[0.08em] text-[#6B6860] font-medium"
-              style="font-family: 'Geist', 'Inter', sans-serif;">Name / 氏名</th>
+              style="font-family: 'Geist', 'Inter', sans-serif;"><%= t('admin.name') %></th>
           <th class="py-3 px-6 w-[24%] text-left text-[11px] uppercase tracking-[0.08em] text-[#6B6860] font-medium"
-              style="font-family: 'Geist', 'Inter', sans-serif;">Email</th>
+              style="font-family: 'Geist', 'Inter', sans-serif;"><%= t('admin.email') %></th>
           <th class="py-3 px-6 w-[16%] text-left text-[11px] uppercase tracking-[0.08em] text-[#6B6860] font-medium"
-              style="font-family: 'Geist', 'Inter', sans-serif;">Work Mode / 勤務形態</th>
+              style="font-family: 'Geist', 'Inter', sans-serif;"><%= t('admin.work_mode') %></th>
           <th class="py-3 px-6 w-[12%] text-right text-[11px] uppercase tracking-[0.08em] text-[#6B6860] font-medium"
-              style="font-family: 'Geist', 'Inter', sans-serif;">Total Logs</th>
+              style="font-family: 'Geist', 'Inter', sans-serif;"><%= t('admin.total_logs_label') %></th>
           <th class="py-3 px-6 w-[13%] text-left text-[11px] uppercase tracking-[0.08em] text-[#6B6860] font-medium"
-              style="font-family: 'Geist', 'Inter', sans-serif;">Role</th>
+              style="font-family: 'Geist', 'Inter', sans-serif;"><%= t('admin.role') %></th>
           <th class="py-3 px-6 w-[13%] text-right text-[11px] uppercase tracking-[0.08em] text-[#6B6860] font-medium"
-              style="font-family: 'Geist', 'Inter', sans-serif;">Action</th>
+              style="font-family: 'Geist', 'Inter', sans-serif;"><%= t('admin.action') %></th>
         </tr>
       </thead>
-      <%= turbo_frame_tag "user_table_body", tag: :tbody do %>
+      <tbody id="user_table_body">
         <% if @users.empty? %>
           <tr>
             <td colspan="6" class="py-16 text-center text-[14px] text-[#6B6860]"
                 style="font-family: 'Geist', 'Inter', sans-serif;">
-              No users found.
+              <%= t('admin.no_users') %>
             </td>
           </tr>
         <% else %>
           <%= render partial: 'admin/users/user_row', collection: @users, as: :user %>
         <% end %>
-      <% end %>
+      </tbody>
     </table>
 
     <%# Pagination %>

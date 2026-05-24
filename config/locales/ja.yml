@@ -68,6 +68,12 @@ ja:
 
   users:
     profile_title: "プロフィール設定"
+    profile_subtitle: "アカウント設定と勤務スケジュールを管理します。"
+    personal_info: "個人情報"
+    work_schedule: "勤務設定"
+    language: "言語"
+    security: "セキュリティ"
+    language_hint: "設定は保存され、他のデバイスと同期されます。"
     avatar: "プロフィール画像"
     avatar_hint: "PNG/JPG/WEBP/GIF、最大5MB"
     avatar_remove: "プロフィール画像を削除"
@@ -92,6 +98,14 @@ ja:
   admin:
     access_denied: "アクセスが拒否されました。管理者専用ページです。"
     dashboard_title: "管理者ダッシュボード"
+    dashboard_subtitle: "システムの概要とユーザー管理。"
+    user_directory: "ユーザー一覧"
+    search_users: "ユーザーを検索..."
+    no_users: "ユーザーが見つかりません。"
+    member_since: "登録日"
+    readonly_banner: "このユーザーの勤怠履歴（読み取り専用）を表示しています。"
+    user_history_title: "%{name}の勤怠履歴"
+    attendance_history: "勤怠履歴"
     total_users: "ユーザー数"
     total_logs: "今月の打刻数"
     overtime_users: "今週の残業者"

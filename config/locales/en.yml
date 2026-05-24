@@ -68,6 +68,12 @@ en:
 
   users:
     profile_title: "Profile & Settings"
+    profile_subtitle: "Manage your account preferences and schedule."
+    personal_info: "Personal Information"
+    work_schedule: "Work Schedule"
+    language: "Language"
+    security: "Security"
+    language_hint: "Your preference is saved and syncs across devices."
     avatar: "Profile Photo"
     avatar_hint: "PNG, JPG, WEBP, or GIF. Max 5MB."
     avatar_remove: "Remove profile photo"
@@ -92,6 +98,14 @@ en:
   admin:
     access_denied: "Access denied. Admin only."
     dashboard_title: "Admin Dashboard"
+    dashboard_subtitle: "System overview and user management."
+    user_directory: "User Directory"
+    search_users: "Search users..."
+    no_users: "No users found."
+    member_since: "Member Since"
+    readonly_banner: "You are viewing read-only attendance records for this user."
+    user_history_title: "%{name}'s Attendance History"
+    attendance_history: "Attendance History"
     total_users: "Total Users"
     total_logs: "Logs This Month"
     overtime_users: "Overtime This Week"

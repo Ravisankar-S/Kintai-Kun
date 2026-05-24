@@ -14,9 +14,7 @@
           <%= link_to t("nav.work_log"),
               work_logs_path,
               class: "pb-1 border-b-2 #{current_page?(work_logs_path) ? "border-emerald-700 text-slate-900" : "border-transparent text-slate-600 hover:text-slate-900"}" %>
-          <%= link_to t("nav.profile"),
-              edit_profile_path,
-              class: "pb-1 border-b-2 #{current_page?(edit_profile_path) ? "border-emerald-700 text-slate-900" : "border-transparent text-slate-600 hover:text-slate-900"}" %>
+
           <% if current_user.role == "admin" %>
             <%= link_to t("nav.admin"),
                 admin_root_path,
@@ -28,23 +26,61 @@
 
     <% if user_signed_in? %>
       <div class="flex items-center gap-3">
-        <%= avatar_for(
-          current_user,
-          size: 32,
-          class_name: "ring-1 ring-[#e2d9cb]"
-        ) %>
+        <div class="relative group cursor-pointer flex items-center gap-3 py-2">
+          <%= avatar_for(
+            current_user,
+            size: 32,
+            class_name: "ring-1 ring-[#e2d9cb]"
+          ) %>
 
-        <span class="hidden sm:inline text-sm text-slate-600">
-          <%= current_user.name %>
-        </span>
+          <div class="hidden sm:flex flex-col">
+            <span class="text-sm text-slate-600 leading-tight">
+              <%= current_user.name %>
+            </span>
+            <span class="text-[10px] text-slate-400 uppercase tracking-wider mt-0.5">
+              <%= current_user.role %>
+            </span>
+          </div>
 
-        <%= button_to t("nav.toggle_language"),
-          set_locale_path,
-            method: :post,
-            params: {
-              locale: I18n.locale == :en ? :ja : :en
-            },
-            class: "text-xs uppercase tracking-wider text-slate-600 hover:text-slate-900 border border-[#d8cfc2] px-3 py-1 rounded-full" %>
+          <%# Dropdown Menu %>
+          <div class="absolute right-0 top-full mt-1 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+            <div class="py-2">
+              <%= link_to t("nav.profile"), edit_profile_path, class: "block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors" %>
+              <div class="border-t border-slate-100 my-1"></div>
+              <%= button_to t("nav.sign_out"), destroy_user_session_path, method: :delete, class: "block w-full text-left px-4 py-2 text-sm text-rose-600 hover:bg-slate-50 transition-colors" %>
+            </div>
+          </div>
+        </div>
+
+        <%# Language Dropdown %>
+        <div class="relative group cursor-pointer flex items-center py-2 ml-2">
+          <%# Current Language Display %>
+          <div class="flex items-center gap-1.5 px-2.5 py-1.5 border border-[#d8cfc2] rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors bg-white">
+            <% if I18n.locale == :ja %>
+              <span class="text-base leading-none">🇯🇵</span>
+              <span style="font-family: 'Geist', 'Inter', sans-serif;">JA</span>
+            <% else %>
+              <span class="text-base leading-none">🇮🇳</span>
+              <span style="font-family: 'Geist', 'Inter', sans-serif;">EN</span>
+            <% end %>
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+
+          <%# Dropdown Menu %>
+          <div class="absolute right-0 top-full mt-1 w-[160px] bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+            <div class="py-2">
+              <%= button_to set_locale_path(locale: 'en'), method: :post, data: { turbo: false }, class: "w-full text-left flex items-center gap-3 px-4 py-2.5 text-[13px] #{I18n.locale == :en ? 'bg-slate-50 text-slate-900 font-semibold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'} transition-colors", style: "font-family: 'Geist', 'Inter', sans-serif;" do %>
+                <span class="text-base leading-none">🇮🇳</span>
+                English - EN
+              <% end %>
+              <div class="border-t border-slate-100 my-1"></div>
+              <%= button_to set_locale_path(locale: 'ja'), method: :post, data: { turbo: false }, class: "w-full text-left flex items-center gap-3 px-4 py-2.5 text-[13px] #{I18n.locale == :ja ? 'bg-slate-50 text-slate-900 font-semibold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'} transition-colors", style: "font-family: 'Geist', 'Inter', sans-serif;" do %>
+                <span class="text-base leading-none">🇯🇵</span>
+                日本語 - JA
+              <% end %>
+            </div>
+          </div>
+        </div>
 
         <%= button_tag type: "button",
             class: "text-slate-600 hover:text-slate-900 border border-[#d8cfc2] rounded-full p-2" do %>
@@ -55,10 +91,6 @@
           </svg>
         <% end %>
 
-        <%= button_to t("nav.sign_out"),
-            destroy_user_session_path,
-            method: :delete,
-            class: "text-sm text-rose-600 hover:text-rose-700" %>
       </div>
     <% end %>
 

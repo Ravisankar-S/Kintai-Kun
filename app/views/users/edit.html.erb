@@ -2,12 +2,11 @@
 
   <%# ── PAGE HEADER ── %>
   <div class="mb-4">
-    <h1 class="text-[32px] text-[#1A1A18] flex items-baseline">
-      <span style="font-family: 'DM Serif Display', serif;">Profile</span>
-      <span class="ml-2" style="font-family: 'Shippori Mincho', serif; font-weight: 500;">/ プロフィール</span>
+    <h1 class="text-[32px] text-[#1A1A18]" style="font-family: 'DM Serif Display', serif;">
+      <%= t('users.profile_title') %>
     </h1>
     <p class="text-[14px] text-[#6B6860] mt-1" style="font-family: 'Geist', 'Inter', sans-serif;">
-      Manage your account preferences and schedule.
+      <%= t('users.profile_subtitle') %>
     </p>
   </div>
   <hr class="border-[#E8E6E1] mb-8">
@@ -26,32 +25,28 @@
               class="w-auto md:w-full text-left px-3 py-2 md:px-4 md:py-3 rounded-full md:rounded-none md:rounded-r-lg font-medium transition-colors duration-120 flex-shrink-0
                      bg-[#F0EEE9] text-[#1A1A18] font-semibold border-none md:border-l-[3px] border-[#2D6A4F] md:rounded-l-none"
               style="font-family: 'Geist', 'Inter', sans-serif; line-height: 1.4; font-size: 13px;">
-        <span class="md:hidden">Personal</span>
-        <span class="hidden md:inline">Personal Information / 個人情報</span>
+        <span><%= t('users.personal_info') %></span>
       </button>
 
       <button data-action="click->profile-tabs#switch" data-profile-tabs-target="tab" data-section="schedule"
               class="w-auto md:w-full text-left px-3 py-2 md:px-4 md:py-3 rounded-full md:rounded-none md:rounded-lg font-medium transition-colors duration-120 flex-shrink-0
                      bg-transparent text-[#6B6860] hover:bg-[#F7F6F3] hover:text-[#1A1A18] border-none md:border-l-[3px] md:border-transparent"
               style="font-family: 'Geist', 'Inter', sans-serif; line-height: 1.4; font-size: 13px;">
-        <span class="md:hidden">Schedule</span>
-        <span class="hidden md:inline">Work Schedule / 勤務設定</span>
+        <span><%= t('users.work_schedule') %></span>
       </button>
 
       <button data-action="click->profile-tabs#switch" data-profile-tabs-target="tab" data-section="language"
               class="w-auto md:w-full text-left px-3 py-2 md:px-4 md:py-3 rounded-full md:rounded-none md:rounded-lg font-medium transition-colors duration-120 flex-shrink-0
                      bg-transparent text-[#6B6860] hover:bg-[#F7F6F3] hover:text-[#1A1A18] border-none md:border-l-[3px] md:border-transparent"
               style="font-family: 'Geist', 'Inter', sans-serif; line-height: 1.4; font-size: 13px;">
-        <span class="md:hidden">Language</span>
-        <span class="hidden md:inline">Language / 言語</span>
+        <span><%= t('users.language') %></span>
       </button>
 
       <button data-action="click->profile-tabs#switch" data-profile-tabs-target="tab" data-section="security"
               class="w-auto md:w-full text-left px-3 py-2 md:px-4 md:py-3 rounded-full md:rounded-none md:rounded-lg font-medium transition-colors duration-120 flex-shrink-0
                      bg-transparent text-[#6B6860] hover:bg-[#F7F6F3] hover:text-[#1A1A18] border-none md:border-l-[3px] md:border-transparent"
               style="font-family: 'Geist', 'Inter', sans-serif; line-height: 1.4; font-size: 13px;">
-        <span class="md:hidden">Security</span>
-        <span class="hidden md:inline">Security / セキュリティ</span>
+        <span><%= t('users.security') %></span>
       </button>
     </div>
 
@@ -65,7 +60,7 @@
           <div class="bg-white border border-[#E8E6E1] rounded-2xl p-6 mb-4"
                style="box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04);">
             <h2 class="text-[14px] font-semibold text-[#1A1A18]" style="font-family: 'Geist', 'Inter', sans-serif;">
-              Personal Information / 個人情報
+              <%= t('users.personal_info') %>
             </h2>
             <hr class="border-[#E8E6E1] mt-2 mb-5">
 
@@ -89,12 +84,12 @@
               <%# Upload & Delete Controls %>
               <div class="flex flex-col gap-2 w-full">
                 <p class="text-[12px] text-[#A8A49E]" style="font-family: 'Geist', 'Inter', sans-serif;">
-                  Recommended: Square JPG, PNG, or GIF, up to 5MB.
+                  <%= t('users.avatar_hint') %>
                 </p>
                 <div class="flex items-center gap-3">
                   <%# File Input Label / Button %>
                   <label class="cursor-pointer inline-flex items-center px-4 py-2 bg-white border border-[#E8E6E1] rounded-lg text-[13px] font-medium text-[#1A1A18] hover:bg-[#FAFAF8] transition-colors duration-120" style="font-family: 'Geist', 'Inter', sans-serif; box-shadow: 0 1px 2px rgba(0,0,0,0.03);">
-                    Upload new picture
+                    <%= t('users.avatar') %>
                     <%= f.file_field :avatar, accept: "image/jpeg,image/png,image/gif,image/webp,image/avif", class: "hidden", data: { action: "change->avatar-preview#preview", avatar_preview_target: "input" } %>
                   </label>
 
@@ -122,7 +117,7 @@
               <label for="user_name"
                      class="absolute left-4 top-1/2 -translate-y-1/2 text-[14px] text-[#A8A49E] transition-all duration-200 pointer-events-none peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:-translate-y-0 peer-valid:top-1.5 peer-valid:text-[10px] peer-valid:-translate-y-0"
                      style="font-family: 'Geist', 'Inter', sans-serif;">
-                Full Name
+                <%= t('users.name') %>
               </label>
             </div>
 
@@ -134,7 +129,7 @@
                      style="font-family: 'Geist', 'Inter', sans-serif;">
               <label class="absolute left-4 top-1.5 text-[10px] text-[#A8A49E] pointer-events-none"
                      style="font-family: 'Geist', 'Inter', sans-serif;">
-                Email
+                <%= t('admin.email') %>
               </label>
               <%# Lock Icon %>
               <div class="absolute right-4 top-1/2 -translate-y-1/2">
@@ -150,7 +145,7 @@
           <button type="submit" data-save-btn="true"
                   class="w-full h-[52px] bg-[#2D6A4F] text-white rounded-[10px] text-[15px] font-semibold flex items-center justify-center transition-all duration-120 hover:bg-[#38855F] hover:-translate-y-[1px]"
                   style="font-family: 'Geist', 'Inter', sans-serif; box-shadow: 0 2px 8px rgba(45,106,79,0.25);">
-            Save Changes / 保存する
+            <%= t('users.save') %>
           </button>
         </div>
       <% end %>
@@ -162,7 +157,7 @@
           <div class="bg-white border border-[#E8E6E1] rounded-2xl p-6 mb-4"
                style="box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04);">
             <h2 class="text-[14px] font-semibold text-[#1A1A18]" style="font-family: 'Geist', 'Inter', sans-serif;">
-              Work Schedule / 勤務設定
+              <%= t('users.work_schedule') %>
             </h2>
             <hr class="border-[#E8E6E1] mt-2 mb-5">
 
@@ -172,12 +167,12 @@
               <button type="button" data-action="click->work-mode#select" data-value="fixed" data-work-mode-target="fixedBtn"
                       class="flex-1 h-[40px] rounded-lg text-[14px] font-medium transition-all duration-150 flex items-center justify-center <%= current_user.work_mode == 'fixed' ? 'bg-[#2D6A4F] text-white shadow-[0_1px_3px_rgba(0,0,0,0.15)]' : 'bg-transparent text-[#6B6860]' %>"
                       style="font-family: 'Geist', 'Inter', sans-serif;">
-                Fixed Hours / 固定時間
+                <%= t('users.work_mode_fixed') %>
               </button>
               <button type="button" data-action="click->work-mode#select" data-value="flex" data-work-mode-target="flexBtn"
                       class="flex-1 h-[40px] rounded-lg text-[14px] font-medium transition-all duration-150 flex items-center justify-center <%= current_user.work_mode == 'flex' ? 'bg-[#2D6A4F] text-white shadow-[0_1px_3px_rgba(0,0,0,0.15)]' : 'bg-transparent text-[#6B6860]' %>"
                       style="font-family: 'Geist', 'Inter', sans-serif;">
-                Flex Hours / フレックス
+                <%= t('users.work_mode_flex') %>
               </button>
             </div>
 
@@ -196,7 +191,7 @@
                   <label for="user_fixed_start_time"
                          class="absolute left-4 top-1.5 text-[10px] text-[#A8A49E] pointer-events-none"
                          style="font-family: 'Geist', 'Inter', sans-serif;">
-                    Start Time / 始業時間
+                    <%= t('users.fixed_start') %>
                   </label>
                 </div>
 
@@ -208,7 +203,7 @@
                   <label for="user_fixed_end_time"
                          class="absolute left-4 top-1.5 text-[10px] text-[#A8A49E] pointer-events-none"
                          style="font-family: 'Geist', 'Inter', sans-serif;">
-                    End Time / 終業時間
+                    <%= t('users.fixed_end') %>
                   </label>
                 </div>
 
@@ -220,7 +215,7 @@
           <button type="submit" data-save-btn="true"
                   class="w-full h-[52px] bg-[#2D6A4F] text-white rounded-[10px] text-[15px] font-semibold flex items-center justify-center transition-all duration-120 hover:bg-[#38855F] hover:-translate-y-[1px]"
                   style="font-family: 'Geist', 'Inter', sans-serif; box-shadow: 0 2px 8px rgba(45,106,79,0.25);">
-            Save Changes / 保存する
+            <%= t('users.save') %>
           </button>
         </div>
       <% end %>
@@ -232,7 +227,7 @@
           <div class="bg-white border border-[#E8E6E1] rounded-2xl p-6 mb-4"
                style="box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04);">
             <h2 class="text-[14px] font-semibold text-[#1A1A18]" style="font-family: 'Geist', 'Inter', sans-serif;">
-              Language / 言語
+              <%= t('users.language') %>
             </h2>
             <hr class="border-[#E8E6E1] mt-2 mb-5">
 
@@ -242,17 +237,17 @@
               <button type="button" data-action="click->language-select#select" data-value="en" data-language-select-target="enBtn"
                       class="flex-1 h-[40px] rounded-lg text-[14px] font-medium transition-all duration-150 flex items-center justify-center <%= current_user.preferred_locale == 'en' ? 'bg-[#2D6A4F] text-white shadow-[0_1px_3px_rgba(0,0,0,0.15)]' : 'bg-transparent text-[#6B6860]' %>"
                       style="font-family: 'Geist', 'Inter', sans-serif;">
-                English
+                <%= t('users.language_en') %>
               </button>
               <button type="button" data-action="click->language-select#select" data-value="ja" data-language-select-target="jaBtn"
                       class="flex-1 h-[40px] rounded-lg text-[14px] font-medium transition-all duration-150 flex items-center justify-center <%= current_user.preferred_locale == 'ja' ? 'bg-[#2D6A4F] text-white shadow-[0_1px_3px_rgba(0,0,0,0.15)]' : 'bg-transparent text-[#6B6860]' %>"
                       style="font-family: 'Geist', 'Inter', sans-serif;">
-                日本語
+                <%= t('users.language_ja') %>
               </button>
             </div>
             
             <p class="text-[12px] text-[#A8A49E] mt-4" style="font-family: 'Geist', 'Inter', sans-serif;">
-              Your preference is saved and syncs across devices.
+              <%= t('users.language_hint') %>
             </p>
 
           </div>
@@ -271,12 +266,12 @@
         <div class="bg-white border border-[#E8E6E1] rounded-2xl p-6 mb-4"
              style="box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04);">
           <h2 class="text-[14px] font-semibold text-[#1A1A18]" style="font-family: 'Geist', 'Inter', sans-serif;">
-            Security / セキュリティ
+            <%= t('users.security') %>
           </h2>
           <hr class="border-[#E8E6E1] mt-2 mb-5">
 
           <%= link_to edit_user_registration_path, class: "text-[14px] font-medium text-[#2D6A4F] hover:text-[#1A3D2B] hover:underline transition-colors duration-120 flex items-center w-max", style: "font-family: 'Geist', 'Inter', sans-serif;" do %>
-            Change password →
+            <%= t('users.change_password') %> &rarr;
           <% end %>
 
         </div>
@@ -284,7 +279,7 @@
         <button type="button" data-save-btn="true"
                 class="w-full h-[52px] bg-[#2D6A4F] text-white rounded-[10px] text-[15px] font-semibold flex items-center justify-center transition-all duration-120 opacity-40 pointer-events-none cursor-not-allowed"
                 style="font-family: 'Geist', 'Inter', sans-serif; box-shadow: 0 2px 8px rgba(45,106,79,0.25);">
-          Save Changes / 保存する
+          <%= t('users.save') %>
         </button>
       </div>
 

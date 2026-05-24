@@ -8,13 +8,9 @@
     <%# Title block %>
     <div>
       <h1 class="text-[32px] leading-tight text-[#1A1A18]"
-          style="font-family: 'Shippori Mincho', serif; font-weight: 500;">
-        勤怠履歴
+          style="font-family: 'DM Serif Display', serif;">
+        <%= t('work_logs.title') %>
       </h1>
-      <p class="text-[14px] text-[#6B6860] mt-0.5"
-         style="font-family: 'Geist', 'Inter', sans-serif;">
-        Work Log History
-      </p>
     </div>
 
     <%# Controls: month filter + CSV %>
@@ -80,7 +76,7 @@
           <path d="M7 1v8M4 6l3 3 3-3"/>
           <path d="M1 10v1.5A1.5 1.5 0 0 0 2.5 13h9A1.5 1.5 0 0 0 13 11.5V10"/>
         </svg>
-        CSV
+        <%= t('work_logs.export_csv') %>
       <% end %>
 
     </div>
@@ -107,32 +103,32 @@
           <th class="py-3 px-4 w-[16%] text-left text-[11px] tracking-[0.08em]
                      uppercase text-[#6B6860] font-medium"
               style="font-family: 'Geist', 'Inter', sans-serif;">
-            DATE / 日付
+            <%= t('work_logs.date') %>
           </th>
           <th class="py-3 px-4 w-[12%] text-left text-[11px] tracking-[0.08em]
                      uppercase text-[#6B6860] font-medium"
               style="font-family: 'Geist', 'Inter', sans-serif;">
-            IN / 出勤
+            <%= t('work_logs.clock_in') %>
           </th>
           <th class="py-3 px-4 w-[12%] text-left text-[11px] tracking-[0.08em]
                      uppercase text-[#6B6860] font-medium"
               style="font-family: 'Geist', 'Inter', sans-serif;">
-            OUT / 退勤
+            <%= t('work_logs.clock_out') %>
           </th>
           <th class="py-3 px-4 w-[13%] text-left text-[11px] tracking-[0.08em]
                      uppercase text-[#6B6860] font-medium"
               style="font-family: 'Geist', 'Inter', sans-serif;">
-            TIME / 時間
+            <%= t('work_logs.duration') %>
           </th>
           <th class="py-3 px-4 w-[39%] text-left text-[11px] tracking-[0.08em]
                      uppercase text-[#6B6860] font-medium"
               style="font-family: 'Geist', 'Inter', sans-serif;">
-            MEMO / メモ
+            <%= t('work_logs.memo') %>
           </th>
           <th class="py-3 px-4 w-[8%] text-right text-[11px] tracking-[0.08em]
                      uppercase text-[#6B6860] font-medium"
               style="font-family: 'Geist', 'Inter', sans-serif;">
-            OT
+            <%= t('work_logs.overtime') %>
           </th>
         </tr>
       </thead>
@@ -152,11 +148,7 @@
               </svg>
               <p class="mt-4 text-[22px] text-[#1A1A18]"
                  style="font-family: 'Shippori Mincho', serif; font-weight: 500;">
-                記録なし
-              </p>
-              <p class="mt-2 text-[14px] text-[#6B6860]"
-                 style="font-family: 'Geist', 'Inter', sans-serif;">
-                No logs found for this period.
+                <%= t('work_logs.no_logs') %>
               </p>
             </td>
           </tr>

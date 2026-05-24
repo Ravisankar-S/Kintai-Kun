@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters,
                 if: :devise_controller?
   before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:set_locale_action, :set_timezone_action]
 
   def set_locale_action
     locale = params[:locale].to_s
@@ -67,7 +68,7 @@ class ApplicationController < ActionController::Base
       elsif available_locales.include?(user_locale)
         user_locale.to_sym
       else
-        :en
+        I18n.default_locale
       end
   end
 

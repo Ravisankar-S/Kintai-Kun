@@ -24,8 +24,14 @@ module KintaiKun
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.time_zone = "Asia/Kolkata"
+
+    config.i18n.default_locale = :ja
+    
+    # Enable locale fallback (will fallback to en if ja is missing)
+    config.i18n.fallbacks = true
+
     config.i18n.available_locales = [:en, :ja]
-    config.i18n.default_locale = :en
     config.i18n.load_path +=
       Dir[Rails.root.join("config", "locales", "**", "*.yml")]
 

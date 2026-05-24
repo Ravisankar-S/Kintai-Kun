@@ -28,7 +28,7 @@
 
 
         <%# Language Dropdown %>
-        <div class="relative group cursor-pointer flex items-center py-2 ml-2">
+        <div class="relative group cursor-pointer flex items-center py-2 ml-2" data-tour-step="1">
           <%# Current Language Display %>
           <div class="flex items-center gap-1.5 px-2.5 py-1.5 border border-[#d8cfc2] rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors bg-white">
             <% if I18n.locale == :ja %>
@@ -58,7 +58,7 @@
         </div>
 
         <%# Timezone Dropdown %>
-        <div class="relative group cursor-pointer flex items-center py-2 ml-2">
+        <div class="relative group cursor-pointer flex items-center py-2 ml-2" data-tour-step="2">
           <% current_tz = session[:timezone] || 'Asia/Kolkata' %>
           <%# Current Timezone Display %>
           <div class="flex items-center gap-1.5 px-2.5 py-1.5 border border-[#d8cfc2] rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors bg-white">

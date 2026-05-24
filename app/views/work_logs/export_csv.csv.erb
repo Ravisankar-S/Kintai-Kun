@@ -3,32 +3,26 @@ require "csv"
 
 headers = [
   "Date",
-  "Day of Week (EN)",
-  "Day of Week (JA)",
+  "Day (EN)",
+  "曜日 (JP)",
   "Clock In",
   "Clock Out",
-  "Duration (hours)",
+  "Duration",
   "Memo",
   "Overtime"
 ]
+
+days_en = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday]
+days_jp = %w[日 月 火 水 木 金 土]
 %>
-
-<%= CSV.generate_line(headers) %>
-
-<% @work_logs.each do |log| %>
-
-<% date = log.clocked_in_at.to_date %>
-<% jp_days = %w[日 月 火 水 木 金 土] %>
-
+<%= CSV.generate_line(headers) %><% @work_logs.each do |log| %>
 <%= CSV.generate_line([
-  date.strftime("%Y-%m-%d"),
-  date.strftime("%A"),
-  jp_days[date.wday],
+  log.clocked_in_at.to_date.strftime("%Y-%m-%d"),
+  days_en[log.clocked_in_at.wday],
+  days_jp[log.clocked_in_at.wday],
   log.clocked_in_at.strftime("%H:%M"),
-  log.clocked_out_at&.strftime("%H:%M"),
-  log.duration_minutes ? (log.duration_minutes / 60.0).round(2) : "",
-  log.memo,
-  log.is_overtime ? "Yes" : "No"
-]) %>
-
-<% end %>
+  log.clocked_out_at&.strftime("%H:%M") || "",
+  log.duration_minutes ? "#{log.duration_minutes / 60}h #{(log.duration_minutes % 60).to_s.rjust(2,'0')}m" : "",
+  log.memo.to_s,
+  log.is_overtime ? "Yes / はい" : "No / いいえ"
+]) %><% end %>

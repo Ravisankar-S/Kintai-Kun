@@ -1,106 +1,289 @@
-<div class="max-w-6xl mx-auto py-10 px-4">
+<div class="max-w-5xl mx-auto py-10 px-4">
 
-  <div class="mb-8">
+  <%# ── Breadcrumbs ── %>
+  <div class="mb-6 text-[13px] text-[#6B6860]"
+       style="font-family: 'Geist', 'Inter', sans-serif;">
+    <%= link_to "Admin", admin_dashboard_path, class: "hover:underline" %>
+    <span class="mx-1">→</span>
+    <%= link_to "Users", admin_dashboard_path, class: "hover:underline" %>
+    <span class="mx-1">→</span>
+    <span class="text-[#1A1A18]"><%= @user.name %></span>
+  </div>
 
-    <h1 class="text-3xl font-bold text-slate-800">
-      <%= @user.name %>
-    </h1>
+  <%# ── User Info Card ── %>
+  <div class="bg-white border border-[#E8E6E1] rounded-xl p-6 mb-6 flex flex-row gap-6 items-center"
+       style="box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04);">
+    
+    <%# Avatar %>
+    <div class="w-[48px] h-[48px] rounded-full bg-[#2D6A4F] text-white flex items-center justify-center text-[16px] font-semibold"
+         style="font-family: 'Geist', 'Inter', sans-serif;">
+      <%= @user.name.split.map(&:first).first(2).join.upcase %>
+    </div>
 
-    <p class="text-slate-500 mt-2">
-      <%= @user.email %>
-    </p>
+    <%# Name & Email %>
+    <div>
+      <p class="text-[16px] font-semibold text-[#1A1A18] leading-tight"
+         style="font-family: 'Geist', 'Inter', sans-serif;">
+        <%= @user.name %>
+      </p>
+      <p class="text-[13px] text-[#6B6860] mt-0.5"
+         style="font-family: 'Geist', 'Inter', sans-serif;">
+        <%= @user.email %>
+      </p>
+    </div>
+
+    <%# Badges %>
+    <div class="ml-auto flex flex-row gap-3">
+      <%# Work Mode Badge %>
+      <div class="bg-[#F7F6F3] border border-[#E8E6E1] rounded-lg px-4 py-2 text-center">
+        <p class="text-[10px] text-[#A8A49E] uppercase tracking-wider mb-1"
+           style="font-family: 'Geist', 'Inter', sans-serif;">Work Mode</p>
+        <% if @user.work_mode == 'fixed' %>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[#EEF2FF] text-[#3B5BDB]"
+                style="font-family: 'Geist', 'Inter', sans-serif;">Fixed</span>
+        <% else %>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[#F0FAF4] text-[#2D6A4F]"
+                style="font-family: 'Geist', 'Inter', sans-serif;">Flex</span>
+        <% end %>
+      </div>
+
+      <%# Total Logs Badge %>
+      <div class="bg-[#F7F6F3] border border-[#E8E6E1] rounded-lg px-4 py-2 text-center">
+        <p class="text-[10px] text-[#A8A49E] uppercase tracking-wider mb-1"
+           style="font-family: 'Geist', 'Inter', sans-serif;">Total Logs</p>
+        <p class="text-[14px] font-semibold text-[#1A1A18]"
+           style="font-family: 'Geist', 'Inter', sans-serif;">
+          <%= @work_logs.total_count %>
+        </p>
+      </div>
+
+      <%# Member Since Badge %>
+      <div class="bg-[#F7F6F3] border border-[#E8E6E1] rounded-lg px-4 py-2 text-center">
+        <p class="text-[10px] text-[#A8A49E] uppercase tracking-wider mb-1"
+           style="font-family: 'Geist', 'Inter', sans-serif;">Member Since</p>
+        <p class="text-[13px] text-[#1A1A18]"
+           style="font-family: 'Geist', 'Inter', sans-serif;">
+          <%= @user.created_at.strftime("%b %Y") %>
+        </p>
+      </div>
+    </div>
 
   </div>
 
-  <div class="bg-white border border-slate-200
-              rounded-3xl shadow-sm overflow-hidden">
+  <%# ── Read-Only Banner ── %>
+  <div class="bg-[#FEF9EC] border border-[#F0C040] rounded-xl px-4 py-3 mb-4 flex items-center gap-3">
+    <svg class="w-[14px] h-[14px] text-[#D4830A] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+      <circle cx="12" cy="12" r="3"></circle>
+    </svg>
+    <p class="text-[13px] text-[#92620A]" style="font-family: 'Geist', 'Inter', sans-serif;">
+      You are viewing read-only attendance records for this user.
+    </p>
+  </div>
 
-    <table class="w-full">
+  <%# ── Header Above Table ── %>
+  <div class="mb-4">
+    <h2 class="text-[24px] text-[#1A1A18]"
+        style="font-family: 'DM Serif Display', serif;">
+      <%= @user.name %>の勤怠履歴
+    </h2>
+    <p class="text-[14px] text-[#6B6860] mt-0.5"
+       style="font-family: 'Geist', 'Inter', sans-serif;">
+      Attendance History
+    </p>
+  </div>
 
-      <thead class="bg-slate-50 border-b border-slate-200">
+  <%# ── Table wrapper ── %>
+  <div class="rounded-2xl overflow-hidden border border-[#E8E6E1] bg-white shadow-sm">
 
-        <tr>
+    <table class="w-full border-collapse">
 
-          <th class="px-6 py-4 text-left">
-            <%= t("work_logs.date") %>
+      <%# THEAD %>
+      <thead>
+        <tr class="bg-[#F7F6F3] border-b border-[#E8E6E1]">
+          <th class="py-3 px-4 w-[16%] text-left text-[11px] tracking-[0.08em]
+                     uppercase text-[#6B6860] font-medium"
+              style="font-family: 'Geist', 'Inter', sans-serif;">
+            DATE / 日付
           </th>
-
-          <th class="px-6 py-4 text-left">
-            <%= t("work_logs.clock_in") %>
+          <th class="py-3 px-4 w-[12%] text-left text-[11px] tracking-[0.08em]
+                     uppercase text-[#6B6860] font-medium"
+              style="font-family: 'Geist', 'Inter', sans-serif;">
+            IN / 出勤
           </th>
-
-          <th class="px-6 py-4 text-left">
-            <%= t("work_logs.clock_out") %>
+          <th class="py-3 px-4 w-[12%] text-left text-[11px] tracking-[0.08em]
+                     uppercase text-[#6B6860] font-medium"
+              style="font-family: 'Geist', 'Inter', sans-serif;">
+            OUT / 退勤
           </th>
-
-          <th class="px-6 py-4 text-left">
-            <%= t("work_logs.duration") %>
+          <th class="py-3 px-4 w-[13%] text-left text-[11px] tracking-[0.08em]
+                     uppercase text-[#6B6860] font-medium"
+              style="font-family: 'Geist', 'Inter', sans-serif;">
+            TIME / 時間
           </th>
-
-          <th class="px-6 py-4 text-left">
-            <%= t("work_logs.memo") %>
+          <th class="py-3 px-4 w-[39%] text-left text-[11px] tracking-[0.08em]
+                     uppercase text-[#6B6860] font-medium"
+              style="font-family: 'Geist', 'Inter', sans-serif;">
+            MEMO / メモ
           </th>
-
-          <th class="px-6 py-4 text-left">
-            <%= t("work_logs.overtime") %>
+          <th class="py-3 px-4 w-[8%] text-right text-[11px] tracking-[0.08em]
+                     uppercase text-[#6B6860] font-medium"
+              style="font-family: 'Geist', 'Inter', sans-serif;">
+            OT
           </th>
-
         </tr>
-
       </thead>
 
       <tbody>
-
-        <% @work_logs.each do |log| %>
-
-          <tr class="border-b border-slate-100 <%= log.is_overtime ? 'bg-amber-50' : '' %>">
-
-            <td class="px-6 py-4">
-              <%= l(log.clocked_in_at.to_date, format: :table) %>
+        <% if @work_logs.empty? %>
+          <%# Empty state %>
+          <tr>
+            <td colspan="6" class="py-20 text-center">
+              <%# Minimal clock SVG %>
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none"
+                   stroke="#2D6A4F" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round"
+                   class="mx-auto">
+                <circle cx="32" cy="32" r="26"/>
+                <path d="M32 18v14l8 8"/>
+              </svg>
+              <p class="mt-4 text-[22px] text-[#1A1A18]"
+                 style="font-family: 'Shippori Mincho', serif; font-weight: 500;">
+                記録なし
+              </p>
+              <p class="mt-2 text-[14px] text-[#6B6860]"
+                 style="font-family: 'Geist', 'Inter', sans-serif;">
+                No logs found for this period.
+              </p>
             </td>
-
-            <td class="px-6 py-4">
-              <%= l(log.clocked_in_at, format: :clock) %>
-            </td>
-
-            <td class="px-6 py-4 text-slate-600">
-              <% if log.clocked_out_at.present? %>
-                <%= l(log.clocked_out_at, format: :clock) %>
-              <% else %>
-                <span class="text-slate-400 italic">—</span>
-              <% end %>
-            </td>
-
-            <td class="px-6 py-4">
-              <% if log.duration_minutes %>
-                <%= minutes_to_hm(log.duration_minutes) %>
-              <% else %>
-                <span class="text-slate-400 italic">—</span>
-              <% end %>
-            </td>
-
-            <td class="px-6 py-4 text-slate-600">
-              <%= log.memo.presence || "—" %>
-            </td>
-
-            <td class="px-6 py-4">
-              <% if log.is_overtime %>
-                <span class="text-red-500 font-semibold">
-                  <%= t("work_logs.overtime") %>
-                </span>
-              <% else %>
-                —
-              <% end %>
-            </td>
-
           </tr>
 
-        <% end %>
+        <% else %>
+          <% @work_logs.each_with_index do |log, index| %>
+            <%
+              is_active   = log.clocked_out_at.nil?
+              is_overtime = log.is_overtime
+              row_classes = [
+                "h-14 border-b border-[#F0EEE9] transition-colors duration-75",
+                is_active   ? "bg-[#F5FAF7] border-l-[3px] border-l-[#2D6A4F] hover:bg-[#EEF8F2]"
+                            : (is_overtime ? "bg-[#FFFBF5] hover:bg-[#FEF7EC]"
+                                           : "hover:bg-[#FAFAF8]")
+              ].join(" ")
+            %>
+            <tr class="<%= row_classes %>"
+                style="animation: rowReveal 200ms ease forwards; animation-delay: <%= index * 20 %>ms; opacity: 0;">
 
+              <%# DATE cell %>
+              <td class="py-0 px-4">
+                <div class="flex flex-col leading-tight"
+                     style="font-family: 'Geist', 'Inter', sans-serif;">
+                  <span class="text-[18px] font-semibold text-[#1A1A18] leading-none">
+                    <%= log.clocked_in_at.strftime('%-d') %>
+                  </span>
+                  <span class="text-[11px] text-[#A8A49E] mt-0.5">
+                    <%= log.clocked_in_at.strftime('%a') %>
+                  </span>
+                </div>
+              </td>
+
+              <%# IN cell %>
+              <td class="py-0 px-4">
+                <div class="flex items-center"
+                     style="font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 14px; color: #1A1A18;">
+                  <% if is_active %>
+                    <span class="inline-block w-2 h-2 rounded-full bg-[#2D6A4F] mr-2
+                                 animate-[pulse_2s_ease-in-out_infinite]"></span>
+                  <% end %>
+                  <%= log.clocked_in_at.strftime('%H:%M') %>
+                </div>
+              </td>
+
+              <%# OUT cell %>
+              <td class="py-0 px-4">
+                <% if log.clocked_out_at.present? %>
+                  <span style="font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 14px; color: #1A1A18;">
+                    <%= log.clocked_out_at.strftime('%H:%M') %>
+                  </span>
+                <% else %>
+                  <span class="italic text-[14px] text-[#A8A49E]">—</span>
+                <% end %>
+              </td>
+
+              <%# TIME cell %>
+              <td class="py-0 px-4">
+                <% if log.clocked_out_at.present? && log.duration_minutes %>
+                  <span class="font-semibold text-[14px]
+                               <%= is_overtime ? 'text-[#D4830A]' : 'text-[#1A1A18]' %>"
+                        style="font-family: 'JetBrains Mono', 'Fira Code', monospace;">
+                    <%= minutes_to_hm(log.duration_minutes) %>
+                  </span>
+                <% else %>
+                  <span class="italic text-[14px] text-[#A8A49E]">—</span>
+                <% end %>
+              </td>
+
+              <%# MEMO cell – full text visible %>
+              <td class="py-3 px-4">
+                <% if log.memo.present? %>
+                  <div class="text-[13px] text-[#6B6860] leading-relaxed whitespace-pre-wrap break-words"
+                       style="font-family: 'Geist', 'Inter', sans-serif;">
+                    <%= log.memo %>
+                  </div>
+                <% end %>
+              </td>
+
+              <%# OT cell %>
+              <td class="py-0 px-4 text-right">
+                <% if is_overtime %>
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full
+                               text-[11px] font-medium bg-[#FEF0E0] text-[#92620A]"
+                        style="font-family: 'Geist', 'Inter', sans-serif;">
+                    残業
+                  </span>
+                <% end %>
+              </td>
+
+            </tr>
+          <% end %>
+        <% end %>
       </tbody>
 
     </table>
 
-  </div>
+    <%# Pagination – rendered inline using @work_logs kaminari methods directly %>
+    <% if @work_logs.total_pages > 1 %>
+      <nav class="flex items-center justify-center gap-6 py-6"
+           aria-label="Pagination"
+           style="font-family: 'Geist', 'Inter', sans-serif; font-size: 13px; color: #6B6860;">
+
+        <%# ← Previous %>
+        <% if @work_logs.first_page? %>
+          <span class="text-[#C8C5BE] pointer-events-none select-none">← Previous</span>
+        <% else %>
+          <%= link_to "← Previous",
+              admin_user_path(@user, page: @work_logs.current_page - 1),
+              class: "text-[#6B6860] hover:text-[#2D6A4F] transition-colors duration-100" %>
+        <% end %>
+
+        <%# Page X of Y %>
+        <span class="text-[#6B6860]">
+          Page
+          <span class="font-semibold text-[#1A1A18]"><%= @work_logs.current_page %></span>
+          of <%= @work_logs.total_pages %>
+        </span>
+
+        <%# Next → %>
+        <% if @work_logs.last_page? %>
+          <span class="text-[#C8C5BE] pointer-events-none select-none">Next →</span>
+        <% else %>
+          <%= link_to "Next →",
+              admin_user_path(@user, page: @work_logs.current_page + 1),
+              class: "text-[#6B6860] hover:text-[#2D6A4F] transition-colors duration-100" %>
+        <% end %>
+
+      </nav>
+    <% end %>
+
+  </div><%# /table wrapper %>
 
 </div>

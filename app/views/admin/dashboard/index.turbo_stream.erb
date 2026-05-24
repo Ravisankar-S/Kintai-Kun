@@ -1,0 +1,14 @@
+<%= turbo_stream.replace "user_table_body" do %>
+  <%= turbo_frame_tag "user_table_body", tag: :tbody do %>
+    <% if @users.empty? %>
+      <tr>
+        <td colspan="6" class="py-16 text-center text-[14px] text-[#6B6860]"
+            style="font-family: 'Geist', 'Inter', sans-serif;">
+          No users found.
+        </td>
+      </tr>
+    <% else %>
+      <%= render partial: 'admin/users/user_row', collection: @users, as: :user %>
+    <% end %>
+  <% end %>
+<% end %>

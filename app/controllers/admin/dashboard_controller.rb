@@ -3,32 +3,42 @@ module Admin
     before_action :require_admin!
 
     def index
-      @users =
-        User.includes(:work_logs)
-            .order(:name)
+      @users = User.left_joins(:work_logs)
+                   .select('users.*, COUNT(work_logs.id) AS work_logs_count')
+                   .group('users.id')
+                   .order(:name)
+                   .page(params[:page]).per(15)
 
-      @total_logs =
-        WorkLog.for_month(
-          Date.current.year,
-          Date.current.month
-        ).count
+      # Live search support
+      if params[:query].present?
+        q = "%#{params[:query].downcase}%"
+        @users = User.left_joins(:work_logs)
+                     .select('users.*, COUNT(work_logs.id) AS work_logs_count')
+                     .where("LOWER(users.name) LIKE ? OR LOWER(users.email) LIKE ?", q, q)
+                     .group('users.id')
+                     .order(:name)
+                     .page(params[:page]).per(15)
+      end
 
-      @overtime_users =
-        User.joins(:work_logs)
-            .where(work_logs: {
-              is_overtime: true,
-              clocked_in_at: Date.current.beginning_of_week(:monday)..
-                             Date.current.end_of_week(:monday)
-            })
-            .distinct
+      @total_users    = User.count
+      @total_logs     = WorkLog.for_month(Date.today.year, Date.today.month).count
+      @overtime_users = User.joins(:work_logs)
+        .where(work_logs: { is_overtime: true })
+        .where('work_logs.clocked_in_at >= ?', Date.today.beginning_of_week)
+        .distinct
+        .count
+
+      respond_to do |format|
+        format.html
+        format.turbo_stream
+      end
     end
 
     private
 
     def require_admin!
-      unless current_user.role == "admin"
-        redirect_to root_path,
-                    alert: t("admin.access_denied")
+      unless current_user&.role == 'admin'
+        redirect_to root_path, alert: t('admin.access_denied')
       end
     end
   end

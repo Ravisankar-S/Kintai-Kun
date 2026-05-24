@@ -1,142 +1,163 @@
-<div class="max-w-6xl mx-auto py-10 px-4">
+<div class="max-w-5xl mx-auto py-10 px-4">
 
+  <%# ── Page Header ── %>
   <div class="mb-8">
-
-    <h1 class="text-3xl font-bold text-slate-800">
-      <%= t("admin.dashboard_title") %>
+    <h1 class="text-[32px] text-[#1A1A18]"
+        style="font-family: 'DM Serif Display', serif;">
+      Admin Dashboard
     </h1>
+    <p class="text-[14px] text-[#6B6860] mt-1"
+       style="font-family: 'Geist', 'Inter', sans-serif;">
+      System overview and user management.
+    </p>
+  </div>
+
+  <%# ── Stats Row ── %>
+  <div class="flex flex-col md:flex-row gap-4 mb-6">
+
+    <%# Card 1: Total Users %>
+    <div class="flex-1 bg-white border border-[#E8E6E1] rounded-xl p-6"
+         style="box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04); animation: rowReveal 250ms ease forwards; animation-delay: 0ms; opacity: 0;">
+      <p class="text-[12px] font-medium text-[#6B6860]"
+         style="font-family: 'Geist', 'Inter', sans-serif;">
+        <%= t('admin.total_users') %> / ユーザー数
+      </p>
+      <p class="text-[40px] text-[#1A1A18] mt-3 leading-none"
+         style="font-family: 'DM Serif Display', serif;">
+        <%= @total_users %>
+      </p>
+    </div>
+
+    <%# Card 2: Logs This Month %>
+    <div class="flex-1 bg-white border border-[#E8E6E1] rounded-xl p-6"
+         style="box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04); animation: rowReveal 250ms ease forwards; animation-delay: 80ms; opacity: 0;">
+      <p class="text-[12px] font-medium text-[#6B6860]"
+         style="font-family: 'Geist', 'Inter', sans-serif;">
+        <%= t('admin.total_logs') %> / 今月の打刻数
+      </p>
+      <p class="text-[40px] text-[#1A1A18] mt-3 leading-none"
+         style="font-family: 'DM Serif Display', serif;">
+        <%= number_with_delimiter(@total_logs) %>
+      </p>
+    </div>
+
+    <%# Card 3: Overtime This Week %>
+    <div class="flex-1 bg-white border border-[#E8E6E1] rounded-xl p-6"
+         style="box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04); animation: rowReveal 250ms ease forwards; animation-delay: 160ms; opacity: 0;">
+      <p class="text-[12px] font-medium text-[#6B6860]"
+         style="font-family: 'Geist', 'Inter', sans-serif;">
+        <%= t('admin.overtime_users') %> / 今週の残業者
+      </p>
+      <p class="text-[40px] mt-3 leading-none <%= @overtime_users > 0 ? 'text-[#D4830A]' : 'text-[#1A1A18]' %>"
+         style="font-family: 'DM Serif Display', serif;">
+        <%= @overtime_users %>
+      </p>
+    </div>
 
   </div>
 
-  <!-- Stats -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+  <%# ── User Directory Panel ── %>
+  <div class="bg-white border border-[#E8E6E1] rounded-xl overflow-hidden mt-6"
+       style="box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04);">
+    
+    <%# Panel Header %>
+    <div class="px-6 py-4 border-b border-[#E8E6E1] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <h2 class="text-[20px] text-[#1A1A18]"
+          style="font-family: 'DM Serif Display', serif;">
+        User Directory
+      </h2>
 
-    <div class="bg-white border border-slate-200
-                rounded-3xl p-6 shadow-sm">
-
-      <p class="text-sm text-slate-500 mb-2">
-        <%= t("admin.total_users") %>
-      </p>
-
-      <p class="text-4xl font-bold">
-        <%= @users.count %>
-      </p>
-
+      <%# Live Search Input %>
+      <div class="relative"
+           data-controller="user-search"
+           data-user-search-url-value="<%= admin_dashboard_path %>">
+        <svg class="absolute left-3 top-[11px] w-[14px] h-[14px] text-[#A8A49E]"
+             fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text"
+               data-user-search-target="input"
+               data-action="input->user-search#search"
+               placeholder="Search users..."
+               class="w-[220px] h-[36px] bg-[#FAFAF8] border border-[#E8E6E1] rounded-lg pl-9 pr-3 text-[13px] text-[#1A1A18] placeholder-[#A8A49E] focus:outline-none focus:border-[#2D6A4F] focus:ring-0 transition-all duration-120"
+               style="font-family: 'Geist', 'Inter', sans-serif; box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow, 0 0 #0000);">
+        <%# inline style for focus ring added via CSS classes or manual pseudo-class if needed, but Tailwind classes will work fine here %>
+        <style>
+          input[data-user-search-target="input"]:focus {
+            box-shadow: 0 0 0 3px rgba(45,106,79,0.10) !important;
+          }
+        </style>
+      </div>
     </div>
 
-    <div class="bg-white border border-slate-200
-                rounded-3xl p-6 shadow-sm">
-
-      <p class="text-sm text-slate-500 mb-2">
-        <%= t("admin.total_logs") %>
-      </p>
-
-      <p class="text-4xl font-bold">
-        <%= @total_logs %>
-      </p>
-
-    </div>
-
-    <div class="bg-white border border-slate-200
-                rounded-3xl p-6 shadow-sm">
-
-      <p class="text-sm text-slate-500 mb-2">
-        <%= t("admin.overtime_users") %>
-      </p>
-
-      <p class="text-4xl font-bold text-rose-500">
-        <%= @overtime_users.count %>
-      </p>
-
-    </div>
-
-  </div>
-
-  <!-- Users Table -->
-  <div class="bg-white border border-slate-200
-              rounded-3xl shadow-sm overflow-hidden">
-
-    <table class="w-full">
-
-      <thead class="bg-slate-50 border-b border-slate-200">
-
+    <%# Table %>
+    <table class="w-full border-collapse">
+      <thead class="bg-[#F7F6F3] border-b border-[#E8E6E1]">
         <tr>
-
-          <th class="text-left px-6 py-4 text-sm font-semibold">
-            <%= t("admin.name") %>
-          </th>
-
-          <th class="text-left px-6 py-4 text-sm font-semibold">
-            <%= t("admin.email") %>
-          </th>
-
-          <th class="text-left px-6 py-4 text-sm font-semibold">
-            <%= t("admin.role") %>
-          </th>
-
-          <th class="text-left px-6 py-4 text-sm font-semibold">
-            <%= t("admin.work_mode") %>
-          </th>
-
-          <th class="text-left px-6 py-4 text-sm font-semibold">
-            <%= t("admin.total_logs_label") %>
-          </th>
-
-          <th class="text-left px-6 py-4 text-sm font-semibold">
-            <%= t("admin.action") %>
-          </th>
-
+          <th class="py-3 px-6 w-[22%] text-left text-[11px] uppercase tracking-[0.08em] text-[#6B6860] font-medium"
+              style="font-family: 'Geist', 'Inter', sans-serif;">Name / 氏名</th>
+          <th class="py-3 px-6 w-[24%] text-left text-[11px] uppercase tracking-[0.08em] text-[#6B6860] font-medium"
+              style="font-family: 'Geist', 'Inter', sans-serif;">Email</th>
+          <th class="py-3 px-6 w-[16%] text-left text-[11px] uppercase tracking-[0.08em] text-[#6B6860] font-medium"
+              style="font-family: 'Geist', 'Inter', sans-serif;">Work Mode / 勤務形態</th>
+          <th class="py-3 px-6 w-[12%] text-right text-[11px] uppercase tracking-[0.08em] text-[#6B6860] font-medium"
+              style="font-family: 'Geist', 'Inter', sans-serif;">Total Logs</th>
+          <th class="py-3 px-6 w-[13%] text-left text-[11px] uppercase tracking-[0.08em] text-[#6B6860] font-medium"
+              style="font-family: 'Geist', 'Inter', sans-serif;">Role</th>
+          <th class="py-3 px-6 w-[13%] text-right text-[11px] uppercase tracking-[0.08em] text-[#6B6860] font-medium"
+              style="font-family: 'Geist', 'Inter', sans-serif;">Action</th>
         </tr>
-
       </thead>
-
-      <tbody>
-
-        <% @users.each do |user| %>
-
-          <tr class="border-b border-slate-100">
-
-            <td class="px-6 py-4">
-              <%= user.name %>
+      <%= turbo_frame_tag "user_table_body", tag: :tbody do %>
+        <% if @users.empty? %>
+          <tr>
+            <td colspan="6" class="py-16 text-center text-[14px] text-[#6B6860]"
+                style="font-family: 'Geist', 'Inter', sans-serif;">
+              No users found.
             </td>
-
-            <td class="px-6 py-4 text-slate-600">
-              <%= user.email %>
-            </td>
-
-            <td class="px-6 py-4">
-              <%= user.role %>
-            </td>
-
-            <td class="px-6 py-4">
-              <%= user.work_mode == "fixed" ?
-                    t("users.work_mode_fixed") :
-                    t("users.work_mode_flex") %>
-            </td>
-
-            <td class="px-6 py-4">
-              <%= user.work_logs.size %>
-            </td>
-
-            <td class="px-6 py-4">
-
-                <%= link_to t("admin.view_logs"),
-                  admin_user_path(user),
-                  class: "
-                    text-emerald-600 hover:text-emerald-700
-                    font-medium
-                  " %>
-
-            </td>
-
           </tr>
-
+        <% else %>
+          <%= render partial: 'admin/users/user_row', collection: @users, as: :user %>
         <% end %>
-
-      </tbody>
-
+      <% end %>
     </table>
 
-  </div>
+    <%# Pagination %>
+    <% if @users.total_pages > 1 %>
+      <div class="border-t border-[#E8E6E1] px-6 py-4">
+        <nav class="flex items-center justify-center gap-6"
+             aria-label="Pagination"
+             style="font-family: 'Geist', 'Inter', sans-serif; font-size: 13px; color: #6B6860;">
+          
+          <%# ← Previous %>
+          <% if @users.first_page? %>
+            <span class="text-[#C8C5BE] pointer-events-none select-none">← Previous</span>
+          <% else %>
+            <%= link_to "← Previous",
+                admin_dashboard_path(page: @users.current_page - 1, query: params[:query]),
+                class: "text-[#6B6860] hover:text-[#2D6A4F] transition-colors duration-100" %>
+          <% end %>
 
+          <%# Page X of Y %>
+          <span class="text-[#6B6860]">
+            Page
+            <span class="font-semibold text-[#1A1A18]"><%= @users.current_page %></span>
+            of <%= @users.total_pages %>
+          </span>
+
+          <%# Next → %>
+          <% if @users.last_page? %>
+            <span class="text-[#C8C5BE] pointer-events-none select-none">Next →</span>
+          <% else %>
+            <%= link_to "Next →",
+                admin_dashboard_path(page: @users.current_page + 1, query: params[:query]),
+                class: "text-[#6B6860] hover:text-[#2D6A4F] transition-colors duration-100" %>
+          <% end %>
+
+        </nav>
+      </div>
+    <% end %>
+
+  </div>
 </div>

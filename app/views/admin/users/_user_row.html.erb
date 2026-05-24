@@ -1,0 +1,60 @@
+<tr class="h-14 border-b border-[#F0EEE9] hover:bg-[#FAFAF8] transition-colors duration-75"
+    style="animation: rowReveal 200ms ease forwards; animation-delay: <%= user_counter * 25 %>ms; opacity: 0;">
+  
+  <td class="px-6 py-0">
+    <div class="text-[14px] font-medium text-[#1A1A18]"
+         style="font-family: 'Geist', 'Inter', sans-serif;">
+      <%= user.name %>
+    </div>
+  </td>
+  
+  <td class="px-6 py-0">
+    <div class="text-[13px] text-[#6B6860]"
+         style="font-family: 'Geist', 'Inter', sans-serif;">
+      <%= user.email %>
+    </div>
+  </td>
+  
+  <td class="px-6 py-0">
+    <% if user.work_mode == 'fixed' %>
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[#EEF2FF] text-[#3B5BDB]"
+            style="font-family: 'Geist', 'Inter', sans-serif;">
+        Fixed
+      </span>
+    <% else %>
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[#F0FAF4] text-[#2D6A4F]"
+            style="font-family: 'Geist', 'Inter', sans-serif;">
+        Flex
+      </span>
+    <% end %>
+  </td>
+  
+  <td class="px-6 py-0 text-right">
+    <div class="text-[14px] text-[#1A1A18]"
+         style="font-family: 'Geist', 'Inter', sans-serif;">
+      <%= user.respond_to?(:work_logs_count) ? user.work_logs_count : user.work_logs.size %>
+    </div>
+  </td>
+  
+  <td class="px-6 py-0">
+    <% if user.role == 'admin' %>
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[#EEF2FF] text-[#3B5BDB]"
+            style="font-family: 'Geist', 'Inter', sans-serif;">
+        Admin
+      </span>
+    <% else %>
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[#F7F6F3] text-[#6B6860]"
+            style="font-family: 'Geist', 'Inter', sans-serif;">
+        Employee
+      </span>
+    <% end %>
+  </td>
+  
+  <td class="px-6 py-0 text-right">
+    <%= link_to admin_user_path(user),
+        class: "text-[13px] text-[#3B5BDB] hover:underline transition-[text-decoration-color] duration-80",
+        style: "font-family: 'Geist', 'Inter', sans-serif; text-decoration-color: transparent;" do %>
+      <span style="hover:text-decoration-color: currentColor;">View Logs →</span>
+    <% end %>
+  </td>
+</tr>

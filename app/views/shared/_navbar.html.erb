@@ -1,34 +1,40 @@
-<nav class="bg-white border-b border-slate-200">
+<nav class="bg-[#f7f2ea]/85 backdrop-blur border-b border-[#e2d9cb]">
   <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
     
     <div class="flex items-center gap-8">
-      <%= link_to dashboard_path, class: "font-bold text-xl text-slate-800" do %>
+      <%= link_to dashboard_path, class: "font-serif text-2xl text-slate-900 tracking-wide" do %>
         <%= t("app_name") %>
       <% end %>
 
       <% if user_signed_in? %>
-        <div class="flex items-center gap-4 text-sm">
-          <%= link_to t("nav.dashboard"), dashboard_path, class: "text-slate-600 hover:text-slate-900" %>
-          <%= link_to t("nav.work_log"), work_logs_path, class: "text-slate-600 hover:text-slate-900" %>
-          <%= link_to t("nav.profile"), edit_profile_path, class: "text-slate-600 hover:text-slate-900" %>
+        <div class="flex items-center gap-6 text-sm">
+          <%= link_to t("nav.dashboard"),
+              dashboard_path,
+              class: "pb-1 border-b-2 #{current_page?(dashboard_path) ? "border-emerald-700 text-slate-900" : "border-transparent text-slate-600 hover:text-slate-900"}" %>
+          <%= link_to t("nav.work_log"),
+              work_logs_path,
+              class: "pb-1 border-b-2 #{current_page?(work_logs_path) ? "border-emerald-700 text-slate-900" : "border-transparent text-slate-600 hover:text-slate-900"}" %>
+          <%= link_to t("nav.profile"),
+              edit_profile_path,
+              class: "pb-1 border-b-2 #{current_page?(edit_profile_path) ? "border-emerald-700 text-slate-900" : "border-transparent text-slate-600 hover:text-slate-900"}" %>
           <% if current_user.role == "admin" %>
             <%= link_to t("nav.admin"),
                 admin_root_path,
-                class: "text-slate-600 hover:text-slate-900" %>
+                class: "pb-1 border-b-2 #{current_page?(admin_root_path) ? "border-emerald-700 text-slate-900" : "border-transparent text-slate-600 hover:text-slate-900"}" %>
           <% end %>
         </div>
       <% end %>
     </div>
 
     <% if user_signed_in? %>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
         <%= avatar_for(
           current_user,
           size: 32,
-          class_name: "ring-1 ring-slate-200"
+          class_name: "ring-1 ring-[#e2d9cb]"
         ) %>
 
-        <span class="text-sm text-slate-500">
+        <span class="hidden sm:inline text-sm text-slate-600">
           <%= current_user.name %>
         </span>
 
@@ -38,12 +44,21 @@
             params: {
               locale: I18n.locale == :en ? :ja : :en
             },
-            class: "text-sm text-slate-500 hover:text-slate-800" %>
+            class: "text-xs uppercase tracking-wider text-slate-600 hover:text-slate-900 border border-[#d8cfc2] px-3 py-1 rounded-full" %>
+
+        <%= button_tag type: "button",
+            class: "text-slate-600 hover:text-slate-900 border border-[#d8cfc2] rounded-full p-2" do %>
+          <span class="sr-only">Notifications</span>
+          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+            <path d="M15 17h5l-1.4-1.4a2 2 0 0 1-.6-1.4V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9 17a3 3 0 0 0 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        <% end %>
 
         <%= button_to t("nav.sign_out"),
             destroy_user_session_path,
             method: :delete,
-            class: "text-sm text-rose-500 hover:text-rose-700" %>
+            class: "text-sm text-rose-600 hover:text-rose-700" %>
       </div>
     <% end %>
 

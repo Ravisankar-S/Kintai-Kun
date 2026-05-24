@@ -1,53 +1,71 @@
-<h2 class="text-2xl font-bold mb-6">Sign up</h2>
-
-<%= form_for(resource,
-             as: resource_name,
-             url: registration_path(resource_name)) do |f| %>
-
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="mb-4">
-    <%= f.label :name, class: "block mb-1" %>
-    <%= f.text_field :name,
-        autofocus: true,
-        class: "border rounded px-3 py-2 w-full" %>
+<div class="min-h-[calc(100vh-120px)] flex flex-col items-center justify-center px-4 py-10">
+  <div class="text-center mb-8">
+    <h1 class="font-serif text-3xl text-slate-900"><%= t("app_name") %></h1>
   </div>
 
-  <div class="mb-4">
-    <%= f.label :email, class: "block mb-1" %>
-    <%= f.email_field :email,
-        autocomplete: "email",
-        class: "border rounded px-3 py-2 w-full" %>
-  </div>
+  <div class="w-full max-w-md bg-white/80 border border-[#e2d9cb] rounded-3xl shadow-[0_20px_40px_-30px_rgba(60,50,30,0.35)] p-8">
+    <div class="mb-6">
+      <h2 class="font-serif text-2xl text-slate-900">Create an account</h2>
+      <p class="text-sm text-slate-600 mt-1">Join your team and start tracking</p>
+    </div>
 
-  <div class="mb-4">
-    <%= f.label :password, class: "block mb-1" %>
+    <%= form_for(resource,
+                 as: resource_name,
+                 url: registration_path(resource_name),
+                 html: { class: "space-y-5" }) do |f| %>
 
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div>
+        <%= f.label :name, class: "block text-sm text-slate-600 mb-2" %>
+        <%= f.text_field :name,
+            autofocus: true,
+            class: "w-full rounded-2xl border border-[#d8cfc2] bg-[#f9f5ee] px-4 py-3 text-sm focus:border-emerald-700 focus:ring-2 focus:ring-emerald-200" %>
+      </div>
+
+      <div>
+        <%= f.label :email, class: "block text-sm text-slate-600 mb-2" %>
+        <%= f.email_field :email,
+            autocomplete: "email",
+            class: "w-full rounded-2xl border border-[#d8cfc2] bg-[#f9f5ee] px-4 py-3 text-sm focus:border-emerald-700 focus:ring-2 focus:ring-emerald-200" %>
+      </div>
+
+      <div>
+        <div class="flex items-baseline justify-between">
+          <%= f.label :password, class: "block text-sm text-slate-600 mb-2" %>
+          <% if @minimum_password_length %>
+            <span class="text-xs text-slate-500">
+              <%= @minimum_password_length %> characters minimum
+            </span>
+          <% end %>
+        </div>
+
+        <%= f.password_field :password,
+            autocomplete: "new-password",
+            class: "w-full rounded-2xl border border-[#d8cfc2] bg-[#f9f5ee] px-4 py-3 text-sm focus:border-emerald-700 focus:ring-2 focus:ring-emerald-200" %>
+      </div>
+
+      <div>
+        <%= f.label :password_confirmation,
+            class: "block text-sm text-slate-600 mb-2" %>
+
+        <%= f.password_field :password_confirmation,
+            autocomplete: "new-password",
+            class: "w-full rounded-2xl border border-[#d8cfc2] bg-[#f9f5ee] px-4 py-3 text-sm focus:border-emerald-700 focus:ring-2 focus:ring-emerald-200" %>
+      </div>
+
+      <%= f.submit "Sign Up",
+          class: "w-full bg-emerald-800 hover:bg-emerald-900 text-white py-3 rounded-2xl font-semibold shadow-sm transition" %>
+
+      <p class="text-xs text-slate-500">
+        By signing up, you agree to track your attendance responsibly.
+      </p>
     <% end %>
 
-    <%= f.password_field :password,
-        autocomplete: "new-password",
-        class: "border rounded px-3 py-2 w-full mt-1" %>
+    <div class="mt-6 text-center">
+      <%= link_to "Already have an account? Sign In",
+          new_session_path(resource_name),
+          class: "text-sm text-emerald-700 hover:text-emerald-800" %>
+    </div>
   </div>
-
-  <div class="mb-6">
-    <%= f.label :password_confirmation,
-        class: "block mb-1" %>
-
-    <%= f.password_field :password_confirmation,
-        autocomplete: "new-password",
-        class: "border rounded px-3 py-2 w-full" %>
-  </div>
-
-  <div>
-    <%= f.submit "Sign up",
-        class: "bg-emerald-500 text-white px-5 py-2 rounded-lg" %>
-  </div>
-
-<% end %>
-
-<div class="mt-6">
-  <%= render "devise/shared/links" %>
 </div>

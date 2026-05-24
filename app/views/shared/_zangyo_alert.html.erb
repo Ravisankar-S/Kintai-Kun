@@ -1,32 +1,52 @@
+<%# Zangyo alert – styled exactly to Stitch screenshot %>
+
 <% if @zangyo_level == 1 %>
-
-  <div class="bg-amber-100 border border-amber-400
-              text-amber-900 px-6 py-4 rounded-2xl mb-6">
-
-    <p class="font-semibold">
-      ⚠ <%= t("zangyo.level1_message") %>
-    </p>
-
-
+  <div class="border border-amber-300 bg-amber-50/80 rounded-2xl px-5 py-4
+              flex items-start justify-between gap-3">
+    <div class="flex items-start gap-2.5 min-w-0">
+      <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-amber-500"
+           viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9z" clip-rule="evenodd"/>
+      </svg>
+      <div>
+        <p class="text-sm font-semibold text-amber-900 leading-snug">
+          You've worked over 8h today.
+        </p>
+        <p class="text-xs text-amber-700 mt-0.5">
+          <%= t("zangyo.level1_message") %>
+        </p>
+      </div>
+    </div>
+    <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-amber-400 cursor-help"
+         viewBox="0 0 20 20" fill="currentColor"
+         title="<%= t('zangyo.tooltip') %>">
+      <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9z" clip-rule="evenodd"/>
+    </svg>
   </div>
 
 <% elsif @zangyo_level == 2 %>
-
-  <div class="bg-red-100 border border-red-400
-              text-red-900 px-6 py-4 rounded-2xl mb-6">
-
-    <p class="font-semibold">
-      🚨 <%= t("zangyo.level2_message") %>
-      <span
-        class="ml-2 inline-flex items-center justify-center
-               w-5 h-5 rounded-full border border-red-300
-               text-xs font-bold cursor-help"
-        title="<%= t("zangyo.tooltip") %>">
-        ⓘ
-      </span>
-    </p>
-
-
+  <div class="border border-rose-300 bg-rose-50/80 rounded-2xl px-5 py-4
+              flex items-start justify-between gap-3">
+    <div class="flex items-start gap-2.5 min-w-0">
+      <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-rose-500"
+           viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9z" clip-rule="evenodd"/>
+      </svg>
+      <div>
+        <p class="text-sm font-semibold text-rose-800 leading-snug">
+          Overtime 3+ days this week.
+        </p>
+        <p class="text-xs text-rose-600 mt-0.5">
+          Your wellbeing matters.
+          <%= link_to "働き方改革関連法", "#",
+              class: "underline hover:text-rose-800" %>
+        </p>
+      </div>
+    </div>
+    <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-rose-400 cursor-help"
+         viewBox="0 0 20 20" fill="currentColor"
+         title="<%= t('zangyo.tooltip') %>">
+      <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9z" clip-rule="evenodd"/>
+    </svg>
   </div>
-
 <% end %>

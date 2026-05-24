@@ -1,65 +1,109 @@
-<div class="bg-white border border-slate-200
-            rounded-3xl p-6 shadow-sm mt-10">
+<%#
+  Work Rhythm Heatmap
+  Layout matches Stitch spec:
+    - "Work Rhythm" title
+    - Month labels across top (Mar / Apr / May)
+    - Row labels on left: M / W / F  (Mon, Wed, Fri)
+    - Columns = weeks, Rows = days (Mon=0 … Sun=6), only M/W/F labelled
+    - 12 weeks shown (~84 days back)
+    - Cell colours from heatmap_color helper
+%>
 
-  <div class="flex items-center justify-between mb-5">
+<%
+  num_weeks   = 12
+  start_date  = 83.days.ago.to_date.beginning_of_week(:monday)
+  day_labels  = %w[M T W T F S S]   # Mon-Sun
+  show_label  = [true, false, true, false, true, false, false]  # M W F only
 
-    <h2 class="text-2xl font-semibold text-slate-800">
-      <%= t("heatmap.title") %>
-    </h2>
+  # Build month-label positions: { col_index => "MonAbbrev" }
+  month_headers = {}
+  num_weeks.times do |w|
+    week_start = start_date + (w * 7)
+    # Label the column when a new month begins (first week of that month)
+    month_headers[w] = week_start.strftime("%b") if w == 0 || week_start.day <= 7
+  end
+%>
 
-  </div>
+<div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 mt-0">
+
+  <h2 class="text-base font-semibold text-slate-800 mb-4">Work Rhythm</h2>
 
   <div class="overflow-x-auto">
+    <div class="inline-block min-w-max">
 
-    <div class="flex gap-[3px] min-w-max">
+      <%# ── Month labels row ── %>
+      <div class="flex mb-1.5 ml-7"><%# ml-7 aligns with the day-label gutter %>
+        <% num_weeks.times do |w| %>
+          <div class="w-[18px] mr-[3px] text-[10px] text-slate-400 text-left leading-none select-none">
+            <%= month_headers[w] %>
+          </div>
+        <% end %>
+      </div>
 
-      <% start_date = 83.days.ago.to_date.beginning_of_week(:monday) %>
+      <%# ── Grid: day-label column + week columns ── %>
+      <div class="flex gap-0">
 
-      <% 12.times do |week| %>
-
-        <div class="flex flex-col gap-[3px]">
-
-          <% 7.times do |day| %>
-
-            <% current_date =
-                start_date + (week * 7) + day %>
-
-            <% minutes =
-                @heatmap_data[current_date] %>
-
-            <% tooltip_text = if minutes.present? && minutes.positive?
-              hours = minutes / 60
-              mins = minutes % 60
-              t("heatmap.tooltip",
-                date: l(current_date, format: :table),
-                hours: hours,
-                minutes: mins
-              )
-            else
-              no_log_label = t("heatmap.no_log")
-              "#{l(current_date, format: :table)}: #{no_log_label}"
-            end %>
-
-            <div
-              class="w-4 h-4 rounded-sm
-                     hover:scale-125 transition-transform"
-              style="
-                background-color:
-                <%= heatmap_color(minutes) %>;
-              "
-              title="
-                <%= tooltip_text %>
-              ">
+        <%# Day-label column %>
+        <div class="flex flex-col gap-[3px] mr-1.5 justify-start">
+          <% 7.times do |d| %>
+            <div class="h-[15px] w-5 flex items-center">
+              <% if show_label[d] %>
+                <span class="text-[10px] text-slate-400 leading-none select-none">
+                  <%= day_labels[d] %>
+                </span>
+              <% end %>
             </div>
-
           <% end %>
-
         </div>
 
-      <% end %>
+        <%# Week columns %>
+        <% num_weeks.times do |w| %>
+          <div class="flex flex-col gap-[3px] mr-[3px]">
+            <% 7.times do |d| %>
+              <%
+                current_date = start_date + (w * 7) + d
+                minutes      = @heatmap_data[current_date]
 
-    </div>
+                tooltip_text = if minutes.present? && minutes.positive?
+                  h = minutes / 60
+                  m = minutes % 60
+                  t("heatmap.tooltip",
+                    date: l(current_date, format: :table),
+                    hours: h,
+                    minutes: m)
+                else
+                  "#{l(current_date, format: :table)}: #{t('heatmap.no_log')}"
+                end
 
-  </div>
+                # Build colour – future dates get a very light placeholder
+                cell_color = if current_date > Date.current
+                  "#F0EDE8"
+                else
+                  heatmap_color(minutes)
+                end
+              %>
+              <div
+                class="w-[15px] h-[15px] rounded-[3px] hover:scale-125 transition-transform cursor-default"
+                style="background-color: <%= cell_color %>;"
+                title="<%= tooltip_text %>"
+              ></div>
+            <% end %>
+          </div>
+        <% end %>
+
+      </div><%# /grid %>
+
+      <%# ── Legend ── %>
+      <div class="flex items-center gap-2 mt-3 ml-7">
+        <span class="text-[10px] text-slate-400">Less</span>
+        <% [nil, 60, 240, 420, 481].each do |mins| %>
+          <div class="w-[13px] h-[13px] rounded-[3px]"
+               style="background-color: <%= heatmap_color(mins) %>;"></div>
+        <% end %>
+        <span class="text-[10px] text-slate-400">More</span>
+      </div>
+
+    </div><%# /inline-block %>
+  </div><%# /overflow-x-auto %>
 
 </div>

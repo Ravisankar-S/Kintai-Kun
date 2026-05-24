@@ -22,11 +22,9 @@ module Admin
 
       @total_users    = User.count
       @total_logs     = WorkLog.for_month(Date.today.year, Date.today.month).count
-      @overtime_users = User.joins(:work_logs)
-        .where(work_logs: { is_overtime: true })
-        .where('work_logs.clocked_in_at >= ?', Date.today.beginning_of_week)
-        .distinct
-        .count
+      @overtime_entries_count = WorkLog.where(is_overtime: true)
+                                       .where('clocked_in_at >= ?', Date.today.beginning_of_week)
+                                       .count
 
       @overtime_logs_this_week = WorkLog.includes(:user)
                                         .where(is_overtime: true)

@@ -49,9 +49,9 @@
          style="font-family: 'Geist', 'Inter', sans-serif;">
         <%= t('admin.overtime_users') %> <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full ml-1"><%= t('admin.click_insights') %></span>
       </p>
-      <p class="text-[40px] mt-3 leading-none <%= @overtime_users > 0 ? 'text-red-600' : 'text-[#1A1A18]' %>"
+      <p class="text-[40px] mt-3 leading-none <%= @overtime_entries_count > 0 ? 'text-red-600' : 'text-[#1A1A18]' %>"
          style="font-family: 'DM Serif Display', serif;">
-        <%= @overtime_users %>
+        <%= @overtime_entries_count %>
       </p>
     </div>
 

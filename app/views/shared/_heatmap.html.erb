@@ -10,7 +10,7 @@
 %>
 
 <%
-  num_weeks   = 12
+  num_weeks   = 16
   start_date  = 83.days.ago.to_date.beginning_of_week(:monday)
   day_labels  = %w[M T W T F S S]   # Mon-Sun
   show_label  = [true, false, true, false, true, false, false]  # M W F only
@@ -24,17 +24,17 @@
   end
 %>
 
-<div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 mt-0">
+<div class="bg-[#FCFCFA] border border-[#e5ddd0] rounded-2xl shadow-sm p-6 mt-0">
 
-  <h2 class="text-base font-semibold text-slate-800 mb-4">Work Rhythm</h2>
+  <h2 class="text-2xl text-[#1A1A18] mb-6" style="font-family: 'DM Serif Display', serif;"><%= t('heatmap.title') %></h2>
 
   <div class="overflow-x-auto">
     <div class="inline-block min-w-max">
 
       <%# ── Month labels row ── %>
-      <div class="flex mb-1.5 ml-7"><%# ml-7 aligns with the day-label gutter %>
+      <div class="flex mb-2 ml-8"><%# ml-8 aligns with the day-label gutter %>
         <% num_weeks.times do |w| %>
-          <div class="w-[18px] mr-[3px] text-[10px] text-slate-400 text-left leading-none select-none">
+          <div class="w-[16px] mr-1.5 text-[12px] text-slate-500 text-left leading-none select-none">
             <%= month_headers[w] %>
           </div>
         <% end %>
@@ -44,11 +44,11 @@
       <div class="flex gap-0">
 
         <%# Day-label column %>
-        <div class="flex flex-col gap-[3px] mr-1.5 justify-start">
+        <div class="flex flex-col gap-1.5 mr-3 justify-start mt-[1px]">
           <% 7.times do |d| %>
-            <div class="h-[15px] w-5 flex items-center">
+            <div class="h-[16px] w-5 flex items-center">
               <% if show_label[d] %>
-                <span class="text-[10px] text-slate-400 leading-none select-none">
+                <span class="text-[12px] text-slate-500 leading-none select-none">
                   <%= day_labels[d] %>
                 </span>
               <% end %>
@@ -58,7 +58,7 @@
 
         <%# Week columns %>
         <% num_weeks.times do |w| %>
-          <div class="flex flex-col gap-[3px] mr-[3px]">
+          <div class="flex flex-col gap-1.5 mr-1.5">
             <% 7.times do |d| %>
               <%
                 current_date = start_date + (w * 7) + d
@@ -83,9 +83,10 @@
                 end
               %>
               <div
-                class="w-[15px] h-[15px] rounded-[3px] hover:scale-125 transition-transform cursor-default"
+                class="w-[16px] h-[16px] rounded-[4px] hover:ring-2 hover:ring-slate-400 hover:ring-offset-1 transition-all cursor-pointer"
                 style="background-color: <%= cell_color %>;"
-                title="<%= tooltip_text %>"
+                data-controller="tooltip"
+                data-tooltip-content-value="<%= tooltip_text %>"
               ></div>
             <% end %>
           </div>
@@ -94,13 +95,13 @@
       </div><%# /grid %>
 
       <%# ── Legend ── %>
-      <div class="flex items-center gap-2 mt-3 ml-7">
-        <span class="text-[10px] text-slate-400">Less</span>
+      <div class="flex items-center gap-2 mt-5 ml-8">
+        <span class="text-[12px] text-slate-500">Less</span>
         <% [nil, 60, 240, 420, 481].each do |mins| %>
-          <div class="w-[13px] h-[13px] rounded-[3px]"
+          <div class="w-[14px] h-[14px] rounded-[3px]"
                style="background-color: <%= heatmap_color(mins) %>;"></div>
         <% end %>
-        <span class="text-[10px] text-slate-400">More</span>
+        <span class="text-[12px] text-slate-500">More</span>
       </div>
 
     </div><%# /inline-block %>

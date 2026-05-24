@@ -11,7 +11,7 @@
 </style>
 <% end %>
 
-<div class="max-w-5xl mx-auto py-10 px-4">
+<div class="max-w-5xl mx-auto py-10 px-4" data-controller="modal">
 
   <%# Greeting %>
   <div class="mb-7">
@@ -39,12 +39,12 @@
                         justify-center select-none
                         <%= @active_log ? 'bg-[#4a9e72] text-white orb-pulsing' : 'bg-[#d1cdc6] text-slate-500' %>">
               <% if @active_log %>
-                <span class="text-[11px] font-medium opacity-75 tracking-wider mb-0.5">勤務中</span>
+                <span class="text-[11px] font-medium opacity-75 tracking-wider mb-0.5"><%= t('dashboard.orb_working') %></span>
                 <span class="text-[17px] font-bold leading-tight">
                   <%= l(@active_log.clocked_in_at, format: :clock) %>
                 </span>
               <% else %>
-                <span class="text-[11px] font-medium tracking-wider mb-0.5">未出勤</span>
+                <span class="text-[11px] font-medium tracking-wider mb-0.5"><%= t('dashboard.orb_idle') %></span>
                 <span class="text-[17px] font-bold leading-tight">
                   <%= Time.current.strftime("%I:%M %p") %>
                 </span>
@@ -56,94 +56,33 @@
           <div class="flex-1 min-w-0">
 
             <% if @active_log %>
-              <p class="text-[#4a9e72] font-semibold text-[15px]">Currently working</p>
+              <p class="text-[#4a9e72] font-semibold text-[15px]"><%= t('dashboard.currently_working') %></p>
               <p class="text-slate-500 text-sm mt-1">
-                Since <%= l(@active_log.clocked_in_at, format: :clock) %>
+                <%= t('dashboard.since', time: l(@active_log.clocked_in_at, format: :clock)) %>
               </p>
               <%
                 elapsed  = ((Time.current - @active_log.clocked_in_at) / 60).to_i
                 e_h = elapsed / 60; e_m = elapsed % 60
               %>
-              <p class="text-slate-400 text-xs mt-0.5"><%= e_h %>h <%= e_m %>m elapsed</p>
+              <p class="text-slate-400 text-xs mt-0.5"><%= t('dashboard.elapsed', h: e_h, m: e_m) %></p>
 
-              <%# Clock-out: direct button + optional memo via <details> %>
+              <%# Clock-out: modal trigger %>
               <div class="mt-4">
-                <%= form_with url: clock_out_path, method: :post,
-                    id: "clock-out-form", class: "space-y-0" do |f| %>
-
-                  <%# Hidden memo field – populated from the textarea below %>
-                  <%= f.hidden_field :memo, id: "memo-hidden",
-                      value: @active_log.memo %>
-
-                  <%# Primary quick clock-out button %>
-                  <%= f.submit "退勤する / Clock Out",
-                      id: "clock-out-submit",
-                      class: "cursor-pointer bg-[#c0392b] hover:bg-[#a93226]
-                              text-white text-sm font-semibold
-                              px-5 py-2 rounded-lg transition-colors shadow-sm" %>
-
-                  <%# Optional memo expansion %>
-                  <details class="mt-3 group" id="memo-details">
-                    <summary class="list-none text-xs text-slate-400 hover:text-slate-600
-                                    cursor-pointer select-none inline-flex items-center gap-1">
-                      <svg class="w-3 h-3 transition-transform group-open:rotate-90"
-                           viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/>
-                      </svg>
-                      Add a note
-                    </summary>
-                    <div class="mt-2">
-                      <textarea id="memo-textarea" rows="2" maxlength="140"
-                        placeholder="<%= t('dashboard.memo_placeholder') %>"
-                        class="w-full rounded-xl border border-slate-200
-                               px-3 py-2 text-sm bg-white
-                               focus:outline-none focus:ring-2 focus:ring-[#4a9e72]/40
-                               resize-none"
-                        oninput="document.getElementById('memo-hidden').value = this.value"
-                      ><%= @active_log.memo %></textarea>
-                    </div>
-                  </details>
-
-                <% end %>
+                <button type="button" data-action="click->modal#open"
+                    class="cursor-pointer bg-[#c0392b] hover:bg-[#a93226] text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors shadow-sm">
+                  <%= t("dashboard.clock_out_button") %>
+                </button>
               </div>
 
             <% else %>
-              <p class="text-slate-700 font-semibold text-[15px]">Not clocked in</p>
-              <p class="text-slate-400 text-sm mt-1">Ready to start your shift?</p>
+              <p class="text-slate-700 font-semibold text-[15px]"><%= t('dashboard.not_clocked_in') %></p>
+              <p class="text-slate-400 text-sm mt-1"><%= t('dashboard.ready_to_start') %></p>
 
               <div class="mt-4">
-                <%= form_with url: clock_in_path, method: :post,
-                    id: "clock-in-form", class: "space-y-0" do |f| %>
-
-                  <%= f.hidden_field :memo, id: "clock-in-memo-hidden" %>
-
-                  <%= f.submit t("dashboard.clock_in_button"),
-                      class: "cursor-pointer bg-[#4a9e72] hover:bg-[#3d8a61]
-                              text-white text-sm font-semibold
-                              px-5 py-2 rounded-lg transition-colors shadow-sm" %>
-
-                  <details class="mt-3 group">
-                    <summary class="list-none text-xs text-slate-400 hover:text-slate-600
-                                    cursor-pointer select-none inline-flex items-center gap-1">
-                      <svg class="w-3 h-3 transition-transform group-open:rotate-90"
-                           viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/>
-                      </svg>
-                      Add a note
-                    </summary>
-                    <div class="mt-2">
-                      <textarea rows="2" maxlength="140"
-                        placeholder="<%= t('dashboard.memo_placeholder') %>"
-                        class="w-full rounded-xl border border-slate-200
-                               px-3 py-2 text-sm bg-white
-                               focus:outline-none focus:ring-2 focus:ring-[#4a9e72]/40
-                               resize-none"
-                        oninput="document.getElementById('clock-in-memo-hidden').value = this.value"
-                      ></textarea>
-                    </div>
-                  </details>
-
-                <% end %>
+                <button type="button" data-action="click->modal#open"
+                    class="cursor-pointer bg-[#4a9e72] hover:bg-[#3d8a61] text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors shadow-sm">
+                  <%= t("dashboard.clock_in_button") %>
+                </button>
               </div>
             <% end %>
 
@@ -162,7 +101,7 @@
     </div><%# /LEFT %>
 
     <%# ═══ RIGHT COLUMN ═══ %>
-    <div class="w-full lg:w-[272px] flex-shrink-0 space-y-3">
+    <div class="w-full lg:w-[320px] flex-shrink-0 space-y-4">
 
       <%# Zangyo alert – level 2 %>
       <% if @zangyo_level == 2 %>
@@ -170,43 +109,43 @@
       <% end %>
 
       <%# 2 × 2 stat grid %>
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid grid-cols-2 gap-4">
 
-        <div class="bg-white/80 border border-[#e5ddd0] rounded-xl p-4 shadow-sm">
-          <p class="text-[11px] text-slate-500 mb-2 font-medium">Days Worked</p>
-          <p class="text-[28px] font-bold text-slate-900 leading-none">
+        <div class="bg-white/80 border border-[#e5ddd0] rounded-xl p-5 shadow-sm">
+          <p class="text-[12px] text-slate-500 mb-2 font-medium"><%= t('summary.days_worked') %></p>
+          <p class="text-[32px] font-bold text-slate-900 leading-none">
             <%= @weekly_summary[:days_worked] %>
           </p>
-          <p class="text-[11px] text-slate-400 mt-1">This week</p>
+          <p class="text-[12px] text-slate-400 mt-1.5"><%= t('summary.this_week') %></p>
         </div>
 
-        <div class="bg-white/80 border border-[#e5ddd0] rounded-xl p-4 shadow-sm">
-          <p class="text-[11px] text-slate-500 mb-2 font-medium">Total Hours</p>
-          <p class="text-[28px] font-bold text-slate-900 leading-none">
+        <div class="bg-white/80 border border-[#e5ddd0] rounded-xl p-5 shadow-sm">
+          <p class="text-[12px] text-slate-500 mb-2 font-medium"><%= t('summary.total_hours') %></p>
+          <p class="text-[32px] font-bold text-slate-900 leading-none">
             <%= @weekly_summary[:total_minutes] / 60 %>h
           </p>
-          <p class="text-[11px] text-slate-400 mt-1">Mon – today</p>
+          <p class="text-[12px] text-slate-400 mt-1.5"><%= t('summary.mon_today') %></p>
         </div>
 
-        <div class="bg-white/80 border border-[#e5ddd0] rounded-xl p-4 shadow-sm">
-          <p class="text-[11px] text-slate-500 mb-2 font-medium">Daily Average</p>
+        <div class="bg-white/80 border border-[#e5ddd0] rounded-xl p-5 shadow-sm">
+          <p class="text-[12px] text-slate-500 mb-2 font-medium"><%= t('summary.avg_hours') %></p>
           <%
             avg_h = @weekly_summary[:avg_minutes] / 60
             avg_m = @weekly_summary[:avg_minutes] % 60
           %>
-          <p class="text-[22px] font-bold text-slate-900 leading-none">
+          <p class="text-[24px] font-bold text-slate-900 leading-none">
             <%= avg_h %>h <%= avg_m.to_s.rjust(2,"0") %>m
           </p>
-          <p class="text-[11px] text-slate-400 mt-1">Worked days only</p>
+          <p class="text-[12px] text-slate-400 mt-1.5"><%= t('summary.worked_days_only') %></p>
         </div>
 
-        <div class="bg-white/80 border border-[#e5ddd0] rounded-xl p-4 shadow-sm">
-          <p class="text-[11px] text-slate-500 mb-2 font-medium">Overtime Days</p>
-          <p class="text-[28px] font-bold leading-none
+        <div class="bg-white/80 border border-[#e5ddd0] rounded-xl p-5 shadow-sm">
+          <p class="text-[12px] text-slate-500 mb-2 font-medium"><%= t('summary.overtime_days') %></p>
+          <p class="text-[32px] font-bold leading-none
                     <%= @weekly_summary[:overtime_days] > 0 ? 'text-amber-500' : 'text-slate-900' %>">
             <%= @weekly_summary[:overtime_days] %>
           </p>
-          <p class="text-[11px] text-slate-400 mt-1">This week</p>
+          <p class="text-[12px] text-slate-400 mt-1.5"><%= t('summary.this_week') %></p>
         </div>
 
       </div><%# /grid %>
@@ -214,4 +153,39 @@
     </div><%# /RIGHT %>
 
   </div><%# /two-col %>
+
+  <%# Modal for Clock In/Out %>
+  <div data-modal-target="dialog" class="hidden relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-slate-900/10 backdrop-blur-sm transition-opacity" data-action="click->modal#closeBackground"></div>
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0" data-action="click->modal#closeBackground">
+        <div class="relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-md">
+          <div class="bg-white px-6 pb-6 pt-6">
+            <h3 class="text-lg font-semibold leading-6 text-slate-900 mb-4 font-serif">
+              <%= @active_log ? t('dashboard.clock_out_button') : t('dashboard.clock_in_button') %>
+            </h3>
+            
+            <%= form_with url: @active_log ? clock_out_path : clock_in_path, method: :post, id: "clock-form", class: "space-y-4" do |f| %>
+              <div>
+                <label for="memo" class="block text-sm font-medium leading-6 text-slate-700"><%= t('dashboard.memo_label') %></label>
+                <div class="mt-2">
+                  <%= f.text_area :memo, id: "memo", rows: 3, 
+                      value: @active_log&.memo,
+                      placeholder: t('dashboard.memo_placeholder'),
+                      class: "block w-full rounded-md border-0 py-1.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#4a9e72] sm:text-sm sm:leading-6 resize-none" %>
+                </div>
+              </div>
+              
+              <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                <%= f.submit @active_log ? t('dashboard.clock_out_button') : t('dashboard.clock_in_button'), 
+                    class: "cursor-pointer inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm sm:col-start-2 #{ @active_log ? 'bg-[#c0392b] hover:bg-[#a93226]' : 'bg-[#4a9e72] hover:bg-[#3d8a61]' }" %>
+                <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:col-start-1 sm:mt-0" data-action="click->modal#close"><%= t('dashboard.cancel') %></button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

@@ -25,33 +25,7 @@
     </div>
 
     <div class="flex items-center gap-3">
-      <% if user_signed_in? %>
-        <div class="relative group cursor-pointer flex items-center gap-3 py-2">
-          <%= avatar_for(
-            current_user,
-            size: 32,
-            class_name: "ring-1 ring-[#e2d9cb]"
-          ) %>
 
-          <div class="hidden sm:flex flex-col">
-            <span class="text-sm text-slate-600 leading-tight">
-              <%= current_user.name %>
-            </span>
-            <span class="text-[10px] text-slate-400 uppercase tracking-wider mt-0.5">
-              <%= current_user.role %>
-            </span>
-          </div>
-
-          <%# Dropdown Menu %>
-          <div class="absolute right-0 top-full mt-1 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
-            <div class="py-2">
-              <%= link_to t("nav.profile"), edit_profile_path, class: "block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors" %>
-              <div class="border-t border-slate-100 my-1"></div>
-              <%= button_to t("nav.sign_out"), destroy_user_session_path, method: :delete, class: "block w-full text-left px-4 py-2 text-sm text-rose-600 hover:bg-slate-50 transition-colors" %>
-            </div>
-          </div>
-        </div>
-      <% end %>
 
         <%# Language Dropdown %>
         <div class="relative group cursor-pointer flex items-center py-2 ml-2">
@@ -118,6 +92,35 @@
             <path d="M9 17a3 3 0 0 0 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         <% end %>
+
+        <div class="relative group cursor-pointer flex items-center gap-3 py-2 ml-1">
+          <%= avatar_for(
+            current_user,
+            size: 32,
+            class_name: "ring-1 ring-[#e2d9cb]"
+          ) %>
+
+          <div class="hidden sm:flex items-center gap-1.5">
+            <div class="flex flex-col">
+              <span class="text-sm text-slate-600 leading-tight">
+                <%= current_user.name %>
+              </span>
+              <span class="text-[10px] text-slate-400 uppercase tracking-wider mt-0.5">
+                <%= current_user.role %>
+              </span>
+            </div>
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+
+          <%# Dropdown Menu %>
+          <div class="absolute right-0 top-full mt-1 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+            <div class="py-2">
+              <%= link_to t("nav.profile"), edit_profile_path, class: "block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors" %>
+              <div class="border-t border-slate-100 my-1"></div>
+              <%= button_to t("nav.sign_out"), destroy_user_session_path, method: :delete, class: "block w-full text-left px-4 py-2 text-sm text-rose-600 hover:bg-slate-50 transition-colors" %>
+            </div>
+          </div>
+        </div>
       <% end %>
     </div>
 

@@ -13,6 +13,21 @@ en:
   auth:
     sign_up: "Sign Up"
     log_in: "Log In"
+    welcome_back: "Welcome back"
+    sign_in_desc: "Sign in to your account"
+    forgot_password: "Forgot password?"
+    or: "or"
+    create_account: "Create an account"
+    create_account_title: "Create an account"
+    join_team: "Join your team and start tracking"
+    characters_minimum: "characters minimum"
+    responsibility_text: "By signing up, you agree to track your attendance responsibly."
+    already_have_account: "Already have an account? Sign In"
+    email: "Email"
+    password: "Password"
+    remember_me: "Remember me"
+    password_confirmation: "Password confirmation"
+    name: "Name"
 
   dashboard:
     greeting_morning: "Good morning"
@@ -29,15 +44,27 @@ en:
     week_hours: "This Week"
     already_clocked_in: "Already clocked in at %{time}"
     target_hours: "%{hours}h target"
+    currently_working: "Currently working"
+    since: "Since %{time}"
+    elapsed: "%{h}h %{m}m elapsed"
+    not_clocked_in: "Not clocked in"
+    ready_to_start: "Ready to start your shift?"
+    memo_label: "Memo (Optional)"
+    cancel: "Cancel"
+    orb_working: "Working"
+    orb_idle: "Idle"
 
   summary:
     days_worked: "Days Worked"
     total_hours: "Total Hours"
     avg_hours: "Avg. Per Day"
     overtime_days: "Overtime Days"
+    this_week: "This week"
+    mon_today: "Mon – today"
+    worked_days_only: "Worked days only"
 
   heatmap:
-    title: "Work Rhythm — Last 12 Weeks"
+    title: "Work Rhythm"
     no_log: "No log"
     tooltip: "%{date}: %{hours}h %{minutes}m worked"
 
@@ -48,14 +75,18 @@ en:
 
   work_logs:
     title: "Work Log History"
+    export_csv: "Export CSV"
     date: "Date"
-    clock_in: "Clock In"
-    clock_out: "Clock Out"
-    duration: "Duration"
+    clock_in: "In"
+    clock_out: "Out"
+    duration: "Time"
     memo: "Memo"
     overtime: "OT"
-    export_csv: "Download CSV"
-    no_logs: "No logs found for this period."
+    no_logs: "No logs found for this month."
+    records: "%{count} records"
+    overtime_count: "overtime"
+    total_time: "total"
+    overtime_badge: "OT"
     active_log: "Active"
 
   punches:
@@ -116,12 +147,55 @@ en:
     work_mode: "Work Mode"
     total_logs_label: "Total Logs"
     action: "Action"
+    click_insights: "Click for insights"
+    previous: "← Previous"
+    page_x_of_y: "Page %{current} of %{total}"
+    next: "Next →"
+    overtime_modal_title: "Overtime Entries This Week"
+    overtime_modal_empty: "No overtime entries this week."
+    overtime_label: "Overtime"
+    close: "Close"
 
   date:
     formats:
       table: "%Y-%m-%d"
       month_year: "%B %Y"
+      long: "%B %d, %Y"
 
   time:
     formats:
       clock: "%I:%M %p"
+
+  landing:
+    hero:
+      badge: "勤怠管理"
+      title: "Attendance,<br>the Japanese way."
+      subtitle: "A structured, serene approach to time tracking. Minimize friction, embrace clarity, and maintain a quiet, organized digital environment for your team."
+      get_started: "Get Started"
+      guide: "Guide"
+    mockup:
+      greeting: "Good Morning"
+      name: "Kenji Sato"
+      status: "Clocked In"
+      today_hours: "Today's Hours"
+      overtime: "Overtime"
+    features:
+      punch:
+        title: "打刻 / Punch"
+        desc: "Effortless, single-tap clock-in designed to eliminate morning friction. Clean and immediate feedback."
+      zangyo:
+        title: "残業アラート / Overtime Alert"
+        desc: "Gentle, proactive notifications before crossing thresholds. Promotes a healthy work-life balance."
+      heatmap:
+        title: "勤怠ヒートマップ / Rhythm Heatmap"
+        desc: "Visualize attendance patterns instantly. Identify burnout risks and optimize team scheduling visually."
+    modal:
+      title: "Welcome to Kintai-Kun"
+      subtitle: "Here's a quick tour of our core features designed to make your attendance tracking serene and effortless."
+      punch_title: "Effortless Punch In/Out"
+      punch_desc: "A clean, single-tap clock-in designed to eliminate morning friction. Add an optional memo to easily remember your daily tasks."
+      zangyo_title: "Zangyo (Overtime) Alert"
+      zangyo_desc: "Gentle, proactive notifications before you cross healthy overtime thresholds. Because your well-being comes first."
+      heatmap_title: "Rhythm Heatmap"
+      heatmap_desc: "A GitHub-style visual graph of your attendance patterns. Spot trends, identify burnout risks, and view detailed daily hours instantly."
+      got_it: "Got it"

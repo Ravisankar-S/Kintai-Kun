@@ -13,6 +13,21 @@ ja:
   auth:
     sign_up: "新規登録"
     log_in: "ログイン"
+    welcome_back: "お帰りなさい"
+    sign_in_desc: "アカウントにログイン"
+    forgot_password: "パスワードをお忘れですか？"
+    or: "または"
+    create_account: "アカウントを作成"
+    create_account_title: "アカウントを作成"
+    join_team: "チームに参加して勤怠管理を始めましょう"
+    characters_minimum: "文字以上"
+    responsibility_text: "登録することで、責任を持って勤怠を記録することに同意したことになります。"
+    already_have_account: "すでにアカウントをお持ちですか？ ログイン"
+    email: "メールアドレス"
+    password: "パスワード"
+    remember_me: "ログイン状態を保持する"
+    password_confirmation: "パスワード（確認用）"
+    name: "氏名"
 
   dashboard:
     greeting_morning: "おはようございます"
@@ -29,15 +44,27 @@ ja:
     week_hours: "今週"
     already_clocked_in: "%{time}に打刻済みです"
     target_hours: "%{hours}時間の目標"
+    currently_working: "勤務中"
+    since: "%{time} から"
+    elapsed: "経過時間: %{h}時間 %{m}分"
+    not_clocked_in: "未出勤"
+    ready_to_start: "出勤準備はできましたか？"
+    memo_label: "メモ（任意）"
+    cancel: "キャンセル"
+    orb_working: "勤務中"
+    orb_idle: "未出勤"
 
   summary:
     days_worked: "出勤日数"
     total_hours: "合計時間"
     avg_hours: "1日平均"
     overtime_days: "残業日数"
+    this_week: "今週"
+    mon_today: "月曜〜今日"
+    worked_days_only: "勤務日のみ"
 
   heatmap:
-    title: "勤務リズム — 直近12週"
+    title: "勤務リズム"
     no_log: "記録なし"
     tooltip: "%{date}：%{hours}時間%{minutes}分勤務"
 
@@ -47,14 +74,18 @@ ja:
     tooltip: "働き方改革関連法（2019年）により、残業は月45時間以内に制限されています。過労死は日本の深刻な社会問題です。"
 
   work_logs:
-    title: "勤怠履歴"
+    title: "打刻履歴"
+    export_csv: "CSV出力"
     date: "日付"
-    clock_in: "出勤時刻"
-    clock_out: "退勤時刻"
-    duration: "勤務時間"
+    clock_in: "出勤"
+    clock_out: "退勤"
+    duration: "時間"
     memo: "メモ"
     overtime: "残業"
-    export_csv: "CSVダウンロード"
+    records: "%{count}件の記録"
+    overtime_count: "件の残業"
+    total_time: "合計"
+    overtime_badge: "残業"
     no_logs: "この期間の記録はありません。"
     active_log: "勤務中"
 
@@ -116,12 +147,55 @@ ja:
     work_mode: "勤務形態"
     total_logs_label: "合計打刻"
     action: "操作"
+    click_insights: "クリックして詳細を表示"
+    previous: "← 前へ"
+    page_x_of_y: "ページ %{current} / %{total}"
+    next: "次へ →"
+    overtime_modal_title: "今週の残業エントリ"
+    overtime_modal_empty: "今週の残業はありません。"
+    overtime_label: "残業"
+    close: "閉じる"
 
   date:
     formats:
       table: "%Y/%m/%d"
       month_year: "%Y年%-m月"
+      long: "%Y年%m月%d日"
 
   time:
     formats:
       clock: "%H:%M"
+
+  landing:
+    hero:
+      badge: "勤怠管理"
+      title: "日本式の<br>勤怠管理。"
+      subtitle: "静かで整然とした、新しい勤怠管理のアプローチ。朝の摩擦を減らし、チームのための組織的でクリアなデジタル環境を維持します。"
+      get_started: "はじめる"
+      guide: "ガイド"
+    mockup:
+      greeting: "おはようございます"
+      name: "佐藤 健次"
+      status: "勤務中"
+      today_hours: "本日の勤務"
+      overtime: "残業時間"
+    features:
+      punch:
+        title: "打刻 / Punch"
+        desc: "ワンタップで簡単打刻。朝の摩擦をなくし、クリーンで即座なフィードバックを提供します。"
+      zangyo:
+        title: "残業アラート / Overtime Alert"
+        desc: "基準を超える前に優しく通知。健康的なワークライフバランスを促進します。"
+      heatmap:
+        title: "勤怠ヒートマップ / Rhythm Heatmap"
+        desc: "勤怠パターンを瞬時に視覚化。燃え尽き症候群のリスクを早期に発見します。"
+    modal:
+      title: "勤怠くんへようこそ"
+      subtitle: "勤怠管理をより簡単で快適にする、主要機能の簡単なツアーです。"
+      punch_title: "簡単・ワンタップ打刻"
+      punch_desc: "朝の摩擦をなくす、クリーンなワンタップ打刻。オプションのメモを追加して、その日のタスクを簡単に記録できます。"
+      zangyo_title: "残業アラート機能"
+      zangyo_desc: "健康的な残業時間の基準を超える前に、優しく事前通知。あなたの健康が第一です。"
+      heatmap_title: "勤務リズムヒートマップ"
+      heatmap_desc: "GitHubスタイルの視覚的な出勤グラフ。トレンドを把握し、毎日の詳細な勤務時間を瞬時に確認できます。"
+      got_it: "閉じる"

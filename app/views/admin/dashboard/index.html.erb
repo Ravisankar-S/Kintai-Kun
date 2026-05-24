@@ -47,7 +47,7 @@
          data-action="click->modal#open">
       <p class="text-[12px] font-medium text-red-500"
          style="font-family: 'Geist', 'Inter', sans-serif;">
-        <%= t('admin.overtime_users') %> <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full ml-1">Click for insights</span>
+        <%= t('admin.overtime_users') %> <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full ml-1"><%= t('admin.click_insights') %></span>
       </p>
       <p class="text-[40px] mt-3 leading-none <%= @overtime_users > 0 ? 'text-red-600' : 'text-[#1A1A18]' %>"
          style="font-family: 'DM Serif Display', serif;">
@@ -133,25 +133,23 @@
           
           <%# ← Previous %>
           <% if @users.first_page? %>
-            <span class="text-[#C8C5BE] pointer-events-none select-none">← Previous</span>
+            <span class="text-[#C8C5BE] pointer-events-none select-none"><%= t('admin.previous') %></span>
           <% else %>
-            <%= link_to "← Previous",
+            <%= link_to t('admin.previous'),
                 admin_dashboard_path(page: @users.current_page - 1, query: params[:query]),
                 class: "text-[#6B6860] hover:text-[#2D6A4F] transition-colors duration-100" %>
           <% end %>
 
           <%# Page X of Y %>
           <span class="text-[#6B6860]">
-            Page
-            <span class="font-semibold text-[#1A1A18]"><%= @users.current_page %></span>
-            of <%= @users.total_pages %>
+            <%= t('admin.page_x_of_y', current: content_tag(:span, @users.current_page, class: "font-semibold text-[#1A1A18]"), total: @users.total_pages).html_safe %>
           </span>
 
           <%# Next → %>
           <% if @users.last_page? %>
-            <span class="text-[#C8C5BE] pointer-events-none select-none">Next →</span>
+            <span class="text-[#C8C5BE] pointer-events-none select-none"><%= t('admin.next') %></span>
           <% else %>
-            <%= link_to "Next →",
+            <%= link_to t('admin.next'),
                 admin_dashboard_path(page: @users.current_page + 1, query: params[:query]),
                 class: "text-[#6B6860] hover:text-[#2D6A4F] transition-colors duration-100" %>
           <% end %>
@@ -164,17 +162,17 @@
 
   <%# Modal for Overtime Details %>
   <div data-modal-target="dialog" class="hidden relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" data-action="click->modal#closeBackground"></div>
+    <div class="fixed inset-0 bg-slate-900/10 backdrop-blur-sm transition-opacity" data-action="click->modal#closeBackground"></div>
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
       <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0" data-action="click->modal#closeBackground">
         <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
           <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
             <div class="sm:flex sm:items-start">
               <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
-                <h3 class="text-xl font-semibold leading-6 text-gray-900 mb-4" id="modal-title" style="font-family: 'DM Serif Display', serif;">Overtime Entries This Week</h3>
+                <h3 class="text-xl font-semibold leading-6 text-gray-900 mb-4" id="modal-title" style="font-family: 'DM Serif Display', serif;"><%= t('admin.overtime_modal_title') %></h3>
                 <div class="mt-2 max-h-[60vh] overflow-y-auto">
                   <% if @overtime_logs_this_week.empty? %>
-                    <p class="text-sm text-gray-500" style="font-family: 'Geist', sans-serif;">No overtime entries this week.</p>
+                    <p class="text-sm text-gray-500" style="font-family: 'Geist', sans-serif;"><%= t('admin.overtime_modal_empty') %></p>
                   <% else %>
                     <ul role="list" class="divide-y divide-gray-100">
                       <% @overtime_logs_this_week.each do |log| %>
@@ -188,7 +186,7 @@
                           </div>
                           <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                             <p class="text-sm leading-6 text-red-600 font-semibold"><%= log.duration_minutes / 60 %>h <%= log.duration_minutes % 60 %>m</p>
-                            <p class="mt-1 text-xs leading-5 text-gray-500">Overtime</p>
+                            <p class="mt-1 text-xs leading-5 text-gray-500"><%= t('admin.overtime_label') %></p>
                           </div>
                         </li>
                       <% end %>
@@ -199,7 +197,7 @@
             </div>
           </div>
           <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto transition-colors" data-action="click->modal#close">Close</button>
+            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto transition-colors" data-action="click->modal#close"><%= t('admin.close') %></button>
           </div>
         </div>
       </div>

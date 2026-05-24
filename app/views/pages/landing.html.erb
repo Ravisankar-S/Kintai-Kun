@@ -1,4 +1,4 @@
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-28">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-28" data-controller="modal">
 
   <%# ── Hero Section ── %>
   <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24 mb-32">
@@ -6,25 +6,26 @@
     <%# Left Column: Copy %>
     <div class="flex-1 max-w-xl">
       <p class="text-[#2D6A4F] text-[13px] font-medium tracking-[0.2em] uppercase mb-6" style="font-family: 'Geist', 'Inter', sans-serif;">
-        勤怠管理
+        <%= t('landing.hero.badge') %>
       </p>
       
       <h1 class="text-[52px] md:text-[64px] leading-[1.1] text-[#1A1A18] mb-6" style="font-family: 'DM Serif Display', serif;">
-        Attendance,<br>
-        the Japanese way.
+        <%= raw t('landing.hero.title') %>
       </h1>
       
       <p class="text-[16px] md:text-[18px] text-[#6B6860] leading-relaxed mb-10" style="font-family: 'Geist', 'Inter', sans-serif;">
-        A structured, serene approach to time tracking. Minimize friction, embrace clarity, and maintain a quiet, organized digital environment for your team.
+        <%= t('landing.hero.subtitle') %>
       </p>
       
       <div class="flex items-center gap-4">
         <%= link_to auth_path, class: "inline-flex items-center justify-center h-12 px-6 bg-[#2D6A4F] text-white rounded-lg text-[15px] font-semibold transition-all duration-200 hover:bg-[#38855F] hover:-translate-y-[1px]", style: "font-family: 'Geist', 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(45,106,79,0.25);" do %>
-          Get Started
+          <%= t('landing.hero.get_started') %>
           <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
         <% end %>
         
-        <%= link_to "Sign In", auth_path, class: "inline-flex items-center justify-center h-12 px-6 bg-white border border-[#E8E6E1] text-[#1A1A18] rounded-lg text-[15px] font-medium transition-all duration-200 hover:bg-[#FAFAF8] hover:-translate-y-[1px]", style: "font-family: 'Geist', 'Inter', sans-serif; box-shadow: 0 2px 4px rgba(0,0,0,0.02);" %>
+        <button type="button" data-action="click->modal#open" class="inline-flex items-center justify-center h-12 px-6 bg-white border border-[#E8E6E1] text-[#1A1A18] rounded-lg text-[15px] font-medium transition-all duration-200 hover:bg-[#FAFAF8] hover:-translate-y-[1px] cursor-pointer" style="font-family: 'Geist', 'Inter', sans-serif; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+          <%= t('landing.hero.guide') %>
+        </button>
       </div>
     </div>
 
@@ -43,8 +44,8 @@
               <img src="https://ui-avatars.com/api/?name=Kenji+Sato&background=random" alt="Avatar" class="w-full h-full object-cover">
             </div>
             <div>
-              <p class="text-[12px] text-[#A8A49E] leading-tight" style="font-family: 'Geist', 'Inter', sans-serif;">Good Morning</p>
-              <p class="text-[14px] font-semibold text-[#1A1A18] leading-tight" style="font-family: 'Geist', 'Inter', sans-serif;">Kenji Sato</p>
+              <p class="text-[12px] text-[#A8A49E] leading-tight" style="font-family: 'Geist', 'Inter', sans-serif;"><%= t('landing.mockup.greeting') %></p>
+              <p class="text-[14px] font-semibold text-[#1A1A18] leading-tight" style="font-family: 'Geist', 'Inter', sans-serif;"><%= t('landing.mockup.name') %></p>
             </div>
           </div>
           <svg class="w-5 h-5 text-[#A8A49E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
@@ -59,7 +60,7 @@
           
           <div class="text-center">
             <p class="text-[32px] text-[#1A1A18] leading-none mb-3" style="font-family: 'JetBrains Mono', 'Fira Code', monospace;">08:45:12</p>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-medium bg-[#F0FAF4] text-[#2D6A4F]" style="font-family: 'Geist', 'Inter', sans-serif;">Clocked In</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-medium bg-[#F0FAF4] text-[#2D6A4F]" style="font-family: 'Geist', 'Inter', sans-serif;"><%= t('landing.mockup.status') %></span>
           </div>
         </div>
 
@@ -69,11 +70,11 @@
         <%# Bottom: Metrics %>
         <div class="flex items-center gap-4">
           <div class="flex-1 bg-white border border-[#E8E6E1] rounded-xl p-4 shadow-sm">
-            <p class="text-[11px] text-[#A8A49E] mb-1" style="font-family: 'Geist', 'Inter', sans-serif;">Today's Hours</p>
+            <p class="text-[11px] text-[#A8A49E] mb-1" style="font-family: 'Geist', 'Inter', sans-serif;"><%= t('landing.mockup.today_hours') %></p>
             <p class="text-[20px] text-[#1A1A18]" style="font-family: 'DM Serif Display', serif;">4h 30m</p>
           </div>
           <div class="flex-1 bg-white border border-[#E8E6E1] rounded-xl p-4 shadow-sm">
-            <p class="text-[11px] text-[#A8A49E] mb-1" style="font-family: 'Geist', 'Inter', sans-serif;">Overtime</p>
+            <p class="text-[11px] text-[#A8A49E] mb-1" style="font-family: 'Geist', 'Inter', sans-serif;"><%= t('landing.mockup.overtime') %></p>
             <p class="text-[20px] text-[#D4830A]" style="font-family: 'DM Serif Display', serif;">0h 00m</p>
           </div>
         </div>
@@ -92,10 +93,10 @@
           <svg class="w-6 h-6 text-[#2D6A4F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
         </div>
         <h3 class="text-[20px] text-[#1A1A18] mb-3" style="font-family: 'DM Serif Display', serif;">
-          打刻 / Punch
+          <%= t('landing.features.punch.title') %>
         </h3>
         <p class="text-[14px] text-[#6B6860] leading-relaxed" style="font-family: 'Geist', 'Inter', sans-serif;">
-          Effortless, single-tap clock-in designed to eliminate morning friction. Clean and immediate feedback.
+          <%= t('landing.features.punch.desc') %>
         </p>
       </div>
 
@@ -105,10 +106,10 @@
           <svg class="w-6 h-6 text-[#2D6A4F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
         </div>
         <h3 class="text-[20px] text-[#1A1A18] mb-3" style="font-family: 'DM Serif Display', serif;">
-          残業アラート / Overtime Alert
+          <%= t('landing.features.zangyo.title') %>
         </h3>
         <p class="text-[14px] text-[#6B6860] leading-relaxed" style="font-family: 'Geist', 'Inter', sans-serif;">
-          Gentle, proactive notifications before crossing thresholds. Promotes a healthy work-life balance.
+          <%= t('landing.features.zangyo.desc') %>
         </p>
       </div>
 
@@ -118,13 +119,83 @@
           <svg class="w-6 h-6 text-[#2D6A4F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
         </div>
         <h3 class="text-[20px] text-[#1A1A18] mb-3" style="font-family: 'DM Serif Display', serif;">
-          勤怠ヒートマップ / Rhythm Heatmap
+          <%= t('landing.features.heatmap.title') %>
         </h3>
         <p class="text-[14px] text-[#6B6860] leading-relaxed" style="font-family: 'Geist', 'Inter', sans-serif;">
-          Visualize attendance patterns instantly. Identify burnout risks and optimize team scheduling visually.
+          <%= t('landing.features.heatmap.desc') %>
         </p>
       </div>
 
+    </div>
+  </div>
+
+  <%# ── Guide Modal ── %>
+  <div data-modal-target="dialog" class="hidden relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-slate-900/20 backdrop-blur-sm transition-opacity" data-action="click->modal#closeBackground"></div>
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0" data-action="click->modal#closeBackground">
+        
+        <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg border border-[#E8E6E1]">
+          <div class="bg-white px-6 pb-6 pt-8 sm:p-8">
+            <h3 class="text-[28px] font-semibold leading-tight text-[#1A1A18] mb-6 text-center" style="font-family: 'DM Serif Display', serif;">
+              <%= t('landing.modal.title') %>
+            </h3>
+            <p class="text-sm text-[#6B6860] mb-8 text-center" style="font-family: 'Geist', 'Inter', sans-serif;">
+              <%= t('landing.modal.subtitle') %>
+            </p>
+
+            <div class="space-y-6">
+              
+              <%# Guide Item 1 %>
+              <div class="flex gap-4 items-start bg-[#F5FAF7]/50 rounded-xl p-4 border border-[#E8E6E1]/50">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm flex-shrink-0">
+                  <svg class="w-5 h-5 text-[#2D6A4F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                </div>
+                <div>
+                  <h4 class="text-[16px] font-semibold text-[#1A1A18] mb-1" style="font-family: 'DM Serif Display', serif;"><%= t('landing.modal.punch_title') %></h4>
+                  <p class="text-[13px] text-[#6B6860] leading-relaxed" style="font-family: 'Geist', 'Inter', sans-serif;">
+                    <%= t('landing.modal.punch_desc') %>
+                  </p>
+                </div>
+              </div>
+
+              <%# Guide Item 2 %>
+              <div class="flex gap-4 items-start bg-[#FFF9F2]/50 rounded-xl p-4 border border-[#E8E6E1]/50">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm flex-shrink-0">
+                  <svg class="w-5 h-5 text-[#D4830A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+                <div>
+                  <h4 class="text-[16px] font-semibold text-[#1A1A18] mb-1" style="font-family: 'DM Serif Display', serif;"><%= t('landing.modal.zangyo_title') %></h4>
+                  <p class="text-[13px] text-[#6B6860] leading-relaxed" style="font-family: 'Geist', 'Inter', sans-serif;">
+                    <%= t('landing.modal.zangyo_desc') %>
+                  </p>
+                </div>
+              </div>
+
+              <%# Guide Item 3 %>
+              <div class="flex gap-4 items-start bg-[#F4F6F8]/50 rounded-xl p-4 border border-[#E8E6E1]/50">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm flex-shrink-0">
+                  <svg class="w-5 h-5 text-[#334155]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+                <div>
+                  <h4 class="text-[16px] font-semibold text-[#1A1A18] mb-1" style="font-family: 'DM Serif Display', serif;"><%= t('landing.modal.heatmap_title') %></h4>
+                  <p class="text-[13px] text-[#6B6860] leading-relaxed" style="font-family: 'Geist', 'Inter', sans-serif;">
+                    <%= t('landing.modal.heatmap_desc') %>
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="mt-8 flex justify-center">
+              <button type="button" class="w-full sm:w-auto inline-flex justify-center rounded-lg bg-[#2D6A4F] px-8 py-2.5 text-[14px] font-semibold text-white shadow-sm hover:bg-[#38855F] hover:-translate-y-[1px] transition-all" data-action="click->modal#close" style="font-family: 'Geist', 'Inter', sans-serif;">
+                <%= t('landing.modal.got_it') %>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
     </div>
   </div>
 

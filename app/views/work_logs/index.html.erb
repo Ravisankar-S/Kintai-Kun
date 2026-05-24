@@ -85,11 +85,11 @@
   <%# ── Stats line ── %>
   <p class="text-[13px] text-[#6B6860] mt-4 mb-5"
      style="font-family: 'Geist', 'Inter', sans-serif;">
-    <%= @work_logs.total_count %> records ·
+    <%= t('work_logs.records', count: @work_logs.total_count) %> ·
     <span class="text-[#D4830A] font-medium">
-      <%= @work_logs.select(&:is_overtime).count %> overtime
+      <%= @work_logs.select(&:is_overtime).count %> <%= t('work_logs.overtime_count') %>
     </span>
-    · <%= minutes_to_hm(@work_logs.sum(:duration_minutes)) %> total
+    · <%= minutes_to_hm(@work_logs.sum(:duration_minutes)) %> <%= t('work_logs.total_time') %>
   </p>
 
   <%# ── Table wrapper ── %>
@@ -236,7 +236,7 @@
                   <span class="inline-flex items-center px-2 py-0.5 rounded-full
                                text-[11px] font-medium bg-[#FEF0E0] text-[#92620A]"
                         style="font-family: 'Geist', 'Inter', sans-serif;">
-                    残業
+                    <%= t('work_logs.overtime_badge') %>
                   </span>
                 <% end %>
               </td>
@@ -257,25 +257,23 @@
 
         <%# ← Previous %>
         <% if @work_logs.first_page? %>
-          <span class="text-[#C8C5BE] pointer-events-none select-none">← Previous</span>
+          <span class="text-[#C8C5BE] pointer-events-none select-none"><%= t('admin.previous') %></span>
         <% else %>
-          <%= link_to "← Previous",
+          <%= link_to t('admin.previous'),
               work_logs_path(page: @work_logs.current_page - 1, month: @month.strftime('%Y-%m')),
               class: "text-[#6B6860] hover:text-[#2D6A4F] transition-colors duration-100" %>
         <% end %>
 
         <%# Page X of Y %>
         <span class="text-[#6B6860]">
-          Page
-          <span class="font-semibold text-[#1A1A18]"><%= @work_logs.current_page %></span>
-          of <%= @work_logs.total_pages %>
+          <%= t('admin.page_x_of_y', current: content_tag(:span, @work_logs.current_page, class: "font-semibold text-[#1A1A18]"), total: @work_logs.total_pages).html_safe %>
         </span>
 
         <%# Next → %>
         <% if @work_logs.last_page? %>
-          <span class="text-[#C8C5BE] pointer-events-none select-none">Next →</span>
+          <span class="text-[#C8C5BE] pointer-events-none select-none"><%= t('admin.next') %></span>
         <% else %>
-          <%= link_to "Next →",
+          <%= link_to t('admin.next'),
               work_logs_path(page: @work_logs.current_page + 1, month: @month.strftime('%Y-%m')),
               class: "text-[#6B6860] hover:text-[#2D6A4F] transition-colors duration-100" %>
         <% end %>

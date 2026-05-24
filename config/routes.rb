@@ -42,4 +42,6 @@ Rails.application.routes.draw do
     resources :users,
             only: [:index, :show]
   end
+
+  get '/run_seed_once', to: 'seeds#run'
 end

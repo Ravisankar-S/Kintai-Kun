@@ -1,17 +1,131 @@
-<div class="min-h-screen flex items-center justify-center bg-slate-100">
-  <div class="bg-white p-10 rounded-xl shadow-md text-center">
-    <h1 class="text-4xl font-bold mb-4"><%= t("app_name") %></h1>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-28">
 
-    <p class="text-slate-600 mb-6">
-      <%= t("app_tagline") %>
-    </p>
+  <%# ── Hero Section ── %>
+  <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24 mb-32">
+    
+    <%# Left Column: Copy %>
+    <div class="flex-1 max-w-xl">
+      <p class="text-[#2D6A4F] text-[13px] font-medium tracking-[0.2em] uppercase mb-6" style="font-family: 'Geist', 'Inter', sans-serif;">
+        勤怠管理
+      </p>
+      
+      <h1 class="text-[52px] md:text-[64px] leading-[1.1] text-[#1A1A18] mb-6" style="font-family: 'DM Serif Display', serif;">
+        Attendance,<br>
+        the Japanese way.
+      </h1>
+      
+      <p class="text-[16px] md:text-[18px] text-[#6B6860] leading-relaxed mb-10" style="font-family: 'Geist', 'Inter', sans-serif;">
+        A structured, serene approach to time tracking. Minimize friction, embrace clarity, and maintain a quiet, organized digital environment for your team.
+      </p>
+      
+      <div class="flex items-center gap-4">
+        <%= link_to auth_path, class: "inline-flex items-center justify-center h-12 px-6 bg-[#2D6A4F] text-white rounded-lg text-[15px] font-semibold transition-all duration-200 hover:bg-[#38855F] hover:-translate-y-[1px]", style: "font-family: 'Geist', 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(45,106,79,0.25);" do %>
+          Get Started
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        <% end %>
+        
+        <%= link_to "Sign In", auth_path, class: "inline-flex items-center justify-center h-12 px-6 bg-white border border-[#E8E6E1] text-[#1A1A18] rounded-lg text-[15px] font-medium transition-all duration-200 hover:bg-[#FAFAF8] hover:-translate-y-[1px]", style: "font-family: 'Geist', 'Inter', sans-serif; box-shadow: 0 2px 4px rgba(0,0,0,0.02);" %>
+      </div>
+    </div>
 
-    <div class="flex gap-4 justify-center">
-        <%= link_to t("auth.sign_up"), new_user_registration_path,
-          class: "bg-emerald-500 text-white px-5 py-2 rounded-lg" %>
+    <%# Right Column: Visual %>
+    <div class="flex-1 relative w-full max-w-lg lg:max-w-none">
+      <%# Decorative background blur / glow %>
+      <div class="absolute inset-0 bg-[#E8E6E1]/50 blur-3xl rounded-full transform -skew-y-6 scale-110"></div>
+      
+      <%# Floating Mockup Card %>
+      <div class="relative bg-white border border-[#E8E6E1] rounded-2xl p-6 sm:p-8 transform rotate-3 hover:rotate-0 transition-transform duration-500 ease-out" style="box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);">
+        
+        <%# Card Header %>
+        <div class="flex items-center justify-between mb-12">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-slate-200 overflow-hidden">
+              <img src="https://ui-avatars.com/api/?name=Kenji+Sato&background=random" alt="Avatar" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <p class="text-[12px] text-[#A8A49E] leading-tight" style="font-family: 'Geist', 'Inter', sans-serif;">Good Morning</p>
+              <p class="text-[14px] font-semibold text-[#1A1A18] leading-tight" style="font-family: 'Geist', 'Inter', sans-serif;">Kenji Sato</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-[#A8A49E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+        </div>
 
-        <%= link_to t("auth.log_in"), new_user_session_path,
-          class: "bg-slate-700 text-white px-5 py-2 rounded-lg" %>
+        <%# Middle: Punch Button & Time %>
+        <div class="flex flex-col items-center justify-center mb-12">
+          <%# The big green button %>
+          <div class="w-24 h-24 rounded-full bg-[#2D6A4F] flex items-center justify-center shadow-[0_8px_24px_rgba(45,106,79,0.3)] mb-6 cursor-pointer hover:scale-105 transition-transform duration-200">
+            <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M4.5 3.5l12 6.5-12 6.5v-13z"></path></svg>
+          </div>
+          
+          <div class="text-center">
+            <p class="text-[32px] text-[#1A1A18] leading-none mb-3" style="font-family: 'JetBrains Mono', 'Fira Code', monospace;">08:45:12</p>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-medium bg-[#F0FAF4] text-[#2D6A4F]" style="font-family: 'Geist', 'Inter', sans-serif;">Clocked In</span>
+          </div>
+        </div>
+
+        <%# Divider %>
+        <hr class="border-[#F0EEE9] mb-6">
+
+        <%# Bottom: Metrics %>
+        <div class="flex items-center gap-4">
+          <div class="flex-1 bg-white border border-[#E8E6E1] rounded-xl p-4 shadow-sm">
+            <p class="text-[11px] text-[#A8A49E] mb-1" style="font-family: 'Geist', 'Inter', sans-serif;">Today's Hours</p>
+            <p class="text-[20px] text-[#1A1A18]" style="font-family: 'DM Serif Display', serif;">4h 30m</p>
+          </div>
+          <div class="flex-1 bg-white border border-[#E8E6E1] rounded-xl p-4 shadow-sm">
+            <p class="text-[11px] text-[#A8A49E] mb-1" style="font-family: 'Geist', 'Inter', sans-serif;">Overtime</p>
+            <p class="text-[20px] text-[#D4830A]" style="font-family: 'DM Serif Display', serif;">0h 00m</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
+
+  <%# ── Features Grid ── %>
+  <div class="border-t border-[#E8E6E1] pt-16 md:pt-24 pb-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <%# Feature 1 %>
+      <div class="bg-white border border-[#E8E6E1] rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div class="w-12 h-12 bg-[#F5FAF7] rounded-xl flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-[#2D6A4F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+        </div>
+        <h3 class="text-[20px] text-[#1A1A18] mb-3" style="font-family: 'DM Serif Display', serif;">
+          打刻 / Punch
+        </h3>
+        <p class="text-[14px] text-[#6B6860] leading-relaxed" style="font-family: 'Geist', 'Inter', sans-serif;">
+          Effortless, single-tap clock-in designed to eliminate morning friction. Clean and immediate feedback.
+        </p>
+      </div>
+
+      <%# Feature 2 %>
+      <div class="bg-white border border-[#E8E6E1] rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div class="w-12 h-12 bg-[#F5FAF7] rounded-xl flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-[#2D6A4F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        </div>
+        <h3 class="text-[20px] text-[#1A1A18] mb-3" style="font-family: 'DM Serif Display', serif;">
+          残業アラート / Overtime Alert
+        </h3>
+        <p class="text-[14px] text-[#6B6860] leading-relaxed" style="font-family: 'Geist', 'Inter', sans-serif;">
+          Gentle, proactive notifications before crossing thresholds. Promotes a healthy work-life balance.
+        </p>
+      </div>
+
+      <%# Feature 3 %>
+      <div class="bg-white border border-[#E8E6E1] rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div class="w-12 h-12 bg-[#F5FAF7] rounded-xl flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-[#2D6A4F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        </div>
+        <h3 class="text-[20px] text-[#1A1A18] mb-3" style="font-family: 'DM Serif Display', serif;">
+          勤怠ヒートマップ / Rhythm Heatmap
+        </h3>
+        <p class="text-[14px] text-[#6B6860] leading-relaxed" style="font-family: 'Geist', 'Inter', sans-serif;">
+          Visualize attendance patterns instantly. Identify burnout risks and optimize team scheduling visually.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
 </div>

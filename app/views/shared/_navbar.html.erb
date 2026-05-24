@@ -1,8 +1,8 @@
-<nav class="bg-[#f7f2ea]/85 backdrop-blur border-b border-[#e2d9cb]">
+<nav class="relative z-50 bg-[#f7f2ea]/85 backdrop-blur border-b border-[#e2d9cb]">
   <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
     
     <div class="flex items-center gap-8">
-      <%= link_to dashboard_path, class: "font-serif text-2xl text-slate-900 tracking-wide" do %>
+      <%= link_to root_path, class: "font-serif text-2xl text-[#2D6A4F] tracking-wide" do %>
         <%= t("app_name") %>
       <% end %>
 
@@ -24,8 +24,8 @@
       <% end %>
     </div>
 
-    <% if user_signed_in? %>
-      <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3">
+      <% if user_signed_in? %>
         <div class="relative group cursor-pointer flex items-center gap-3 py-2">
           <%= avatar_for(
             current_user,
@@ -51,6 +51,7 @@
             </div>
           </div>
         </div>
+      <% end %>
 
         <%# Language Dropdown %>
         <div class="relative group cursor-pointer flex items-center py-2 ml-2">
@@ -82,6 +83,7 @@
           </div>
         </div>
 
+      <% if user_signed_in? %>
         <%= button_tag type: "button",
             class: "text-slate-600 hover:text-slate-900 border border-[#d8cfc2] rounded-full p-2" do %>
           <span class="sr-only">Notifications</span>
@@ -90,9 +92,8 @@
             <path d="M9 17a3 3 0 0 0 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         <% end %>
-
-      </div>
-    <% end %>
+      <% end %>
+    </div>
 
   </div>
 </nav>

@@ -1,0 +1,26 @@
+<div class="flex items-center justify-center min-h-[calc(100vh-120px)] px-4">
+  <div class="bg-white border border-[#E8E6E1] p-10 rounded-2xl w-full max-w-[400px] text-center"
+       style="box-shadow: 0 4px 24px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);">
+    
+    <h1 class="text-[32px] text-[#1A1A18] mb-2"
+        style="font-family: 'Shippori Mincho', serif; font-weight: 500;">
+      <%= t("app_name") %>
+    </h1>
+
+    <p class="text-[14px] text-[#6B6860] mb-8"
+       style="font-family: 'Geist', 'Inter', sans-serif;">
+      <%= t("app_tagline") %>
+    </p>
+
+    <div class="flex flex-col gap-3">
+      <%= link_to t("auth.sign_up"), new_user_registration_path,
+          class: "w-full flex items-center justify-center h-[48px] bg-[#2D6A4F] text-white rounded-lg text-[14px] font-semibold transition-all duration-200 hover:bg-[#38855F] hover:-translate-y-[1px]",
+          style: "font-family: 'Geist', 'Inter', sans-serif; box-shadow: 0 2px 8px rgba(45,106,79,0.25);" %>
+
+      <%= link_to t("auth.log_in"), new_user_session_path,
+          class: "w-full flex items-center justify-center h-[48px] bg-white border border-[#E8E6E1] text-[#1A1A18] rounded-lg text-[14px] font-medium transition-all duration-200 hover:bg-[#FAFAF8] hover:-translate-y-[1px]",
+          style: "font-family: 'Geist', 'Inter', sans-serif; box-shadow: 0 1px 2px rgba(0,0,0,0.03);" %>
+    </div>
+    
+  </div>
+</div>

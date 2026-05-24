@@ -13,6 +13,39 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500&family=DM+Serif+Display&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+      :root {
+        --accent: #00d4ff;
+        --red: #ff3b3b;
+        --muted: #4a5568;
+        --font-mono: 'JetBrains Mono', monospace;
+      }
+      .made-with {
+        margin-top: 18px;
+        text-align: center;
+        color: var(--muted);
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+      }
+      .made-with .heart {
+        color: var(--red);
+      }
+      .made-with .ravi-link {
+        font-family: 'Pacifico', cursive;
+        font-size: 1rem;
+        color: var(--accent);
+        text-decoration: none;
+        margin-left: 2px;
+        transition: color 0.2s ease, text-shadow 0.2s ease;
+      }
+      .made-with .ravi-link:hover {
+        color: #7de9ff;
+        text-shadow: 0 0 10px rgba(0, 212, 255, 0.45);
+      }
+    </style>
 
     <%= yield :head %>
 
@@ -31,9 +64,7 @@
  <body class="min-h-screen bg-[#f5f0e8] text-slate-800 antialiased"
        style="background-image: radial-gradient(#c9c2b4 0.75px, transparent 0.75px); background-size: 14px 14px;">
 
-  <% if user_signed_in? %>
-    <%= render "shared/navbar" %>
-  <% end %>
+  <%= render "shared/navbar" %>
 
   <%= render "shared/flash" %>
 
@@ -41,8 +72,11 @@
     <%= yield %>
   </main>
 
-  <footer class="text-center text-sm text-slate-500 py-8">
-    勤怠くん © 2025 — Built with 🍵 and Rails
+  <footer class="py-8">
+    <div class="text-center text-sm text-slate-500">
+      勤怠くん © 2025
+    </div>
+    <div class="made-with"> made with <span class="heart">❤</span> by <a class="ravi-link" href="https://www.linkedin.com/in/ravisankar-cs/" target="_blank" rel="noopener noreferrer">Ravi</a> </div>
   </footer>
 
 </body>

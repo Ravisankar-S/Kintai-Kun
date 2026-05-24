@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "dashboard/index"
   get "pages/landing"
   root "pages#landing"
+  get "/auth", to: "pages#auth"
 
   devise_for :users
 

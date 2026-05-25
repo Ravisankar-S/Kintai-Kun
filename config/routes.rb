@@ -42,4 +42,6 @@ Rails.application.routes.draw do
     resources :users,
             only: [:index, :show]
   end
+
+  get '/demo/refresh', to: 'demo#refresh'
 end

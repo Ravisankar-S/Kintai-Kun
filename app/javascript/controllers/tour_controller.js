@@ -63,15 +63,40 @@ export default class extends Controller {
       <h4 class="text-[16px] font-semibold text-slate-900 mb-1" style="font-family: 'DM Serif Display', serif;">Timezone Selector</h4>
       <p class="text-[13px] text-slate-600 mb-4" style="font-family: 'Geist', sans-serif;">Switch between IST (India) and JST (Japan) to view logs in your local time.</p>
       <div class="flex justify-end">
-        <button id="tour-done-btn" class="bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer">Done</button>
+        <button id="tour-next2-btn" class="bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer">Next</button>
       </div>
     `
     document.body.appendChild(this.tooltip)
 
     this.positionTooltip(target)
 
-    document.getElementById("tour-done-btn").addEventListener("click", () => {
+    document.getElementById("tour-next2-btn").addEventListener("click", () => {
       this.unhighlightTarget(target)
+      this.tooltip.remove()
+      this.showStep3()
+    })
+  }
+
+  showStep3() {
+    this.currentStep = 3
+
+    this.tooltip = document.createElement("div")
+    this.tooltip.className = "fixed z-[60] bg-white rounded-xl shadow-2xl p-6 w-[320px] animate-[popIn_0.3s_ease-out_forwards]"
+    // Center the tooltip
+    this.tooltip.style.top = "50%"
+    this.tooltip.style.left = "50%"
+    this.tooltip.style.transform = "translate(-50%, -50%)"
+    
+    this.tooltip.innerHTML = `
+      <h4 class="text-[18px] font-semibold text-slate-900 mb-2" style="font-family: 'DM Serif Display', serif;">Tour Complete</h4>
+      <p class="text-[14px] text-slate-600 mb-6" style="font-family: 'Geist', sans-serif;">Preset credentials available for demo. Proceed to next pages.</p>
+      <div class="flex justify-center">
+        <button id="tour-done-btn" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer">Done</button>
+      </div>
+    `
+    document.body.appendChild(this.tooltip)
+
+    document.getElementById("tour-done-btn").addEventListener("click", () => {
       this.endTour()
     })
   }

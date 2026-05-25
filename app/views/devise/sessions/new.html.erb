@@ -9,12 +9,24 @@
       <p class="text-sm text-slate-600 mt-1"><%= t('auth.sign_in_desc') %></p>
     </div>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-5" }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-5", data: { controller: "demo-login", "demo-login-target": "form" } }) do |f| %>
+      
+      <%# Demo Accounts Section %>
+      <div class="mb-6 pb-6 border-b border-[#e2d9cb]">
+        <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest text-center mb-3">Try a Demo Account</p>
+        <div class="flex flex-wrap items-center justify-center gap-2">
+          <button type="button" data-action="click->demo-login#fill" data-email="admin@kintai.com" class="px-4 py-1.5 rounded-full border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">Admin</button>
+          <button type="button" data-action="click->demo-login#fill" data-email="employee1@kintai.com" class="px-4 py-1.5 rounded-full border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">Employee 1</button>
+          <button type="button" data-action="click->demo-login#fill" data-email="employee2@kintai.com" class="px-4 py-1.5 rounded-full border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">Employee 2</button>
+        </div>
+      </div>
+
       <div>
         <%= f.label :email, t('auth.email'), class: "block text-sm text-slate-600 mb-2" %>
         <%= f.email_field :email,
             autofocus: true,
             autocomplete: "email",
+            data: { "demo-login-target": "email" },
             class: "w-full rounded-2xl border border-[#d8cfc2] bg-[#f9f5ee] px-4 py-3 text-sm focus:border-emerald-700 focus:ring-2 focus:ring-emerald-200" %>
       </div>
 
@@ -27,6 +39,7 @@
         </div>
         <%= f.password_field :password,
             autocomplete: "current-password",
+            data: { "demo-login-target": "password" },
             class: "w-full rounded-2xl border border-[#d8cfc2] bg-[#f9f5ee] px-4 py-3 text-sm focus:border-emerald-700 focus:ring-2 focus:ring-emerald-200" %>
       </div>
 

@@ -1,11 +1,11 @@
 namespace :demo do
   desc "Refresh work logs for demo purposes"
   task refresh: :environment do
-    employee_emails = ["employee1@kintai.com", "employee2@kintai.com"]
+    target_emails = ["admin@kintai.com", "employee1@kintai.com", "employee2@kintai.com"]
     processed_count = 0
 
-    employee_emails.each do |email|
-      employee = User.find_by(email: email, role: 'employee')
+    target_emails.each do |email|
+      employee = User.find_by(email: email)
       unless employee
         puts "Warning: Employee #{email} not found. Skipping."
         next

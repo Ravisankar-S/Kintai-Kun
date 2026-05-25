@@ -62,7 +62,7 @@
       </div><%# /month-filter %>
 
       <%# CSV export button %>
-      <%= link_to export_csv_work_logs_path(format: :csv, month: @month.strftime('%Y-%m')),
+      <%= link_to export_work_logs_path(format: :csv, month: @month.strftime('%Y-%m')),
           data: { turbo: false },
           class: "flex items-center gap-2 h-9 px-4 rounded-lg
                   border border-[#E8E6E1] bg-[#F0EEE9]
@@ -77,6 +77,23 @@
           <path d="M1 10v1.5A1.5 1.5 0 0 0 2.5 13h9A1.5 1.5 0 0 0 13 11.5V10"/>
         </svg>
         <%= t('work_logs.export_csv') %>
+      <% end %>
+
+      <%# PDF export button %>
+      <%= link_to export_work_logs_path(format: :pdf, month: @month.strftime('%Y-%m')),
+          data: { turbo: false },
+          class: "flex items-center gap-2 h-9 px-4 rounded-lg
+                  border border-[#E8E6E1] bg-[#2D6A4F]
+                  text-[14px] text-white hover:bg-[#1f4a37]
+                  transition-colors duration-100",
+          style: "font-family: 'Geist', 'Inter', sans-serif;" do %>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+             stroke="currentColor" stroke-width="1.75"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 1v8M4 6l3 3 3-3"/>
+          <path d="M1 10v1.5A1.5 1.5 0 0 0 2.5 13h9A1.5 1.5 0 0 0 13 11.5V10"/>
+        </svg>
+        Export PDF
       <% end %>
 
     </div>

@@ -1,0 +1,83 @@
+<div class="header">
+  <div>
+    <h1 class="title"><%= t('work_logs.title') %></h1>
+    <div class="subtitle"><%= t('work_logs.records', count: @work_logs.count) %></div>
+  </div>
+  <div class="meta-info">
+    <div><%= t('admin.name') %>: <strong><%= current_user.name %></strong></div>
+    <div><%= t('admin.email') %>: <strong><%= current_user.email %></strong></div>
+    <div style="margin-top: 8px;">Month: <strong><%= params[:month].present? ? Date.parse("#{params[:month]}-01").strftime('%B %Y') : Date.current.strftime('%B %Y') %></strong></div>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t('work_logs.date') %></th>
+      <th><%= t('work_logs.clock_in') %></th>
+      <th><%= t('work_logs.clock_out') %></th>
+      <th><%= t('work_logs.duration') %></th>
+      <th style="width: 40%;"><%= t('work_logs.memo') %></th>
+      <th class="right"><%= t('work_logs.overtime') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @work_logs.empty? %>
+      <tr>
+        <td colspan="6" style="text-align: center; padding: 40px; color: #6B6860;"><%= t('work_logs.no_logs') %></td>
+      </tr>
+    <% else %>
+      <% 
+        total_duration = 0 
+        overtime_count = 0
+      %>
+      <% @work_logs.each do |log| %>
+        <% 
+          total_duration += (log.duration_minutes || 0)
+          overtime_count += 1 if log.is_overtime 
+        %>
+        <tr>
+          <td>
+            <strong><%= log.clocked_in_at.strftime('%-d') %></strong>
+            <span style="color: #A8A49E; font-size: 11px; margin-left: 4px;"><%= log.clocked_in_at.strftime('%a') %></span>
+          </td>
+          <td style="font-family: monospace; font-size: 13px;">
+            <%= log.clocked_in_at.strftime('%H:%M') %>
+          </td>
+          <td style="font-family: monospace; font-size: 13px;">
+            <%= log.clocked_out_at.present? ? log.clocked_out_at.strftime('%H:%M') : '—' %>
+          </td>
+          <td style="font-family: monospace; font-size: 13px; font-weight: bold;">
+            <%= log.duration_minutes ? minutes_to_hm(log.duration_minutes) : '—' %>
+          </td>
+          <td class="memo">
+            <%= log.memo %>
+          </td>
+          <td class="right">
+            <% if log.is_overtime %>
+              <span class="overtime-badge">OVERTIME</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<% unless @work_logs.empty? %>
+  <div class="summary-box">
+    <div class="summary-row">
+      <span>Total Logs:</span>
+      <strong><%= @work_logs.count %></strong>
+    </div>
+    <div class="summary-row">
+      <span>Overtime Logs:</span>
+      <strong style="color: #D4830A;"><%= overtime_count %></strong>
+    </div>
+    <div class="summary-row">
+      <span>Total Worked Time:</span>
+      <strong><%= minutes_to_hm(total_duration) %></strong>
+    </div>
+  </div>
+  <div class="clear"></div>
+<% end %>

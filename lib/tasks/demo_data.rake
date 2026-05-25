@@ -23,9 +23,16 @@ namespace :demo do
         start_time = date.to_time.change(hour: 9) + rand(0..30).minutes
         duration = 540
         end_time = start_time + duration.minutes
+        lat = 9.696194 # 9°41'46.3"N
+        lng = 76.549306 # 76°32'57.5"E
+
         employee.work_logs.create!(
           clocked_in_at: start_time,
           clocked_out_at: end_time,
+          clock_in_latitude: lat,
+          clock_in_longitude: lng,
+          clock_out_latitude: lat,
+          clock_out_longitude: lng,
           duration_minutes: duration,
           is_overtime: true,
           memo: memos.sample.presence,
@@ -40,10 +47,16 @@ namespace :demo do
         duration = (hours * 60).to_i
         is_overtime = duration > 480
         end_time = start_time + duration.minutes
+        lat = 9.696194 # 9°41'46.3"N
+        lng = 76.549306 # 76°32'57.5"E
 
         employee.work_logs.create!(
           clocked_in_at: start_time,
           clocked_out_at: end_time,
+          clock_in_latitude: lat,
+          clock_in_longitude: lng,
+          clock_out_latitude: lat,
+          clock_out_longitude: lng,
           duration_minutes: duration,
           is_overtime: is_overtime,
           memo: memos.sample.presence,

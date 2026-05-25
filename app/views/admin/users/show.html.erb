@@ -82,15 +82,53 @@
   </div>
 
   <%# ── Header Above Table ── %>
-  <div class="mb-4">
-    <h2 class="text-[24px] text-[#1A1A18]"
-        style="font-family: 'DM Serif Display', serif;">
-      <%= t('admin.user_history_title', name: @user.name) %>
-    </h2>
-    <p class="text-[14px] text-[#6B6860] mt-0.5"
-       style="font-family: 'Geist', 'Inter', sans-serif;">
-      <%= t('admin.attendance_history') %>
-    </p>
+  <div class="mb-4 flex items-center justify-between">
+    <div>
+      <h2 class="text-[24px] text-[#1A1A18]"
+          style="font-family: 'DM Serif Display', serif;">
+        <%= t('admin.user_history_title', name: @user.name) %>
+      </h2>
+      <p class="text-[14px] text-[#6B6860] mt-0.5"
+         style="font-family: 'Geist', 'Inter', sans-serif;">
+        <%= t('admin.attendance_history') %>
+      </p>
+    </div>
+    
+    <div class="flex items-center gap-3">
+      <%# CSV export button %>
+      <%= link_to export_admin_user_path(@user, format: :csv),
+          data: { turbo: false },
+          class: "flex items-center gap-2 h-9 px-4 rounded-lg
+                  border border-[#E8E6E1] bg-[#F0EEE9]
+                  text-[14px] text-[#1A1A18] hover:bg-[#E8E5DF]
+                  transition-colors duration-100",
+          style: "font-family: 'Geist', 'Inter', sans-serif;" do %>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+             stroke="currentColor" stroke-width="1.75"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 1v8M4 6l3 3 3-3"/>
+          <path d="M1 10v1.5A1.5 1.5 0 0 0 2.5 13h9A1.5 1.5 0 0 0 13 11.5V10"/>
+        </svg>
+        <%= t('work_logs.export_csv') %>
+      <% end %>
+
+      <%# PDF export button %>
+      <%= link_to export_admin_user_path(@user, format: :pdf),
+          data: { turbo: false },
+          class: "flex items-center gap-2 h-9 px-4 rounded-lg
+                  border border-[#E8E6E1] bg-[#2D6A4F]
+                  text-[14px] text-white hover:bg-[#1f4a37]
+                  transition-colors duration-100",
+          style: "font-family: 'Geist', 'Inter', sans-serif;" do %>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+             stroke="currentColor" stroke-width="1.75"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 1v8M4 6l3 3 3-3"/>
+          <path d="M1 10v1.5A1.5 1.5 0 0 0 2.5 13h9A1.5 1.5 0 0 0 13 11.5V10"/>
+        </svg>
+        Export PDF
+      <% end %>
+    </div>
   </div>
 
   <%# ── Table wrapper ── %>
@@ -191,15 +229,25 @@
                                  animate-[pulse_2s_ease-in-out_infinite]"></span>
                   <% end %>
                   <%= log.clocked_in_at.strftime('%H:%M') %>
+                  <% if log.clock_in_latitude && log.clock_in_longitude %>
+                    <a href="https://www.google.com/maps?q=<%= log.clock_in_latitude %>,<%= log.clock_in_longitude %>" target="_blank" title="View Location" class="ml-1.5 text-[#2D6A4F] hover:text-[#1A1A18] transition-colors">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.242-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </a>
+                  <% end %>
                 </div>
               </td>
 
               <%# OUT cell %>
               <td class="py-0 px-4">
                 <% if log.clocked_out_at.present? %>
-                  <span style="font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 14px; color: #1A1A18;">
+                  <div class="flex items-center" style="font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 14px; color: #1A1A18;">
                     <%= log.clocked_out_at.strftime('%H:%M') %>
-                  </span>
+                    <% if log.clock_out_latitude && log.clock_out_longitude %>
+                      <a href="https://www.google.com/maps?q=<%= log.clock_out_latitude %>,<%= log.clock_out_longitude %>" target="_blank" title="View Location" class="ml-1.5 text-[#2D6A4F] hover:text-[#1A1A18] transition-colors">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.242-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                      </a>
+                    <% end %>
+                  </div>
                 <% else %>
                   <span class="italic text-[14px] text-[#A8A49E]">—</span>
                 <% end %>

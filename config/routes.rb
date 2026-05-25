@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   resources :work_logs, only: [:index] do
     collection do
-      get :export_csv
+      get :export
     end
   end
 
@@ -39,8 +39,11 @@ Rails.application.routes.draw do
     root "dashboard#index"
     get "dashboard", to: "dashboard#index", as: :dashboard
 
-    resources :users,
-            only: [:index, :show]
+    resources :users, only: [:index, :show] do
+      member do
+        get :export
+      end
+    end
   end
 
   get '/demo/refresh', to: 'demo#refresh'

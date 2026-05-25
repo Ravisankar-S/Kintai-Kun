@@ -8,6 +8,8 @@ class PunchesController < ApplicationController
 
     log = current_user.work_logs.build(
       clocked_in_at: Time.current,
+      clock_in_latitude: params[:latitude],
+      clock_in_longitude: params[:longitude],
       memo: params[:memo].presence
     )
 
@@ -30,6 +32,8 @@ class PunchesController < ApplicationController
     end
 
     active_log.clocked_out_at = Time.current
+    active_log.clock_out_latitude = params[:latitude]
+    active_log.clock_out_longitude = params[:longitude]
     active_log.memo = params[:memo].presence || active_log.memo
     
     # Auto-end break if currently on break

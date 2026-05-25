@@ -172,7 +172,9 @@
               <%= @active_log ? t('dashboard.clock_out_button') : t('dashboard.clock_in_button') %>
             </h3>
             
-            <%= form_with url: @active_log ? clock_out_path : clock_in_path, method: :post, id: "clock-form", class: "space-y-4" do |f| %>
+            <%= form_with url: @active_log ? clock_out_path : clock_in_path, method: :post, id: "clock-form", class: "space-y-4", data: { controller: "geolocation", action: "submit->geolocation#fetchAndSubmit" } do |f| %>
+              <%= f.hidden_field :latitude, data: { geolocation_target: "latitude" } %>
+              <%= f.hidden_field :longitude, data: { geolocation_target: "longitude" } %>
               <div>
                 <label for="memo" class="block text-sm font-medium leading-6 text-slate-700"><%= t('dashboard.memo_label') %></label>
                 <div class="mt-2">

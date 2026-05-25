@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Kintai-kun PDF Export</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #1A1A18;
+      background: #FFFFFF;
+    }
+    .header {
+      border-bottom: 2px solid #E8E6E1;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 0;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #6B6860;
+      margin-top: 5px;
+    }
+    .meta-info {
+      text-align: right;
+      font-size: 14px;
+      color: #6B6860;
+    }
+    .meta-info strong {
+      color: #1A1A18;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th {
+      background: #F7F6F3;
+      padding: 10px;
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #6B6860;
+      border-bottom: 1px solid #E8E6E1;
+    }
+    th.right {
+      text-align: right;
+    }
+    td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #F0EEE9;
+      vertical-align: top;
+    }
+    td.right {
+      text-align: right;
+    }
+    .memo {
+      color: #6B6860;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .summary-box {
+      margin-top: 40px;
+      padding: 20px;
+      background: #F5FAF7;
+      border: 1px solid #CDE5D8;
+      border-radius: 8px;
+      width: 300px;
+      float: right;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .summary-row:last-child {
+      margin-bottom: 0;
+      padding-top: 10px;
+      border-top: 1px solid #CDE5D8;
+      font-weight: bold;
+    }
+    .clear {
+      clear: both;
+    }
+    .overtime-badge {
+      background: #FEF0E0;
+      color: #92620A;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <%= yield %>
+</body>
+</html>

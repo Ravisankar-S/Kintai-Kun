@@ -13,6 +13,29 @@
 
 ---
 
+## Table of Contents
+
+- [What is Kintai-kun?](#what-is-kintai-kun)
+- [Try It Live](#try-it-live)
+- [Features](#features)
+  - [打刻 — Clock In / Clock Out](#打刻--clock-in--clock-out)
+  - [残業アラート — Overtime Alert System](#残業アラート--overtime-alert-system)
+  - [勤怠ヒートマップ — Work Rhythm Heatmap](#勤怠ヒートマップ--work-rhythm-heatmap)
+  - [勤怠履歴 — Work Log History](#勤怠履歴--work-log-history)
+  - [CSVエクスポート — CSV Export](#csvエクスポート--csv-export)
+  - [PDFタイムシート — PDF Timesheet Export](#pdfタイムシート--pdf-timesheet-export)
+  - [管理者ダッシュボード — Admin Dashboard](#管理者ダッシュボード--admin-dashboard)
+  - [位置情報 — Geolocation Verification](#位置情報--geolocation-verification)
+  - [言語切替 — Bilingual Interface](#言語切替--bilingual-interface-en--jp)
+  - [プロフィール設定 — Profile & Settings](#プロフィール設定--profile--settings)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Local Setup](#local-setup)
+- [What's Next](#whats-next)
+- [Cultural Note](#cultural-note)
+
+---
+
 ## What is Kintai-kun?
 
 勤怠 (*Kintai*) is the standard Japanese HR term for attendance management. Every company in Japan — from a five-person startup to a listed corporation — runs a kintai system. This app is built around that reality.

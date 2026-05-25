@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
     if I18n.available_locales.map(&:to_s).include?(locale)
       normalized_locale = locale.to_sym
-      session[:locale] = normalized_locale
+      cookies.permanent[:locale] = locale
       I18n.locale = normalized_locale
       current_user&.update(preferred_locale: normalized_locale)
     end
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     allowed_zones = ['Asia/Kolkata', 'Asia/Tokyo']
     
     if allowed_zones.include?(timezone)
-      session[:timezone] = timezone
+      cookies.permanent[:timezone] = timezone
     end
     
     redirect_back fallback_location: dashboard_path
@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     available_locales = I18n.available_locales.map(&:to_s)
-    session_locale = session[:locale].to_s
+    session_locale = cookies[:locale].to_s
     user_locale = current_user&.preferred_locale.to_s
 
     I18n.locale =
@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
 
   def set_timezone
     # Default to IST if not set
-    Time.zone = session[:timezone] || 'Asia/Kolkata'
+    Time.zone = cookies[:timezone] || 'Asia/Kolkata'
   end
 
 end

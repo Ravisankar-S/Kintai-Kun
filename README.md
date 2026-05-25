@@ -40,10 +40,13 @@ A custom 12-week GitHub-style contribution grid visualizes time-allocation inten
 > **[🖼️ SCREENSHOT PLACEHOLDER 3: Heatmap]**  
 > *Instruction: Insert a screenshot specifically focusing on the GitHub-style contribution heatmap.*
 
-### 5. Enterprise Work-Log Management
-The application handles complex tabular data using robust server-side pagination (via Kaminari). Each record supports rich-text annotations through a dedicated "Memo" field. Furthermore, a highly optimized CSV processing endpoint allows for the secure, bulk export of employee attendance records for payroll processing.
+### 5. Enterprise Work-Log Management & Reporting
+The application handles complex tabular data using robust server-side pagination (via Kaminari). Each record supports rich-text annotations through a dedicated "Memo" field. A highly optimized CSV endpoint allows for the secure, bulk export of employee attendance records for payroll processing. Additionally, a **Pure-Ruby PDF Engine** (powered by Prawn) dynamically generates fully localized, printable timesheets with zero external OS-level dependencies.
 
-### 6. Administrative Isolation (Namespacing)
+### 6. Anti-Fraud Geolocation Tracking
+To ensure attendance integrity, Kintai-kun intercepts clock-in and clock-out events using a highly optimized Hotwire Stimulus controller. This controller securely hooks into browser Geolocation APIs to tag database records with precise GPS coordinates. Administrators can instantly verify employee locations via clickable Google Maps tooltips directly within the Admin Dashboard.
+
+### 7. Administrative Isolation (Namespacing)
 Security and concern separation are strictly enforced via a `namespace :admin` routing layout. The worker-facing profile interfaces are fully decoupled from the back-office monitoring panels (`/admin/users`, `/admin/dashboard`), ensuring that domain logic remains isolated and authorization boundaries are respected.
 
 > **[🖼️ SCREENSHOT PLACEHOLDER 4: Admin Panel]**  
@@ -132,6 +135,4 @@ Navigate to the `/auth` route (Sign In page), where you will find an **In-App Qu
 
 As Kintai-kun evolves, the following architectural enhancements are prioritized for the next major release:
 - **Progressive Web App (PWA):** Implement service workers and a web manifest to allow users to "Install" Kintai-kun directly to their iOS/Android home screens for true native-like mobile clock-ins.
-- **Geolocation Verification:** Integrate browser Geolocation APIs to tag clock-in events with coordinates, preventing fraudulent off-site attendance logging.
 - **Slack/Teams Integration:** Webhook triggers to automatically notify channels when specific users clock in, or to post weekly Zangyo digest reports directly to HR Slack channels.
-- **Exporting to PDF:** Expand the current CSV export functionality to generate formatted, printable PDF timesheets using wicked_pdf or grover.

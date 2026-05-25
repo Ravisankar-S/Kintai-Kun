@@ -9,7 +9,7 @@
 
 > *Attendance, the Japanese way.*
 
-**[🖼️ INSERT: Landing page or dashboard screenshot]**
+<img width="1900" height="869" alt="Screenshot 2026-05-25 154301" src="https://github.com/user-attachments/assets/52a7b5a6-b66b-47ee-881c-a6ff0e5087cd" />
 
 ---
 
@@ -38,7 +38,8 @@ No sign-up needed. On the login page, use the one-click demo buttons to instantl
 ### 打刻 — Clock In / Clock Out
 One-tap punch system with an optional memo at clock-out. The dashboard status orb pulses green when clocked in and goes still when idle. Clock-in events are tagged with GPS coordinates via the browser Geolocation API, giving administrators verifiable location context for every record.
 
-**[🖼️ INSERT: Dashboard showing status orb + clock in/out button]**
+<img width="804" height="200" alt="Screenshot 2026-05-25 173005" src="https://github.com/user-attachments/assets/5aa4c54c-2e31-4b6c-8abb-5c7260621071" />
+<img width="814" height="205" alt="Screenshot 2026-05-25 173208" src="https://github.com/user-attachments/assets/336e6396-a045-4f15-b8d6-4a7e3fc3a59a" />
 
 ### 残業アラート — Overtime Alert System
 Two-tier automated alert system:
@@ -48,17 +49,18 @@ Two-tier automated alert system:
 
 Neither level is dismissible. They exist because the data warrants them.
 
-**[🖼️ INSERT: Dashboard showing Level 2 zangyō alert banner]**
+<img width="490" height="105" alt="Screenshot 2026-05-25 173332" src="https://github.com/user-attachments/assets/a04ff7cd-d02a-4ae5-99ec-ec423cda71ff" />
+
 
 ### 勤怠ヒートマップ — Work Rhythm Heatmap
 A GitHub-style contribution grid spanning the past 12 weeks. Each cell represents one day, colored by hours worked. Overtime days render in a distinct terracotta tone, making burnout patterns visible at a glance without reading a single number.
 
-**[🖼️ INSERT: Heatmap section of dashboard]**
+<img width="874" height="434" alt="Screenshot 2026-05-25 173428" src="https://github.com/user-attachments/assets/121104f8-aa07-4070-9089-86db50a2ca02" />
 
 ### 勤怠履歴 — Work Log History
 Paginated table of all attendance records with month filtering, bilingual column headers, overtime row highlighting, and memo display. Overtime entries are visually distinguished with a 残業 pill tag.
 
-**[🖼️ INSERT: Work log history table]**
+<img width="1895" height="866" alt="Screenshot 2026-05-25 173541" src="https://github.com/user-attachments/assets/464eb19f-41f2-4fa8-ba4a-943612832986" />
 
 ### CSVエクスポート — CSV Export
 One-click export of attendance records for any selected month. Column headers are bilingual. The filename format (`kintai_[name]_[YYYY-MM].csv`) matches Japanese payroll workflow conventions.
@@ -69,7 +71,7 @@ Dynamically generated, fully localized printable timesheets powered by Prawn. Ze
 ### 管理者ダッシュボード — Admin Dashboard
 A strictly namespaced admin interface (`/admin`) isolated from employee-facing routes. Admins see aggregate stats across all users, a searchable employee directory, work mode indicators, and can drill into any user's full attendance history. Administrator access is enforced at the controller level — role mismatch redirects immediately.
 
-**[🖼️ INSERT: Admin dashboard with user directory]**
+<img width="1897" height="869" alt="Screenshot 2026-05-25 173625" src="https://github.com/user-attachments/assets/93ddebfd-ab9b-421b-98f4-2dc9b9df6a40" />
 
 ### 位置情報 — Geolocation Verification
 Clock-in and clock-out events capture GPS coordinates via the browser Geolocation API, handled by a Stimulus controller. Administrators can verify employee locations through clickable Google Maps links directly in the admin user detail view.
@@ -77,7 +79,26 @@ Clock-in and clock-out events capture GPS coordinates via the browser Geolocatio
 ### 言語切替 — Bilingual Interface (EN / JP)
 Full Rails I18n implementation across every page, label, flash message, and alert. Language preference is persisted per user in the database and synced to the session on login. The UI reflows correctly for both scripts — Japanese text density is accounted for in the layout system.
 
-**[🖼️ INSERT: Side-by-side or toggled EN/JP view]**
+<table width="100%">
+  <tr>
+    <td width="50%" align="center">
+      <img src="https://github.com/user-attachments/assets/584e7346-06ab-45af-bd01-a420e65c6355" 
+           alt="Language toggled to Japanese" 
+           style="width: 650px; height: 400px; object-fit: cover; border-radius: 12px; border: 1px solid #e2e8f0;" />
+      <br />
+      <sub><b>Language toggled to Japanese</b></sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="https://github.com/user-attachments/assets/6e6b8759-5af1-46cf-9b15-6548d4ee20fa" 
+           alt="Language toggled to English" 
+           style="width: 650px; height: 400px; object-fit: cover; border-radius: 12px; border: 1px solid #e2e8f0;" />
+      <br />
+      <sub><b>Language toggled to English</b></sub>
+    </td>
+  </tr>
+</table>
+(click to zoom)
+
 
 ### プロフィール設定 — Profile & Settings
 Tab-based settings page covering personal information, work schedule (Fixed Hours vs Flex Hours with conditional time inputs), language preference, and password management — all without page reloads, powered by Stimulus.
@@ -132,7 +153,7 @@ kintai-kun/
     └── schema.rb
 ```
 
-**[📊 INSERT: ERD diagram showing User → WorkLog relationship]**
+<img width="739" height="529" alt="Screenshot 2026-05-25 175040" src="https://github.com/user-attachments/assets/678417a4-50fc-4d4f-859f-e109fe220518" />
 
 ---
 

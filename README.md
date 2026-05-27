@@ -17,6 +17,7 @@
 
 - [What is Kintai-kun?](#what-is-kintai-kun)
 - [Try It Live](#try-it-live)
+- [Demo Video](#demo-video)
 - [Features](#features)
   - [打刻 — Clock In / Clock Out](#打刻--clock-in--clock-out)
   - [残業アラート — Overtime Alert System](#残業アラート--overtime-alert-system)
@@ -53,6 +54,14 @@ The overtime alert system is not cosmetic. Japan's Work Style Reform Act (働き
 No sign-up needed. On the login page, use the one-click demo buttons to instantly authenticate as either an Admin or Employee account and explore the full platform.
 
 > The app is hosted on Render's free tier. If it takes 30–50 seconds to load on first visit, the server is waking up from inactivity. Subsequent requests are instant.
+
+---
+
+## Demo Video
+
+[![Kintai-kun Demo](https://img.youtube.com/vi/MfxI_32CNko/maxresdefault.jpg)](https://youtu.be/MfxI_32CNko)
+
+> Click the thumbnail to watch the full walkthrough on YouTube.
 
 ---
 
